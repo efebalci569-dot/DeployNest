@@ -168,17 +168,14 @@ Katkılar memnuniyetle karşılanır. Hata bildirimi, yeni program önerisi veya
 
 Canlı adres: **https://deploynest.vercel.app**
 
-Statik site `website/` klasöründedir (HTML/CSS/JS, harici bağımlılık yok). Katalog ve logolar `scripts/build-website.ps1` ile uygulamadaki dosyalardan kopyalanır. Site, GitHub Releases API'sinden en son sürümü okur; yayımlanmış bir sürüm yoksa sahte bağlantı yerine bunu açıkça belirtir. Güvenlik başlıkları (CSP vb.) `website/vercel.json` içindedir.
+Statik site `website/` klasöründedir (HTML/CSS/JS, harici bağımlılık yok). Katalog ve logolar `scripts/build-website.ps1` ile uygulamadaki dosyalardan kopyalanır. Site, GitHub Releases API'sinden en son sürümü okur; yayımlanmış bir sürüm yoksa sahte bağlantı yerine bunu açıkça belirtir.
 
-Yeniden yayımlamak için (Vercel CLI ile, giriş yapılmış olarak):
+Vercel projesi bu GitHub deposuna bağlıdır: `main` dalına yapılan her push otomatik olarak yayımlanır. Depo kökündeki [`vercel.json`](vercel.json) derleme adımı olmadan `website/` klasörünün sunulmasını sağlar ve güvenlik başlıklarını (CSP vb.) tanımlar. Elle yayımlamak için depo kökünde (Vercel CLI ile, giriş yapılmış olarak):
 
 ```powershell
 ./scripts/build-website.ps1
-cd website
 vercel deploy --prod
 ```
-
-Her commit'te otomatik yayın istenirse Vercel panelinde projeyi bu GitHub deposuna bağlayıp **Root Directory** olarak `website` seçilmelidir (derleme komutu gerekmez).
 
 ## Lisans
 
