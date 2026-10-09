@@ -24,7 +24,7 @@
 
 Uygulama C# / .NET 10 LTS ve WPF ile MVVM mimarisinde yazılmıştır. Programları öncelikle Microsoft'un resmi **Windows Paket Yöneticisi (winget)** üzerinden kurar; winget yoksa katalogda doğrudan indirme tanımı bulunan programları yayıncının resmi adresinden indirip **SHA-256 ve/veya Authenticode imzası** doğrulamasından geçirdikten sonra kurar.
 
-Tanıtım ve indirme sitesi `website/` klasöründedir (Vercel ile yayımlanır).
+🌐 **Web sitesi:** https://deploynest.vercel.app (kaynak: `website/` klasörü, Vercel ile yayımlanır)
 
 ## Özellikler
 
@@ -166,7 +166,19 @@ Katkılar memnuniyetle karşılanır. Hata bildirimi, yeni program önerisi veya
 
 ## Web sitesi (Vercel)
 
-Statik site `website/` klasöründedir (HTML/CSS/JS, harici bağımlılık yok). Katalog ve logolar `scripts/build-website.ps1` ile uygulamadaki dosyalardan kopyalanır. Vercel'de projeyi bu depodan içe aktarırken **Root Directory** olarak `website` seç; derleme komutu gerekmez. Site, GitHub Releases API'sinden en son sürümü okur; yayımlanmış bir sürüm yoksa sahte bağlantı yerine bunu açıkça belirtir.
+Canlı adres: **https://deploynest.vercel.app**
+
+Statik site `website/` klasöründedir (HTML/CSS/JS, harici bağımlılık yok). Katalog ve logolar `scripts/build-website.ps1` ile uygulamadaki dosyalardan kopyalanır. Site, GitHub Releases API'sinden en son sürümü okur; yayımlanmış bir sürüm yoksa sahte bağlantı yerine bunu açıkça belirtir. Güvenlik başlıkları (CSP vb.) `website/vercel.json` içindedir.
+
+Yeniden yayımlamak için (Vercel CLI ile, giriş yapılmış olarak):
+
+```powershell
+./scripts/build-website.ps1
+cd website
+vercel deploy --prod
+```
+
+Her commit'te otomatik yayın istenirse Vercel panelinde projeyi bu GitHub deposuna bağlayıp **Root Directory** olarak `website` seçilmelidir (derleme komutu gerekmez).
 
 ## Lisans
 

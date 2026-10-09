@@ -25,3 +25,7 @@ coverage*/
 
 # Local editor/agent settings
 .claude/
+
+# Vercel CLI link data and tokens
+.vercel/
+.env*
