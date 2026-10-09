@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: test-results
           path: TestResults
@@ -44,7 +44,7 @@ jobs:
         run: dotnet publish src/DeployNest.App/DeployNest.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o artifacts/publish
 
       - name: Upload EXE
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: DeployNest-win-x64
           path: artifacts/publish/DeployNest.exe
