@@ -4,9 +4,11 @@ Bu projedeki önemli değişiklikler bu dosyada belgelenir.
 Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınarak hazırlanmıştır ve proje
 [Anlamsal Sürümleme](https://semver.org/lang/tr/) kullanır.
 
-## [Yayımlanmamış] — 0.1.0
+## [Yayımlanmamış]
 
-İlk sürüm (MVP). Henüz GitHub Releases'ta yayımlanmadı; `v0.1.0` etiketi gönderildiğinde yayımlanacak.
+## [0.1.0] - 2026-10-10
+
+İlk sürüm (MVP).
 
 ### Eklenenler
 
@@ -27,4 +29,5 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 - Self-contained tek dosyalık x64 EXE ve taşınabilir ZIP.
 - Vercel'e uygun tanıtım ve indirme sitesi (`website/`).
 
-[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/commits/main
+[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/efebalci569-dot/DeployNest/releases/tag/v0.1.0
