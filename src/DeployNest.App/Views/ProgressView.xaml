@@ -22,7 +22,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <TextBlock Text="{Binding ElapsedText}" Style="{StaticResource Dn.Text.Caption}" VerticalAlignment="Center" Margin="0,0,16,0" />
                 <Button Style="{StaticResource Dn.Button}" Command="{Binding CancelCommand}"
-                        Visibility="{Binding Session.IsRunning, Converter={StaticResource BoolToVisibility}}">
+                        Visibility="{Binding Session.IsRunning, Converter={StaticResource BoolToVisibility}}" AutomationProperties.Name="{l:Loc Progress.Cancel}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE71A;" FontSize="13" Margin="0,0,8,0" Foreground="{DynamicResource Dn.DangerText}" />
                         <TextBlock Text="{l:Loc Progress.Cancel}" />

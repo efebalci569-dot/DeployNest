@@ -74,9 +74,13 @@ public sealed class AppIcon : Control
     private static readonly DependencyPropertyKey HasImageKey =
         DependencyProperty.RegisterReadOnly(nameof(HasImage), typeof(bool), typeof(AppIcon), new PropertyMetadata(false));
 
+    private static readonly DependencyPropertyKey ImageMarginKey =
+        DependencyProperty.RegisterReadOnly(nameof(ImageMargin), typeof(Thickness), typeof(AppIcon), new PropertyMetadata(new Thickness(5)));
+
     public static readonly DependencyProperty TileBrushProperty = TileBrushKey.DependencyProperty;
     public static readonly DependencyProperty MonogramFontSizeProperty = MonogramFontSizeKey.DependencyProperty;
     public static readonly DependencyProperty HasImageProperty = HasImageKey.DependencyProperty;
+    public static readonly DependencyProperty ImageMarginProperty = ImageMarginKey.DependencyProperty;
 
     static AppIcon()
     {
@@ -92,6 +96,7 @@ public sealed class AppIcon : Control
     public Brush? TileBrush => (Brush?)GetValue(TileBrushProperty);
     public double MonogramFontSize => (double)GetValue(MonogramFontSizeProperty);
     public bool HasImage => (bool)GetValue(HasImageProperty);
+    public Thickness ImageMargin => (Thickness)GetValue(ImageMarginProperty);
 
     private static void OnVisualChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => ((AppIcon)d).Update();
 
@@ -108,6 +113,7 @@ public sealed class AppIcon : Control
         var factor = length switch { 1 => 0.48, 2 => 0.40, 3 => 0.31, _ => 0.25 };
         SetValue(MonogramFontSizeKey, Math.Round(size * factor));
         SetValue(HasImageKey, Source is not null);
+        SetValue(ImageMarginKey, new Thickness(Math.Round(size * 0.13)));
     }
 
     private static byte Lighten(byte channel) => (byte)Math.Min(255, channel + (255 - channel) * 0.28);

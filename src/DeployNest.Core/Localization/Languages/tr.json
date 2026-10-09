@@ -406,7 +406,7 @@
   "About.License.Body": "DeployNest MIT Lisansı ile dağıtılır. Kurulan programların her biri kendi yayıncısının lisansına tabidir; kurulumdan önce lisans koşulları kuyruk ekranında gösterilir.",
   "About.ThirdParty": "Üçüncü taraf bileşenler",
   "About.Disclaimer.Title": "Sorumluluk reddi",
-  "About.Disclaimer.Body": "DeployNest, programları yayıncıların resmi veya doğrulanmış kaynaklarından kurar ancak her kurulumun başarılı olacağını garanti etmez ve kurulan programları otomatik olarak güncel tutmaz. Program adları ve markaları sahiplerine aittir; DeployNest bu yayıncılarla bağlantılı değildir.",
+  "About.Disclaimer.Body": "DeployNest, programları yayıncıların resmi veya doğrulanmış kaynaklarından kurar ancak her kurulumun başarılı olacağını garanti etmez ve kurulan programları otomatik olarak güncel tutmaz. Program adları, logoları ve markaları sahiplerine aittir ve yalnızca programları tanıtmak için gösterilir; DeployNest bu yayıncılarla bağlantılı değildir.",
 
   "Close.Title": "Kurulum devam ediyor",
   "Close.Message": "Uygulamayı kapatırsan bekleyen kurulumlar iptal edilir. Şu anda çalışan kurulumun güvenli şekilde bitmesi beklenir, ardından DeployNest kendiliğinden kapanır.",

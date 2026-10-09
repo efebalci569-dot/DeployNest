@@ -117,7 +117,10 @@ public sealed partial class CatalogState : ObservableObject
         foreach (var entry in Catalog.Software)
         {
             var category = Catalog.FindCategory(entry.CategoryId)!.Name.Get(_loc.Language);
-            var item = new SoftwareItemViewModel(entry, category, _loc, OnItemSelectionChanged);
+            var item = new SoftwareItemViewModel(entry, category, _loc, OnItemSelectionChanged)
+            {
+                Icon = _icons.LoadBundledLogo(entry.Id),
+            };
             if (_cache.Get(entry.Id) is { } cached)
             {
                 item.SizeBytes = cached.SizeBytes;

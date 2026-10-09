@@ -38,6 +38,8 @@
     <SolidColorBrush x:Key="Dn.DangerBackground" Color="#FDE7E9" />
     <SolidColorBrush x:Key="Dn.NeutralBackground" Color="#F0F0F0" />
     <SolidColorBrush x:Key="Dn.DangerSolid" Color="#C42B1C" />
+    <SolidColorBrush x:Key="Dn.LogoTile" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Dn.LogoTileBorder" Color="#E4E4E4" />
 
     <SolidColorBrush x:Key="Dn.Scrim" Color="#4D000000" />
     <Color x:Key="Dn.ShadowColor">#000000</Color>

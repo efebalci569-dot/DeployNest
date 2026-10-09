@@ -20,7 +20,7 @@
                 <TextBlock Text="{Binding Summary}" Style="{StaticResource Dn.Text.Caption}" />
             </StackPanel>
             <Button Style="{StaticResource Dn.Button}" Command="{Binding ClearCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                    Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+                    Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}" AutomationProperties.Name="{l:Loc History.Clear}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE74D;" FontSize="13" Margin="0,0,8,0" />
                     <TextBlock Text="{l:Loc History.Clear}" />

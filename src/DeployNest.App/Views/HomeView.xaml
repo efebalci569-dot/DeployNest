@@ -144,7 +144,7 @@
             <!-- Categories -->
             <Grid Margin="0,30,0,12">
                 <TextBlock Text="{l:Loc Home.Categories.Title}" Style="{StaticResource Dn.Text.Subtitle}" FontSize="18" />
-                <Button Style="{StaticResource Dn.Button.Link}" HorizontalAlignment="Right" Command="{Binding BrowseAllCommand}">
+                <Button Style="{StaticResource Dn.Button.Link}" HorizontalAlignment="Right" Command="{Binding BrowseAllCommand}" AutomationProperties.Name="{l:Loc Home.BrowseAll}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{l:Loc Home.BrowseAll}" />
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE76C;" FontSize="11" Margin="6,1,0,0" />

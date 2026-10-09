@@ -21,14 +21,14 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Visibility="{Binding State.SelectedCount, Converter={StaticResource HasValueToVisibility}}">
-                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding ClearAllCommand}" Margin="0,0,8,0">
+                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding ClearAllCommand}" Margin="0,0,8,0" AutomationProperties.Name="{l:Loc Selection.ClearAll}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE74D;" FontSize="13" Margin="0,0,8,0" />
                         <TextBlock Text="{l:Loc Selection.ClearAll}" />
                     </StackPanel>
                 </Button>
                 <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Selection.AddMore}" Command="{Binding BrowseCommand}" Margin="0,0,8,0" />
-                <Button Style="{StaticResource Dn.Button.Primary}" Command="{Binding StartInstallCommand}">
+                <Button Style="{StaticResource Dn.Button.Primary}" Command="{Binding StartInstallCommand}" AutomationProperties.Name="{l:Loc Common.StartInstall}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="13" Margin="0,0,8,0" />
                         <TextBlock Text="{l:Loc Common.StartInstall}" />

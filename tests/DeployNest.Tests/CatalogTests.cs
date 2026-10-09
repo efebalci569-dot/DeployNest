@@ -40,6 +40,27 @@ public class CatalogParserTests
         Assert.Equal(catalog.Software.Count, catalog.Software.Select(s => s.Winget!.PackageId).Distinct().Count());
     }
 
+    [Fact]
+    public void Every_catalog_program_has_a_logo_and_the_repo_copy_matches_the_embedded_catalog()
+    {
+        var root = new DirectoryInfo(AppContext.BaseDirectory);
+        while (root is not null && !File.Exists(Path.Combine(root.FullName, "catalog", "software.json")))
+            root = root.Parent;
+        Assert.NotNull(root);
+
+        var catalog = CatalogParser.Parse(CatalogProvider.ReadEmbeddedJson()).Catalog!;
+        foreach (var software in catalog.Software)
+            Assert.True(File.Exists(Path.Combine(root.FullName, "assets", "icons", "apps", software.Id + ".png")), $"Logo eksik: {software.Id}");
+
+        var websiteCatalog = Path.Combine(root.FullName, "website", "data", "catalog.json");
+        if (File.Exists(websiteCatalog))
+        {
+            Assert.Equal(
+                File.ReadAllText(Path.Combine(root.FullName, "catalog", "software.json")).ReplaceLineEndings(),
+                File.ReadAllText(websiteCatalog).ReplaceLineEndings());
+        }
+    }
+
     [Theory]
     [InlineData("{ not json")]
     [InlineData("""{ "schemaVersion": 2, "categories": [], "software": [] }""")]

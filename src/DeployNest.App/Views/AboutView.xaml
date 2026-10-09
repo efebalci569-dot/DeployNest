@@ -19,25 +19,25 @@
             <TextBlock Text="{l:Loc About.Description}" Style="{StaticResource Dn.Text.Body}" Margin="0,22,0,16" LineHeight="22" />
 
             <WrapPanel Margin="0,0,0,8">
-                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenRepositoryCommand}" Margin="0,0,8,8">
+                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenRepositoryCommand}" Margin="0,0,8,8" AutomationProperties.Name="{l:Loc About.Source}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE943;" FontSize="13" Margin="0,0,8,0" />
                         <TextBlock Text="{l:Loc About.Source}" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenReleasesCommand}" Margin="0,0,8,8">
+                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenReleasesCommand}" Margin="0,0,8,8" AutomationProperties.Name="{l:Loc About.Releases}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="13" Margin="0,0,8,0" />
                         <TextBlock Text="{l:Loc About.Releases}" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenIssuesCommand}" Margin="0,0,8,8">
+                <Button Style="{StaticResource Dn.Button}" Command="{Binding OpenIssuesCommand}" Margin="0,0,8,8" AutomationProperties.Name="{l:Loc About.Issues}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xEBE8;" FontSize="13" Margin="0,0,8,0" />
                         <TextBlock Text="{l:Loc About.Issues}" />
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding OpenWingetDocsCommand}" Margin="0,0,8,8">
+                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding OpenWingetDocsCommand}" Margin="0,0,8,8" AutomationProperties.Name="{l:Loc About.WingetDocs}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{l:Loc About.WingetDocs}" />
                         <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE8A7;" FontSize="11" Margin="6,1,0,0" />

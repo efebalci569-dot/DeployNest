@@ -511,12 +511,16 @@
                                        FontFamily="{StaticResource Dn.DisplayFont}" Foreground="White"
                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
-                        <Image x:Name="Img" Source="{TemplateBinding Source}" Visibility="Collapsed" Margin="2"
-                               RenderOptions.BitmapScalingMode="HighQuality" />
+                        <!-- Logos sit on a neutral tile so dark logos stay visible in the dark theme. -->
+                        <Border x:Name="LogoTile" CornerRadius="9" Visibility="Collapsed" SnapsToDevicePixels="True"
+                                Background="{DynamicResource Dn.LogoTile}" BorderBrush="{DynamicResource Dn.LogoTileBorder}" BorderThickness="1">
+                            <Image Source="{TemplateBinding Source}" Margin="{TemplateBinding ImageMargin}"
+                                   RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasImage" Value="True">
-                            <Setter TargetName="Img" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="LogoTile" Property="Visibility" Value="Visible" />
                             <Setter TargetName="Tile" Property="Visibility" Value="Hidden" />
                         </Trigger>
                     </ControlTemplate.Triggers>

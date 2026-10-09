@@ -35,6 +35,7 @@
 
   <ItemGroup>
     <Resource Include="..\..\assets\icons\deploynest.ico" Link="Assets\deploynest.ico" />
+    <Resource Include="..\..\assets\icons\apps\*.png" Link="Assets\Apps\%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>

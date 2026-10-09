@@ -18,6 +18,32 @@ public sealed partial class IconService(ILogger<IconService> logger)
     private const int IconSize = 64;
     private readonly ConcurrentDictionary<string, ImageSource?> _cache = new(StringComparer.OrdinalIgnoreCase);
 
+    /// <summary>
+    /// Returns the logo shipped with the app (assets/icons/apps/&lt;id&gt;.png), or null when the
+    /// catalog entry has none. Ids are validated kebab-case catalog identifiers.
+    /// </summary>
+    public ImageSource? LoadBundledLogo(string softwareId)
+    {
+        try
+        {
+            var info = Application.GetResourceStream(new Uri($"pack://application:,,,/DeployNest;component/Assets/Apps/{softwareId}.png", UriKind.Absolute));
+            if (info is null)
+                return null;
+            using var stream = info.Stream;
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = stream;
+            image.EndInit();
+            image.Freeze();
+            return image;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+    }
+
     public Task<ImageSource?> LoadAsync(string? displayIcon) =>
         string.IsNullOrWhiteSpace(displayIcon)
             ? Task.FromResult<ImageSource?>(null)

@@ -15,4 +15,9 @@
     <NeutralLanguage>tr-TR</NeutralLanguage>
     <SatelliteResourceLanguages>tr;en</SatelliteResourceLanguages>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <!-- Keep symbols inside the binaries so a published single-file build is just one EXE. -->
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
 </Project>
