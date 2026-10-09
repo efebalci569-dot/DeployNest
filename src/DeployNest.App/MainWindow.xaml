@@ -1,12 +1,196 @@
-﻿<Window x:Class="DeployNest.App.MainWindow"
+<Window x:Class="DeployNest.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DeployNest.App"
+        xmlns:l="clr-namespace:DeployNest.App.Localization"
+        xmlns:c="clr-namespace:DeployNest.App.Controls"
+        xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance vm:MainViewModel}"
+        Title="DeployNest"
+        Icon="/DeployNest;component/Assets/deploynest.ico"
+        Width="1280" Height="820" MinWidth="1000" MinHeight="660"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Dn.WindowBackground}"
+        Foreground="{DynamicResource Dn.TextPrimary}"
+        FontFamily="{StaticResource Dn.TextFont}"
+        FontSize="14"
+        UseLayoutRounding="True">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="248" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
+        <!-- Sidebar -->
+        <DockPanel Margin="12,14,10,12" LastChildFill="False">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="8,4,0,22">
+                <ContentControl Template="{StaticResource Dn.Logo}" Width="30" Height="30" Focusable="False" />
+                <StackPanel Margin="11,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="DeployNest" FontFamily="{StaticResource Dn.DisplayFont}" FontSize="17" FontWeight="SemiBold" />
+                    <TextBlock Text="{l:Loc App.Tagline}" Style="{StaticResource Dn.Text.Caption}" FontSize="11" />
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Top">
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="Home"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=Home}"
+                             AutomationProperties.Name="{l:Loc Nav.Home}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE80F;" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.Home}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="Programs"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=Programs}"
+                             AutomationProperties.Name="{l:Loc Nav.Programs}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE71D;" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.Programs}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="Selection"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=Selection}"
+                             AutomationProperties.Name="{l:Loc Nav.Selection}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE762;" Margin="0,0,14,0" />
+                        <TextBlock Grid.Column="1" Text="{l:Loc Nav.Selection}" VerticalAlignment="Center" />
+                        <Border Grid.Column="2" Background="{DynamicResource Dn.Accent}" CornerRadius="9" MinWidth="22" Height="18" Padding="6,0" Margin="38,0,0,0"
+                                Visibility="{Binding State.SelectedCount, Converter={StaticResource HasValueToVisibility}}">
+                            <TextBlock Text="{Binding State.SelectedCount}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Dn.TextOnAccent}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </RadioButton>
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="Install"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=Install}"
+                             AutomationProperties.Name="{l:Loc Nav.Install}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" Margin="0,0,14,0" />
+                        <TextBlock Grid.Column="1" Text="{l:Loc Nav.Install}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="2" Text="{Binding InstallBadge}" Margin="20,0,0,0" FontSize="12" Foreground="{DynamicResource Dn.AccentText}"
+                                   FontWeight="SemiBold" VerticalAlignment="Center" />
+                    </Grid>
+                </RadioButton>
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="History"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=History}"
+                             AutomationProperties.Name="{l:Loc Nav.History}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE81C;" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.History}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
+
+            <StackPanel DockPanel.Dock="Bottom">
+                <Border Style="{StaticResource Dn.DividerLine}" Margin="8,0,8,8" />
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="Settings"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=Settings}"
+                             AutomationProperties.Name="{l:Loc Nav.Settings}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE713;" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.Settings}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Style="{StaticResource Dn.NavItem}" GroupName="Nav" Command="{Binding NavigateCommand}" CommandParameter="About"
+                             IsChecked="{Binding CurrentSection, Mode=OneWay, Converter={StaticResource Equals}, ConverterParameter=About}"
+                             AutomationProperties.Name="{l:Loc Nav.About}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE946;" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.About}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding ToggleThemeCommand}" HorizontalContentAlignment="Left"
+                        Padding="12,0" Height="38" Margin="0,1" ToolTip="{l:Loc Nav.ToggleTheme}" AutomationProperties.Name="{l:Loc Nav.ToggleTheme}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="{Binding ThemeGlyph}" Margin="0,0,14,0" />
+                        <TextBlock Text="{l:Loc Nav.Theme}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Content layer -->
+        <Border Grid.Column="1" Background="{DynamicResource Dn.LayerBackground}" BorderBrush="{DynamicResource Dn.LayerBorder}"
+                BorderThickness="1,1,0,0" CornerRadius="10,0,0,0" ClipToBounds="True">
+            <Grid>
+                <c:TransitioningContentControl Content="{Binding Navigation.CurrentPage}" Focusable="False" />
+
+                <!-- Floating selection bar -->
+                <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="24,0,24,22" Padding="10,10,10,10"
+                        CornerRadius="12" Background="{DynamicResource Dn.CardBackground}" BorderBrush="{DynamicResource Dn.CardBorder}" BorderThickness="1"
+                        Visibility="{Binding ShowSelectionBar, Converter={StaticResource BoolToVisibility}}">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="28" ShadowDepth="6" Direction="270" Opacity="0.16" Color="{DynamicResource Dn.ShadowColor}" />
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="{DynamicResource Dn.AccentSubtle}" CornerRadius="8" Width="40" Height="40" Margin="4,0,12,0">
+                            <TextBlock Text="{Binding State.SelectedCount}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource Dn.AccentText}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel VerticalAlignment="Center" Margin="0,0,28,0" MinWidth="150">
+                            <TextBlock Text="{l:Loc SelectionBar.Title}" Style="{StaticResource Dn.Text.BodyStrong}" />
+                            <TextBlock Text="{Binding State.SelectedSizeText}" Style="{StaticResource Dn.Text.Caption}" />
+                        </StackPanel>
+                        <Button Style="{StaticResource Dn.Button.Subtle}" Content="{l:Loc SelectionBar.Clear}" Command="{Binding ClearSelectionCommand}" Margin="0,0,6,0" />
+                        <Button Style="{StaticResource Dn.Button}" Content="{l:Loc SelectionBar.View}" Command="{Binding ViewSelectionCommand}" Margin="0,0,8,0" />
+                        <Button Style="{StaticResource Dn.Button.Primary}" Command="{Binding StartInstallCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="14" Margin="0,0,8,0" />
+                                <TextBlock Text="{l:Loc Common.StartInstall}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <!-- Toast -->
+                <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="24,0,24,100" Padding="16,10" CornerRadius="10"
+                        Background="{DynamicResource Dn.CardBackground}" BorderBrush="{DynamicResource Dn.CardBorder}" BorderThickness="1"
+                        Visibility="{Binding Toasts.Message, Converter={StaticResource HasValueToVisibility}}" IsHitTestVisible="False">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Opacity="0.14" Color="{DynamicResource Dn.ShadowColor}" />
+                    </Border.Effect>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE73E;" Foreground="{DynamicResource Dn.SuccessText}" Margin="0,0,10,0" />
+                        <TextBlock Text="{Binding Toasts.Message}" Style="{StaticResource Dn.Text.Body}" MaxWidth="520" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Modal dialog -->
+        <Grid Grid.ColumnSpan="2" Background="{DynamicResource Dn.Scrim}"
+              Visibility="{Binding Dialogs.Current, Converter={StaticResource HasValueToVisibility}}">
+            <Border Style="{StaticResource Dn.Card}" Width="480" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="24,22" CornerRadius="10">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="40" ShadowDepth="10" Direction="270" Opacity="0.25" Color="{DynamicResource Dn.ShadowColor}" />
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="{Binding Dialogs.Current.Title}" Style="{StaticResource Dn.Text.Subtitle}" FontSize="19" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Dialogs.Current.Message}" Style="{StaticResource Dn.Text.Secondary}" Margin="0,10,0,24" LineHeight="21" />
+                    <WrapPanel HorizontalAlignment="Right">
+                        <Button Style="{StaticResource Dn.Button}" Content="{Binding Dialogs.Current.CloseText}" Command="{Binding Dialogs.CloseCommand}"
+                                Visibility="{Binding Dialogs.Current.CloseText, Converter={StaticResource HasValueToVisibility}}" Margin="0,0,8,0" IsCancel="True" />
+                        <Button Style="{StaticResource Dn.Button}" Content="{Binding Dialogs.Current.SecondaryText}" Command="{Binding Dialogs.SecondaryCommand}"
+                                Visibility="{Binding Dialogs.Current.SecondaryText, Converter={StaticResource HasValueToVisibility}}" Margin="0,0,8,0" />
+                        <Button Style="{StaticResource Dn.Button.Primary}" Content="{Binding Dialogs.Current.PrimaryText}" Command="{Binding Dialogs.PrimaryCommand}"
+                                Visibility="{Binding Dialogs.Current.PrimaryIsDanger, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}" />
+                        <Button Style="{StaticResource Dn.Button.Danger}" Content="{Binding Dialogs.Current.PrimaryText}" Command="{Binding Dialogs.PrimaryCommand}"
+                                Visibility="{Binding Dialogs.Current.PrimaryIsDanger, Converter={StaticResource BoolToVisibility}}" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DeployNest">
+  <defs>
+    <linearGradient id="dn-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2F6FED"/>
+      <stop offset="1" stop-color="#12B5D6"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#dn-g)"/>
+  <g fill="none" stroke="#fff" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 12.8V33.3"/>
+    <path d="M23.04 25.6L32 34.56L40.96 25.6"/>
+    <path d="M14.08 38.4C17.28 51.2 46.72 51.2 49.92 38.4"/>
+  </g>
+</svg>

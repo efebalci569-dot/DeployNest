@@ -1,0 +1,83 @@
+<UserControl x:Class="DeployNest.App.Views.ProgramsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:l="clr-namespace:DeployNest.App.Localization"
+             xmlns:c="clr-namespace:DeployNest.App.Controls"
+             xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:ProgramsViewModel}">
+    <Grid Margin="32,28,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,12,16">
+            <StackPanel>
+                <TextBlock Text="{l:Loc Programs.Title}" Style="{StaticResource Dn.PageHeader}" />
+                <TextBlock Text="{Binding ResultSummary}" Style="{StaticResource Dn.Text.Caption}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding ClearFiltersCommand}" Margin="0,0,6,0"
+                        Visibility="{Binding HasActiveFilters, Converter={StaticResource BoolToVisibility}}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE894;" FontSize="13" Margin="0,0,8,0" />
+                        <TextBlock Text="{l:Loc Programs.ClearFilters}" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource Dn.Button}" Command="{Binding SelectAllVisibleCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE8B3;" FontSize="14" Margin="0,0,8,0" />
+                        <TextBlock Text="{l:Loc Programs.SelectVisible}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,12,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="460" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchBox" Style="{StaticResource Dn.SearchBox}" Tag="{l:Loc Programs.Search.Placeholder}"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{l:Loc Programs.Search.Placeholder}" />
+            <ListBox Grid.Column="1" Style="{StaticResource Dn.ChipList}" ItemsSource="{Binding StateFilters}" SelectedItem="{Binding SelectedStateFilter}"
+                     HorizontalAlignment="Right" VerticalAlignment="Center" Margin="16,8,0,0" DisplayMemberPath="Name"
+                     AutomationProperties.Name="{l:Loc Programs.StateFilter}" />
+        </Grid>
+
+        <ListBox Grid.Row="2" Style="{StaticResource Dn.ChipList}" ItemsSource="{Binding CategoryChips}" SelectedItem="{Binding SelectedCategory}"
+                 Margin="0,0,12,8" AutomationProperties.Name="{l:Loc Programs.CategoryFilter}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="{Binding Glyph}" FontSize="13" Margin="0,0,7,0" />
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,12,0">
+            <Grid>
+                <ItemsControl ItemsSource="{Binding Results}" ItemTemplate="{StaticResource Dn.ProgramCard}" Margin="0,4,0,120" Focusable="False">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <c:UniformWrapPanel MinItemWidth="300" Spacing="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <StackPanel HorizontalAlignment="Center" Margin="0,60,0,0" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}">
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE721;" FontSize="40" Foreground="{DynamicResource Dn.TextTertiary}" HorizontalAlignment="Center" />
+                    <TextBlock Text="{l:Loc Programs.Empty.Title}" Style="{StaticResource Dn.Text.Subtitle}" HorizontalAlignment="Center" Margin="0,16,0,6" />
+                    <TextBlock Text="{l:Loc Programs.Empty.Body}" Style="{StaticResource Dn.Text.Secondary}" HorizontalAlignment="Center" TextAlignment="Center" MaxWidth="420" />
+                    <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Programs.ClearFilters}" Command="{Binding ClearFiltersCommand}" HorizontalAlignment="Center" Margin="0,18,0,0" />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

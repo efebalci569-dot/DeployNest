@@ -1,0 +1,244 @@
+<UserControl x:Class="DeployNest.App.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:l="clr-namespace:DeployNest.App.Localization"
+             xmlns:c="clr-namespace:DeployNest.App.Controls"
+             xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:HomeViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,28,32,120" MaxWidth="1240">
+
+            <!-- Hero -->
+            <Border CornerRadius="12" Background="{DynamicResource Dn.HeroBackground}" BorderBrush="{DynamicResource Dn.CardBorder}" BorderThickness="1" Padding="32,30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="{l:Loc Home.Hero.Title}" Style="{StaticResource Dn.Text.Display}" MaxWidth="720" HorizontalAlignment="Left" />
+                        <TextBlock Text="{l:Loc Home.Hero.Subtitle}" Style="{StaticResource Dn.Text.Secondary}" FontSize="15" Margin="0,10,0,22" MaxWidth="600" HorizontalAlignment="Left" />
+                        <Grid MaxWidth="600" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="280" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Style="{StaticResource Dn.SearchBox}" Tag="{l:Loc Home.Search.Placeholder}"
+                                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                     AutomationProperties.Name="{l:Loc Home.Search.Placeholder}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <Button Grid.Column="1" Style="{StaticResource Dn.Button.Primary}" Content="{l:Loc Home.Search.Button}" Command="{Binding SearchCommand}"
+                                    Margin="8,0,0,0" Height="38" Padding="18,0" />
+                        </Grid>
+                        <WrapPanel Margin="0,18,0,0">
+                            <c:StatusPill Glyph="&#xE7B8;" Text="{Binding State.WingetStatusText}" Margin="0,0,8,0">
+                                <c:StatusPill.Style>
+                                    <Style TargetType="c:StatusPill" BasedOn="{StaticResource {x:Type c:StatusPill}}">
+                                        <Setter Property="Kind" Value="Success" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowWingetWarning}" Value="True">
+                                                <Setter Property="Kind" Value="Warning" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding State.WingetStatus}" Value="{x:Null}">
+                                                <Setter Property="Kind" Value="Neutral" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </c:StatusPill.Style>
+                            </c:StatusPill>
+                            <c:StatusPill Kind="Accent" Glyph="&#xE895;" Text="{l:Loc Home.Detecting}"
+                                          Visibility="{Binding State.IsDetecting, Converter={StaticResource BoolToVisibility}}" Margin="0,0,8,0" />
+                            <c:StatusPill Kind="Neutral" Glyph="&#xE73E;" Margin="0,0,8,0"
+                                          Visibility="{Binding State.IsDetecting, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+                                <c:StatusPill.Text>
+                                    <MultiBinding StringFormat="{}{0} {1}">
+                                        <Binding Path="State.InstalledCount" />
+                                        <Binding Source="{x:Static l:LocalizationSource.Instance}" Path="[Home.InstalledDetected]" />
+                                    </MultiBinding>
+                                </c:StatusPill.Text>
+                            </c:StatusPill>
+                            <Button Style="{StaticResource Dn.Button.Link}" Content="{l:Loc Home.Redetect}" Command="{Binding RefreshDetectionCommand}" FontSize="12"
+                                    Visibility="{Binding State.IsDetecting, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}" />
+                        </WrapPanel>
+                    </StackPanel>
+                    <ContentControl Grid.Column="1" Template="{StaticResource Dn.Logo}" Width="128" Height="128" Margin="24,0,8,0"
+                                    VerticalAlignment="Center" Opacity="0.95" Focusable="False" />
+                </Grid>
+            </Border>
+
+            <!-- winget missing -->
+            <Border Style="{StaticResource Dn.InfoBar}" Margin="0,16,0,0" Visibility="{Binding ShowWingetWarning, Converter={StaticResource BoolToVisibility}}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE7BA;" Foreground="{DynamicResource Dn.WarningText}" Margin="0,2,12,0" VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{l:Loc Home.Winget.Title}" Style="{StaticResource Dn.Text.BodyStrong}" />
+                        <TextBlock Text="{l:Loc Home.Winget.Body}" Style="{StaticResource Dn.Text.Body}" Margin="0,2,0,0" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
+                        <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Home.Winget.Get}" Command="{Binding GetWingetCommand}" Margin="0,0,8,0" />
+                        <Button Style="{StaticResource Dn.Button.Subtle}" Content="{l:Loc Common.LearnMore}" Command="{Binding OpenWingetDocsCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- catalog problems -->
+            <Border Style="{StaticResource Dn.InfoBar}" Margin="0,16,0,0" Visibility="{Binding CatalogWarning, Converter={StaticResource HasValueToVisibility}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE7BA;" Foreground="{DynamicResource Dn.WarningText}" Margin="0,0,12,0" />
+                    <TextBlock Text="{Binding CatalogWarning}" Style="{StaticResource Dn.Text.Body}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Presets -->
+            <TextBlock Text="{l:Loc Home.Presets.Title}" Style="{StaticResource Dn.Text.Subtitle}" FontSize="18" Margin="0,30,0,2" />
+            <TextBlock Text="{l:Loc Home.Presets.Hint}" Style="{StaticResource Dn.Text.Caption}" Margin="0,0,0,12" />
+            <ItemsControl ItemsSource="{Binding Presets}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:UniformWrapPanel MinItemWidth="230" Spacing="12" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:PresetViewModel}">
+                        <Button Style="{StaticResource Dn.Button.Card}" Command="{Binding DataContext.SelectPresetCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" AutomationProperties.Name="{Binding Name}">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="40" Height="40" CornerRadius="9" Background="{DynamicResource Dn.AccentSubtle}" VerticalAlignment="Top">
+                                        <TextBlock Style="{StaticResource Dn.Icon}" Text="{Binding Glyph}" FontSize="17" Foreground="{DynamicResource Dn.AccentText}" HorizontalAlignment="Center" />
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Dn.Text.BodyStrong}" TextWrapping="Wrap" />
+                                        <c:StatusPill Kind="Accent" Margin="0,4,0,0">
+                                            <c:StatusPill.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="Count" />
+                                                    <Binding Source="{x:Static l:LocalizationSource.Instance}" Path="[Common.ProgramsLower]" />
+                                                </MultiBinding>
+                                            </c:StatusPill.Text>
+                                        </c:StatusPill>
+                                    </StackPanel>
+                                </Grid>
+                                <TextBlock Text="{Binding Description}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" Margin="0,12,0,6" />
+                                <TextBlock Text="{Binding Preview}" Style="{StaticResource Dn.Text.Caption}" Foreground="{DynamicResource Dn.TextTertiary}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Categories -->
+            <Grid Margin="0,30,0,12">
+                <TextBlock Text="{l:Loc Home.Categories.Title}" Style="{StaticResource Dn.Text.Subtitle}" FontSize="18" />
+                <Button Style="{StaticResource Dn.Button.Link}" HorizontalAlignment="Right" Command="{Binding BrowseAllCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{l:Loc Home.BrowseAll}" />
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE76C;" FontSize="11" Margin="6,1,0,0" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <ItemsControl ItemsSource="{Binding Categories}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <c:UniformWrapPanel MinItemWidth="210" Spacing="12" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
+                        <Button Style="{StaticResource Dn.Button.Card}" Padding="14,12" Command="{Binding DataContext.OpenCategoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" AutomationProperties.Name="{Binding Name}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource Dn.Icon}" Text="{Binding Glyph}" FontSize="20" Foreground="{DynamicResource Dn.AccentText}" Margin="2,0,14,0" />
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource Dn.Text.BodyStrong}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                    <TextBlock Style="{StaticResource Dn.Text.Caption}">
+                                        <Run Text="{Binding Count, Mode=OneWay}" /> <Run Text="{l:Loc Common.ProgramsLower}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- Selection + recent -->
+            <Grid Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Dn.Card}" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="{l:Loc Home.Selection.Title}" Style="{StaticResource Dn.Text.Subtitle}" />
+                        <StackPanel Visibility="{Binding State.SelectedCount, Converter={StaticResource HasValueToVisibility}}" Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource Dn.Text.Body}">
+                                <Run Text="{Binding State.SelectedCount, Mode=OneWay}" FontSize="30" FontWeight="SemiBold" />
+                                <Run Text="{l:Loc SelectionBar.Title}" />
+                            </TextBlock>
+                            <TextBlock Text="{Binding State.SelectedSizeText}" Style="{StaticResource Dn.Text.Caption}" Margin="0,2,0,16" />
+                            <WrapPanel>
+                                <Button Style="{StaticResource Dn.Button}" Content="{l:Loc SelectionBar.View}" Command="{Binding DataContext.ViewSelectionCommand, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,0,8,0" />
+                                <Button Style="{StaticResource Dn.Button.Primary}" Content="{l:Loc Common.StartInstall}" Command="{Binding DataContext.StartInstallCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </WrapPanel>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding State.SelectedCount, Converter={StaticResource HasValueToVisibility}, ConverterParameter=invert}" Margin="0,10,0,0">
+                            <TextBlock Text="{l:Loc Home.Selection.Empty}" Style="{StaticResource Dn.Text.Secondary}" Margin="0,0,0,14" />
+                            <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Home.BrowseAll}" Command="{Binding BrowseAllCommand}" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource Dn.Card}" Padding="20">
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Text="{l:Loc Home.Recent.Title}" Style="{StaticResource Dn.Text.Subtitle}" />
+                            <Button Style="{StaticResource Dn.Button.Link}" HorizontalAlignment="Right" Content="{l:Loc Home.Recent.ViewAll}" Command="{Binding OpenHistoryCommand}"
+                                    Visibility="{Binding RecentSummary, Converter={StaticResource HasValueToVisibility}}" />
+                        </Grid>
+                        <TextBlock Text="{Binding RecentSummary}" Style="{StaticResource Dn.Text.Caption}" Margin="0,6,0,10"
+                                   Visibility="{Binding RecentSummary, Converter={StaticResource HasValueToVisibility}}" />
+                        <TextBlock Text="{l:Loc Home.Recent.Empty}" Style="{StaticResource Dn.Text.Secondary}" Margin="0,10,0,0"
+                                   Visibility="{Binding RecentSummary, Converter={StaticResource HasValueToVisibility}, ConverterParameter=invert}" />
+                        <ItemsControl ItemsSource="{Binding Recent}" Focusable="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:RecentEntryViewModel}">
+                                    <Grid Margin="0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}" Style="{StaticResource Dn.Text.Body}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                            <TextBlock Text="{Binding DateText}" Style="{StaticResource Dn.Text.Caption}" />
+                                        </StackPanel>
+                                        <c:StatusPill Grid.Column="1" Kind="{Binding Kind}" Glyph="{Binding Glyph}" Text="{Binding ResultText}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

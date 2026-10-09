@@ -1,0 +1,191 @@
+<UserControl x:Class="DeployNest.App.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:l="clr-namespace:DeployNest.App.Localization"
+             xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:SettingsViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="SettingCard" TargetType="Border" BasedOn="{StaticResource Dn.Card}">
+            <Setter Property="Padding" Value="18,14" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+        <Style x:Key="SectionTitle" TargetType="TextBlock" BasedOn="{StaticResource Dn.Text.BodyStrong}">
+            <Setter Property="Margin" Value="2,22,0,8" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,28,32,40" MaxWidth="900" HorizontalAlignment="Left">
+            <TextBlock Text="{l:Loc Settings.Title}" Style="{StaticResource Dn.PageHeader}" />
+
+            <!-- Appearance -->
+            <TextBlock Text="{l:Loc Settings.Section.Appearance}" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE790;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{l:Loc Settings.Theme}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.Theme.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding ThemeOptions}" SelectedItem="{Binding SelectedTheme}" DisplayMemberPath="Name" MinWidth="170"
+                              AutomationProperties.Name="{l:Loc Settings.Theme}" />
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE775;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{l:Loc Settings.Language}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.Language.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" DisplayMemberPath="DisplayName" MinWidth="170"
+                              AutomationProperties.Name="{l:Loc Settings.Language}" />
+                </Grid>
+            </Border>
+
+            <!-- Downloads and installation -->
+            <TextBlock Text="{l:Loc Settings.Section.Downloads}" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE8B7;" FontSize="18" Margin="0,2,16,0" VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{l:Loc Settings.Downloads.Folder}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.Downloads.Folder.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                        <Border Background="{DynamicResource Dn.NeutralBackground}" CornerRadius="6" Padding="10,6" Margin="0,10,0,10">
+                            <TextBlock Text="{Binding DownloadDirectory}" FontFamily="Cascadia Mono, Consolas" FontSize="12" TextWrapping="Wrap" />
+                        </Border>
+                        <WrapPanel>
+                            <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Settings.Downloads.Change}" Command="{Binding ChangeDownloadFolderCommand}" Margin="0,0,8,0" />
+                            <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Settings.Downloads.Open}" Command="{Binding OpenDownloadFolderCommand}" Margin="0,0,8,0" />
+                            <Button Style="{StaticResource Dn.Button.Subtle}" Content="{l:Loc Settings.Downloads.Reset}" Command="{Binding ResetDownloadFolderCommand}"
+                                    Visibility="{Binding IsCustomDownloadDirectory, Converter={StaticResource BoolToVisibility}}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                        <TextBlock Text="{l:Loc Settings.Parallel}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.Parallel.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding ParallelOptions}" SelectedItem="{Binding MaxParallelDownloads}" MinWidth="90"
+                              AutomationProperties.Name="{l:Loc Settings.Parallel}" />
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE74E;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                        <TextBlock Text="{l:Loc Settings.KeepFiles}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.KeepFiles.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <CheckBox Grid.Column="2" IsChecked="{Binding KeepDownloadedFiles}" MinWidth="0" AutomationProperties.Name="{l:Loc Settings.KeepFiles}" />
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE72A;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                        <TextBlock Text="{l:Loc Settings.SkipInstalled}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{l:Loc Settings.SkipInstalled.Hint}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <CheckBox Grid.Column="2" IsChecked="{Binding SkipInstalledByDefault}" MinWidth="0" AutomationProperties.Name="{l:Loc Settings.SkipInstalled}" />
+                </Grid>
+            </Border>
+
+            <!-- Diagnostics -->
+            <TextBlock Text="{l:Loc Settings.Section.Diagnostics}" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE9F9;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                        <TextBlock Text="{l:Loc Settings.Logs}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{Binding LogDirectory}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Settings.Logs.Open}" Command="{Binding OpenLogsCommand}" Margin="0,0,8,0" />
+                        <Button Style="{StaticResource Dn.Button.Subtle}" Content="{l:Loc Settings.Data.Open}" Command="{Binding OpenDataFolderCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE895;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                        <TextBlock Text="{Binding VersionText}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{Binding UpdateText}" Style="{StaticResource Dn.Text.Caption}" Visibility="{Binding UpdateText, Converter={StaticResource HasValueToVisibility}}" />
+                        <Button Style="{StaticResource Dn.Button.Link}" Content="{l:Loc Settings.Update.OpenPage}" Command="{Binding OpenUpdateCommand}" Margin="-6,4,0,0"
+                                Visibility="{Binding UpdateUrl, Converter={StaticResource HasValueToVisibility}}" />
+                    </StackPanel>
+                    <Button Grid.Column="2" Style="{StaticResource Dn.Button}" Content="{l:Loc Settings.Update.Check}" Command="{Binding CheckUpdatesCommand}" />
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource SettingCard}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE8FD;" FontSize="18" Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{l:Loc Settings.Catalog.Title}" Style="{StaticResource Dn.Text.Body}" />
+                        <TextBlock Text="{Binding CatalogText}" Style="{StaticResource Dn.Text.Caption}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Privacy and security -->
+            <TextBlock Text="{l:Loc Settings.Section.Privacy}" Style="{StaticResource SectionTitle}" />
+            <Border Style="{StaticResource SettingCard}" Padding="20,16">
+                <StackPanel>
+                    <TextBlock Text="{l:Loc Settings.Privacy.Data}" Style="{StaticResource Dn.Text.Body}" Margin="0,0,0,10" />
+                    <TextBlock Text="{l:Loc Settings.Privacy.Network}" Style="{StaticResource Dn.Text.Body}" Margin="0,0,0,10" />
+                    <TextBlock Text="{l:Loc Settings.Privacy.Security}" Style="{StaticResource Dn.Text.Body}" Margin="0,0,0,10" />
+                    <TextBlock Text="{l:Loc Settings.Privacy.Admin}" Style="{StaticResource Dn.Text.Body}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

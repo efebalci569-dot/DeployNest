@@ -1,0 +1,48 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Design tokens: light theme. Dark.xaml defines the same keys. -->
+    <SolidColorBrush x:Key="Dn.WindowBackground" Color="#F3F3F3" />
+    <SolidColorBrush x:Key="Dn.LayerBackground" Color="#F9F9F9" />
+    <SolidColorBrush x:Key="Dn.LayerBorder" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="Dn.CardBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Dn.CardBackgroundHover" Color="#FBFBFB" />
+    <SolidColorBrush x:Key="Dn.CardBorder" Color="#E3E3E3" />
+    <SolidColorBrush x:Key="Dn.CardBorderHover" Color="#D0D0D0" />
+    <SolidColorBrush x:Key="Dn.Divider" Color="#EAEAEA" />
+
+    <SolidColorBrush x:Key="Dn.TextPrimary" Color="#1B1B1B" />
+    <SolidColorBrush x:Key="Dn.TextSecondary" Color="#5C5C5C" />
+    <SolidColorBrush x:Key="Dn.TextTertiary" Color="#8A8A8A" />
+    <SolidColorBrush x:Key="Dn.TextOnAccent" Color="#FFFFFF" />
+
+    <Color x:Key="Dn.AccentColor">#0F62D6</Color>
+    <SolidColorBrush x:Key="Dn.Accent" Color="#0F62D6" />
+    <SolidColorBrush x:Key="Dn.AccentHover" Color="#1A6FE0" />
+    <SolidColorBrush x:Key="Dn.AccentPressed" Color="#0B53B8" />
+    <SolidColorBrush x:Key="Dn.AccentSubtle" Color="#E8F1FD" />
+    <SolidColorBrush x:Key="Dn.AccentText" Color="#0B55BE" />
+
+    <SolidColorBrush x:Key="Dn.SubtleHover" Color="#0A000000" />
+    <SolidColorBrush x:Key="Dn.SubtlePressed" Color="#12000000" />
+    <SolidColorBrush x:Key="Dn.NavSelected" Color="#0D000000" />
+    <SolidColorBrush x:Key="Dn.ControlBackground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Dn.ControlBorder" Color="#DADADA" />
+    <SolidColorBrush x:Key="Dn.ControlDisabledBackground" Color="#F2F2F2" />
+    <SolidColorBrush x:Key="Dn.ControlDisabledText" Color="#A0A0A0" />
+
+    <SolidColorBrush x:Key="Dn.SuccessText" Color="#0E6E0E" />
+    <SolidColorBrush x:Key="Dn.SuccessBackground" Color="#DFF6DD" />
+    <SolidColorBrush x:Key="Dn.WarningText" Color="#8A5100" />
+    <SolidColorBrush x:Key="Dn.WarningBackground" Color="#FFF4CE" />
+    <SolidColorBrush x:Key="Dn.DangerText" Color="#B3261E" />
+    <SolidColorBrush x:Key="Dn.DangerBackground" Color="#FDE7E9" />
+    <SolidColorBrush x:Key="Dn.NeutralBackground" Color="#F0F0F0" />
+    <SolidColorBrush x:Key="Dn.DangerSolid" Color="#C42B1C" />
+
+    <SolidColorBrush x:Key="Dn.Scrim" Color="#4D000000" />
+    <Color x:Key="Dn.ShadowColor">#000000</Color>
+    <LinearGradientBrush x:Key="Dn.HeroBackground" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#EAF2FE" />
+        <GradientStop Offset="1" Color="#E6F7FB" />
+    </LinearGradientBrush>
+</ResourceDictionary>

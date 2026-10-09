@@ -1,0 +1,77 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+                    xmlns:v="clr-namespace:DeployNest.App.Views"
+                    xmlns:c="clr-namespace:DeployNest.App.Controls"
+                    xmlns:l="clr-namespace:DeployNest.App.Localization">
+
+    <DataTemplate DataType="{x:Type vm:HomeViewModel}"><v:HomeView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProgramsViewModel}"><v:ProgramsView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProgramDetailsViewModel}"><v:ProgramDetailsView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SelectionViewModel}"><v:SelectionView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:QueueViewModel}"><v:QueueView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ProgressViewModel}"><v:ProgressView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ResultsViewModel}"><v:ResultsView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HistoryViewModel}"><v:HistoryView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:SettingsViewModel}"><v:SettingsView /></DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AboutViewModel}"><v:AboutView /></DataTemplate>
+
+    <!-- Program card used by the catalog page. The parent UserControl's DataContext provides OpenDetailsCommand. -->
+    <DataTemplate x:Key="Dn.ProgramCard" DataType="{x:Type vm:SoftwareItemViewModel}">
+        <Button Command="{Binding DataContext.OpenDetailsCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding}" Padding="16,14,12,14"
+                AutomationProperties.Name="{Binding Name}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource Dn.Button.Card}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource Dn.Accent}" />
+                            <Setter Property="Background" Value="{DynamicResource Dn.AccentSubtle}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <c:AppIcon Width="42" Monogram="{Binding Monogram}" AccentColor="{Binding AccentColor}" Source="{Binding Icon}" />
+                    <StackPanel Grid.Column="1" Margin="12,0,8,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Name}" Style="{StaticResource Dn.Text.BodyStrong}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="{Binding Publisher}" Style="{StaticResource Dn.Text.Caption}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected}" VerticalAlignment="Top" MinWidth="0" Padding="0" Margin="0,-2,0,0"
+                              ToolTip="{l:Loc Card.Select}" AutomationProperties.Name="{l:Loc Card.Select}" Cursor="Hand" />
+                </Grid>
+                <TextBlock Grid.Row="1" Text="{Binding Summary}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" LineHeight="19"
+                           Height="38" Margin="0,12,0,12" TextTrimming="CharacterEllipsis" />
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <c:StatusPill Kind="{Binding StateKind}" Text="{Binding StateText}" Glyph="{Binding StateGlyph}" ToolTip="{Binding Evidence}" />
+                    <TextBlock Grid.Column="1" Text="{Binding CategoryName}" Style="{StaticResource Dn.Text.Caption}" Margin="10,0,8,0"
+                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                    <TextBlock Grid.Column="2" Text="{Binding SizeText}" Style="{StaticResource Dn.Text.Caption}" Foreground="{DynamicResource Dn.TextTertiary}"
+                               VerticalAlignment="Center" Visibility="{Binding HasSize, Converter={StaticResource BoolToVisibility}}" />
+                </Grid>
+            </Grid>
+        </Button>
+    </DataTemplate>
+
+    <!-- Section header used across pages -->
+    <Style x:Key="Dn.PageHeader" TargetType="TextBlock" BasedOn="{StaticResource Dn.Text.Title}">
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+</ResourceDictionary>

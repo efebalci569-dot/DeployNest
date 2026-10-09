@@ -1,0 +1,168 @@
+<UserControl x:Class="DeployNest.App.Views.QueueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:l="clr-namespace:DeployNest.App.Localization"
+             xmlns:c="clr-namespace:DeployNest.App.Controls"
+             xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:QueueViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="32,28,32,12">
+            <StackPanel>
+                <TextBlock Text="{l:Loc Queue.Title}" Style="{StaticResource Dn.PageHeader}" />
+                <TextBlock Text="{l:Loc Queue.Subtitle}" Style="{StaticResource Dn.Text.Caption}" />
+            </StackPanel>
+            <Button Style="{StaticResource Dn.Button.Subtle}" Command="{Binding RecheckCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE72C;" FontSize="13" Margin="0,0,8,0" />
+                    <TextBlock Text="{l:Loc Queue.Recheck}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- Empty queue -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,60,0,0" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}">
+            <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="40" Foreground="{DynamicResource Dn.TextTertiary}" HorizontalAlignment="Center" />
+            <TextBlock Text="{l:Loc Queue.Empty}" Style="{StaticResource Dn.Text.Subtitle}" HorizontalAlignment="Center" Margin="0,16,0,6" />
+            <TextBlock Text="{l:Loc Queue.Empty.Body}" Style="{StaticResource Dn.Text.Secondary}" TextAlignment="Center" MaxWidth="440" />
+            <Button Style="{StaticResource Dn.Button.Primary}" Content="{l:Loc Home.BrowseAll}" HorizontalAlignment="Center" Margin="0,18,0,0"
+                    Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Programs" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+            <StackPanel Margin="32,4,32,24">
+                <!-- Checking -->
+                <Border Style="{StaticResource Dn.Card}" Margin="0,0,0,16" Visibility="{Binding IsChecking, Converter={StaticResource BoolToVisibility}}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding ProgressText}" Style="{StaticResource Dn.Text.Body}" Margin="0,0,0,10" />
+                        <ProgressBar Style="{StaticResource Dn.Progress}" IsIndeterminate="True" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Requirements -->
+                <ItemsControl ItemsSource="{Binding Requirements}" Focusable="False" Margin="0,0,0,8">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <c:UniformWrapPanel MinItemWidth="230" Spacing="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:RequirementViewModel}">
+                            <Border Style="{StaticResource Dn.Card}" Padding="14,12">
+                                <StackPanel>
+                                    <c:StatusPill Kind="{Binding Kind}" Glyph="{Binding Glyph}" Text="{Binding Title}" />
+                                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Dn.Text.Caption}" Margin="0,8,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="{Binding SummaryText}" Style="{StaticResource Dn.Text.Subtitle}" Margin="0,12,0,10" TextWrapping="Wrap" />
+
+                <!-- Items -->
+                <ItemsControl ItemsSource="{Binding Items}" Focusable="False">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:QueueItemViewModel}">
+                            <Border Style="{StaticResource Dn.Card}" Padding="14,10" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding OrderText}" Style="{StaticResource Dn.Text.BodyStrong}" Foreground="{DynamicResource Dn.TextTertiary}" VerticalAlignment="Center" />
+                                    <c:AppIcon Grid.Column="1" Width="36" Monogram="{Binding Software.Monogram}" AccentColor="{Binding Software.AccentColor}" Source="{Binding Software.Icon}" />
+                                    <StackPanel Grid.Column="2" Margin="14,0,12,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Software.Name}" Style="{StaticResource Dn.Text.BodyStrong}" />
+                                        <TextBlock Text="{Binding SourceText}" Style="{StaticResource Dn.Text.Caption}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                        <TextBlock Text="{Binding DetailText}" Style="{StaticResource Dn.Text.Caption}" Foreground="{DynamicResource Dn.TextTertiary}" />
+                                        <CheckBox IsChecked="{Binding Reinstall}" Margin="0,6,0,0" MinWidth="0"
+                                                  Visibility="{Binding IsInstalled, Converter={StaticResource BoolToVisibility}}">
+                                            <TextBlock Text="{l:Loc Queue.Item.ReinstallOption}" Style="{StaticResource Dn.Text.Caption}" Foreground="{DynamicResource Dn.TextPrimary}" />
+                                        </CheckBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <ProgressBar Style="{StaticResource Dn.Progress}" IsIndeterminate="True" Width="80" Margin="0,0,12,0"
+                                                     Visibility="{Binding IsVerifying, Converter={StaticResource BoolToVisibility}}" />
+                                        <c:StatusPill Kind="{Binding DecisionKind}" Text="{Binding DecisionText}" MaxWidth="320" />
+                                        <Button Style="{StaticResource Dn.Button.Icon}" Content="&#xE8A5;" Margin="8,0,0,0" ToolTip="{l:Loc Queue.Item.License}"
+                                                AutomationProperties.Name="{l:Loc Queue.Item.License}"
+                                                Command="{Binding DataContext.OpenLicenseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Warnings -->
+                <Border Style="{StaticResource Dn.Card}" Margin="0,8,0,0" Padding="20,16" Visibility="{Binding Warnings.Count, Converter={StaticResource HasValueToVisibility}}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE7BA;" Foreground="{DynamicResource Dn.WarningText}" Margin="0,0,10,0" />
+                            <TextBlock Text="{l:Loc Queue.Warnings}" Style="{StaticResource Dn.Text.Subtitle}" />
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding Warnings}" Focusable="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="18" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="•" Style="{StaticResource Dn.Text.Secondary}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding}" Style="{StaticResource Dn.Text.Body}" FontSize="13" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer: consent and start -->
+        <Border Grid.Row="2" Background="{DynamicResource Dn.CardBackground}" BorderBrush="{DynamicResource Dn.CardBorder}" BorderThickness="0,1,0,0" Padding="32,14"
+                Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+            <StackPanel>
+                <Border Style="{StaticResource Dn.InfoBar}" Background="{DynamicResource Dn.DangerBackground}" Margin="0,0,0,12"
+                        Visibility="{Binding BlockingMessage, Converter={StaticResource HasValueToVisibility}}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xEA39;" Foreground="{DynamicResource Dn.DangerText}" Margin="0,0,12,0" />
+                        <TextBlock Text="{Binding BlockingMessage}" Style="{StaticResource Dn.Text.Body}" />
+                    </StackPanel>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox IsChecked="{Binding ConsentGiven}" VerticalAlignment="Center" Margin="0,0,24,0" MinWidth="0"
+                              AutomationProperties.Name="{l:Loc Queue.Consent}">
+                        <TextBlock Text="{l:Loc Queue.Consent}" Style="{StaticResource Dn.Text.Body}" FontSize="13" />
+                    </CheckBox>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button Style="{StaticResource Dn.Button}" Content="{l:Loc Common.Back}" Command="{Binding BackCommand}" Margin="0,0,8,0" />
+                        <Button Style="{StaticResource Dn.Button.Primary}" Command="{Binding StartCommand}" Padding="18,6">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE896;" FontSize="13" Margin="0,0,8,0" />
+                                <TextBlock Text="{l:Loc Common.StartInstall}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,84 @@
+<UserControl x:Class="DeployNest.App.Views.HistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:l="clr-namespace:DeployNest.App.Localization"
+             xmlns:c="clr-namespace:DeployNest.App.Controls"
+             xmlns:vm="clr-namespace:DeployNest.App.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:HistoryViewModel}">
+    <Grid Margin="32,28,32,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="{l:Loc History.Title}" Style="{StaticResource Dn.PageHeader}" />
+                <TextBlock Text="{Binding Summary}" Style="{StaticResource Dn.Text.Caption}" />
+            </StackPanel>
+            <Button Style="{StaticResource Dn.Button}" Command="{Binding ClearCommand}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE74D;" FontSize="13" Margin="0,0,8,0" />
+                    <TextBlock Text="{l:Loc History.Clear}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="16,0,16,8" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.2*" />
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="0.9*" />
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="1.1*" />
+                <ColumnDefinition Width="0.7*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{l:Loc History.Col.Program}" Style="{StaticResource Dn.Text.Overline}" />
+            <TextBlock Grid.Column="1" Text="{l:Loc History.Col.Date}" Style="{StaticResource Dn.Text.Overline}" />
+            <TextBlock Grid.Column="2" Text="{l:Loc History.Col.Operation}" Style="{StaticResource Dn.Text.Overline}" />
+            <TextBlock Grid.Column="3" Text="{l:Loc History.Col.Method}" Style="{StaticResource Dn.Text.Overline}" />
+            <TextBlock Grid.Column="4" Text="{l:Loc History.Col.Result}" Style="{StaticResource Dn.Text.Overline}" />
+            <TextBlock Grid.Column="5" Text="{l:Loc History.Col.Duration}" Style="{StaticResource Dn.Text.Overline}" />
+        </Grid>
+
+        <ListBox Grid.Row="2" ItemsSource="{Binding Rows}" ItemContainerStyle="{StaticResource Dn.PlainItem}" Background="Transparent" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel"
+                 Padding="0,0,0,24" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}, ConverterParameter=invert}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:HistoryRowViewModel}">
+                    <Border Style="{StaticResource Dn.Card}" Padding="16,10" Margin="0,0,0,6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.2*" />
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="0.9*" />
+                                <ColumnDefinition Width="0.8*" />
+                                <ColumnDefinition Width="1.1*" />
+                                <ColumnDefinition Width="0.7*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,12,0">
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource Dn.Text.BodyStrong}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                <TextBlock Text="{Binding Message}" Style="{StaticResource Dn.Text.Caption}" Visibility="{Binding Message, Converter={StaticResource HasValueToVisibility}}" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="1" Text="{Binding DateText}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Text="{Binding Operation}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Text="{Binding MethodText}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" VerticalAlignment="Center" />
+                            <c:StatusPill Grid.Column="4" Kind="{Binding Kind}" Text="{Binding ResultText}" />
+                            <TextBlock Grid.Column="5" Text="{Binding DurationText}" Style="{StaticResource Dn.Text.Secondary}" FontSize="13" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,60,0,0" Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}">
+            <TextBlock Style="{StaticResource Dn.Icon}" Text="&#xE81C;" FontSize="40" Foreground="{DynamicResource Dn.TextTertiary}" HorizontalAlignment="Center" />
+            <TextBlock Text="{l:Loc History.Empty}" Style="{StaticResource Dn.Text.Subtitle}" HorizontalAlignment="Center" Margin="0,16,0,6" />
+            <TextBlock Text="{l:Loc History.Empty.Body}" Style="{StaticResource Dn.Text.Secondary}" TextAlignment="Center" MaxWidth="440" />
+        </StackPanel>
+    </Grid>
+</UserControl>
