@@ -1,14 +1,21 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DeployNest">
   <defs>
-    <linearGradient id="dn-g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2F6FED"/>
-      <stop offset="1" stop-color="#12B5D6"/>
+    <linearGradient id="dn-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3B5BFD"/>
+      <stop offset=".5" stop-color="#2A86F2"/>
+      <stop offset="1" stop-color="#0FC3D9"/>
     </linearGradient>
+    <radialGradient id="dn-glow" cx="17" cy="2" r="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="url(#dn-g)"/>
-  <g fill="none" stroke="#fff" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 12.8V33.3"/>
-    <path d="M23.04 25.6L32 34.56L40.96 25.6"/>
-    <path d="M14.08 38.4C17.28 51.2 46.72 51.2 49.92 38.4"/>
+  <rect width="64" height="64" rx="15" fill="url(#dn-bg)"/>
+  <rect width="64" height="64" rx="15" fill="url(#dn-glow)"/>
+  <path d="M21 40.5C24 46 40 46 43 40.5" fill="none" stroke="#fff" stroke-opacity=".47" stroke-width="3.4" stroke-linecap="round"/>
+  <g fill="none" stroke="#fff" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 12.5V33"/>
+    <path d="M23.5 24.5L32 33l8.5-8.5"/>
+    <path d="M13.5 37C16 51.5 48 51.5 50.5 37"/>
   </g>
 </svg>

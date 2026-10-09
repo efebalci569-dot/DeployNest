@@ -1,0 +1,53 @@
+name: Release
+
+# Publishes a GitHub Release when a version tag such as v0.1.0 is pushed.
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Read version from tag
+        id: version
+        shell: pwsh
+        run: |
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Unexpected tag: ${{ github.ref_name }}" }
+          "value=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Test
+        run: dotnet test tests/DeployNest.Tests/DeployNest.Tests.csproj -c Release
+
+      - name: Build release packages
+        shell: pwsh
+        run: ./scripts/publish.ps1 -Version ${{ steps.version.outputs.value }}
+
+      - name: Create GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $notes = @"
+          DeployNest ${{ github.ref_name }} — Windows 10 / 11, 64 bit (x64).
+
+          - ``DeployNest-${{ steps.version.outputs.value }}-win-x64.exe``: kurulum gerektirmeyen tek dosya (.NET dahil).
+          - ``DeployNest-${{ steps.version.outputs.value }}-win-x64-portable.zip``: aynı EXE + README + lisanslar.
+          - ``SHA256SUMS.txt``: dosya bütünlüğünü doğrulamak için.
+
+          EXE henüz kod imzalı olmadığından Windows SmartScreen uyarı gösterebilir. Değişiklikler için CHANGELOG.md dosyasına bakın.
+          "@
+          gh release create '${{ github.ref_name }}' (Get-ChildItem artifacts/release/*).FullName `
+            --title "DeployNest ${{ github.ref_name }}" `
+            --notes $notes
