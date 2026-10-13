@@ -6,6 +6,10 @@ public enum InstallMethod
 {
     Winget,
     Direct,
+    /// <summary>Linux: Flathub application installed for the current user.</summary>
+    Flatpak,
+    /// <summary>Linux: distribution repository packages (apt, dnf or pacman).</summary>
+    NativePackage,
 }
 
 public enum ItemPhase
@@ -43,6 +47,10 @@ public enum FailureKind
     UnexpectedRedirect,
     InsecureSource,
     WingetMissing,
+    /// <summary>Linux: the program is only available on Flathub and Flatpak is not installed.</summary>
+    FlatpakMissing,
+    /// <summary>Linux: no Flatpak and no package for this distribution's package manager.</summary>
+    UnsupportedDistribution,
     PackageNotFound,
     PublisherMismatch,
     VerificationFailed,

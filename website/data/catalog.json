@@ -1,14 +1,22 @@
 {
   "schemaVersion": 1,
-  "verifiedOn": "2026-10-09",
+  "verifiedOn": "2026-10-13",
   "categories": [
     { "id": "browsers", "name": { "tr": "Tarayıcılar", "en": "Browsers" }, "icon": "E774" },
-    { "id": "archive", "name": { "tr": "Arşiv ve dosya araçları", "en": "Archive & file tools" }, "icon": "E7B8" },
-    { "id": "media", "name": { "tr": "Medya", "en": "Media" }, "icon": "E714" },
     { "id": "communication", "name": { "tr": "İletişim", "en": "Communication" }, "icon": "E8F2" },
-    { "id": "gaming", "name": { "tr": "Oyun platformları", "en": "Gaming platforms" }, "icon": "E7FC" },
+    { "id": "media", "name": { "tr": "Müzik ve video", "en": "Music & video" }, "icon": "E714" },
+    { "id": "creative", "name": { "tr": "Fotoğraf, tasarım ve kurgu", "en": "Photo, design & editing" }, "icon": "E790" },
+    { "id": "office", "name": { "tr": "Ofis, PDF ve notlar", "en": "Office, PDF & notes" }, "icon": "E8A5" },
+    { "id": "cloud", "name": { "tr": "Bulut ve dosya paylaşımı", "en": "Cloud & file sharing" }, "icon": "E753" },
+    { "id": "security", "name": { "tr": "Güvenlik ve gizlilik", "en": "Security & privacy" }, "icon": "E72E" },
+    { "id": "archive", "name": { "tr": "Arşiv ve dosya araçları", "en": "Archive & file tools" }, "icon": "E7B8" },
+    { "id": "system", "name": { "tr": "Sistem ve donanım araçları", "en": "System & hardware tools" }, "icon": "E770" },
+    { "id": "productivity", "name": { "tr": "Kişiselleştirme ve verimlilik", "en": "Customization & productivity" }, "icon": "E771" },
+    { "id": "runtimes", "name": { "tr": "Çalışma zamanları ve sürücüler", "en": "Runtimes & drivers" }, "icon": "E8F1" },
+    { "id": "gaming", "name": { "tr": "Oyun", "en": "Gaming" }, "icon": "E7FC" },
     { "id": "developer", "name": { "tr": "Geliştirici araçları", "en": "Developer tools" }, "icon": "E943" },
-    { "id": "everyday", "name": { "tr": "Günlük kullanım", "en": "Everyday" }, "icon": "E8A5" }
+    { "id": "downloads", "name": { "tr": "İndirme ve uzak erişim", "en": "Downloads & remote access" }, "icon": "E896" },
+    { "id": "ai", "name": { "tr": "Yapay zekâ", "en": "AI" }, "icon": "E945" }
   ],
   "software": [
     {
@@ -34,6 +42,9 @@
       },
       "detection": {
         "registry": [ { "displayName": "^Google Chrome$", "publisher": "^Google LLC$" } ]
+      },
+      "linux": {
+        "flatpak": "com.google.Chrome"
       }
     },
     {
@@ -53,6 +64,10 @@
       "detection": {
         "registry": [ { "displayName": "^Mozilla Firefox( \\(.*\\))?$", "publisher": "^Mozilla$" } ],
         "wingetIds": [ "Mozilla.Firefox" ]
+      },
+      "linux": {
+        "flatpak": "org.mozilla.firefox",
+        "notes": { "tr": "Linux'ta Mozilla'nın Flathub'daki resmi paketi kurulur; dil, sistem diline göre seçilir." }
       }
     },
     {
@@ -71,6 +86,9 @@
       "winget": { "id": "Brave.Brave", "publisher": "Brave Software Inc" },
       "detection": {
         "registry": [ { "displayName": "^Brave$", "publisher": "^Brave Software" } ]
+      },
+      "linux": {
+        "flatpak": "com.brave.Browser"
       }
     },
     {
@@ -90,6 +108,1458 @@
       "winget": { "id": "Microsoft.Edge", "publisher": "Microsoft Corporation" },
       "detection": {
         "registry": [ { "displayName": "^Microsoft Edge$", "publisher": "^Microsoft Corporation$" } ]
+      },
+      "linux": {
+        "flatpak": "com.microsoft.Edge"
+      }
+    },
+    {
+      "id": "opera",
+      "name": "Opera",
+      "publisher": "Opera Software",
+      "category": "browsers",
+      "summary": { "tr": "Yerleşik reklam engelleyici ve ücretsiz VPN'li tarayıcı." },
+      "description": { "tr": "Chromium tabanlı Opera; yerleşik reklam engelleyici, tarayıcı içi ücretsiz VPN, kenar çubuğunda mesajlaşma uygulamaları ve sekme adaları sunar. Chrome uzantılarıyla uyumludur." },
+      "homepage": "https://www.opera.com/browsers/opera",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://legal.opera.com/eula/computers/",
+      "icon": { "monogram": "O", "color": "#FF1B2D" },
+      "tags": [ "tarayıcı", "browser", "internet", "web", "vpn", "reklam engelleyici" ],
+      "elevation": "unknown",
+      "winget": { "id": "Opera.Opera", "publisher": "Opera Software" },
+      "detection": {
+        "registry": [ { "displayName": "^Opera Stable( [\\d.]+)?$", "publisher": "^Opera Software" } ]
+      },
+      "linux": {
+        "flatpak": "com.opera.Opera"
+      }
+    },
+    {
+      "id": "opera-gx",
+      "name": "Opera GX",
+      "publisher": "Opera Software",
+      "category": "browsers",
+      "summary": { "tr": "Oyunculara yönelik, kaynak kullanımı sınırlanabilen tarayıcı." },
+      "description": { "tr": "Oyuncular için tasarlanmış Opera sürümü. RAM, işlemci ve ağ kullanımını sınırlayan GX Control, Twitch ve Discord entegrasyonu ile özelleştirilebilir temalar sunar." },
+      "homepage": "https://www.opera.com/gx",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://legal.opera.com/eula/computers/",
+      "icon": { "monogram": "GX", "color": "#FA1E4E" },
+      "tags": [ "tarayıcı", "browser", "oyun", "gaming", "internet" ],
+      "elevation": "unknown",
+      "winget": { "id": "Opera.OperaGX", "publisher": "Opera Software" },
+      "detection": {
+        "registry": [ { "displayName": "^Opera GX Stable( [\\d.]+)?$", "publisher": "^Opera Software" } ]
+      }
+    },
+    {
+      "id": "vivaldi",
+      "name": "Vivaldi",
+      "publisher": "Vivaldi Technologies AS.",
+      "category": "browsers",
+      "summary": { "tr": "Son derece özelleştirilebilir, güç kullanıcısı tarayıcısı." },
+      "description": { "tr": "Chromium tabanlı Vivaldi; sekme yığınları, bölünmüş ekran, yerleşik e-posta istemcisi, takvim, notlar ve reklam engelleyici içerir. Arayüzün neredeyse her parçası özelleştirilebilir." },
+      "homepage": "https://vivaldi.com/desktop/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://vivaldi.com/privacy/vivaldi-end-user-license-agreement/",
+      "icon": { "monogram": "V", "color": "#EF3939" },
+      "tags": [ "tarayıcı", "browser", "internet", "web", "özelleştirme" ],
+      "elevation": "unknown",
+      "winget": { "id": "Vivaldi.Vivaldi", "publisher": "Vivaldi Technologies AS." },
+      "detection": {
+        "registry": [ { "displayName": "^Vivaldi$", "publisher": "^Vivaldi Technologies" } ]
+      },
+      "linux": {
+        "flatpak": "com.vivaldi.Vivaldi"
+      }
+    },
+    {
+      "id": "librewolf",
+      "name": "LibreWolf",
+      "publisher": "LibreWolf",
+      "category": "browsers",
+      "summary": { "tr": "Gizlilik için sertleştirilmiş Firefox türevi." },
+      "description": { "tr": "Firefox tabanlı, telemetri içermeyen ve gizlilik/güvenlik ayarları sıkılaştırılmış açık kaynak tarayıcı. uBlock Origin reklam engelleyici yüklü gelir." },
+      "homepage": "https://librewolf.net/",
+      "license": { "tr": "MPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://librewolf.net/license-disclaimers/",
+      "icon": { "monogram": "LW", "color": "#00ACFF" },
+      "tags": [ "tarayıcı", "browser", "gizlilik", "privacy", "firefox", "açık kaynak" ],
+      "elevation": "likely",
+      "winget": { "id": "LibreWolf.LibreWolf", "publisher": "LibreWolf" },
+      "detection": {
+        "registry": [ { "displayName": "^LibreWolf$", "publisher": "^LibreWolf$" } ]
+      },
+      "linux": {
+        "flatpak": "io.gitlab.librewolf-community"
+      }
+    },
+    {
+      "id": "tor-browser",
+      "name": "Tor Browser",
+      "publisher": "Tor Project",
+      "category": "browsers",
+      "summary": { "tr": "Tor ağı üzerinden anonim gezinme tarayıcısı." },
+      "description": { "tr": "Trafiğini Tor ağı üzerinden yönlendirerek izlenmeyi ve sansürü aşmayı kolaylaştıran, Firefox ESR tabanlı tarayıcı. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.torproject.org/",
+      "license": { "tr": "MPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://support.torproject.org/about/distribute-tor/",
+      "icon": { "monogram": "Tor", "color": "#7D4698" },
+      "tags": [ "tarayıcı", "browser", "tor", "anonim", "gizlilik", "privacy", "sansür" ],
+      "elevation": "unlikely",
+      "winget": { "id": "TorProject.TorBrowser", "publisher": "Tor Project" },
+      "detection": {
+        "registry": [ { "displayName": "^Tor Browser$", "publisher": "^(The )?Tor Project" } ]
+      },
+      "linux": {
+        "flatpak": "org.torproject.torbrowser-launcher",
+        "apt": [ "torbrowser-launcher" ],
+        "dnf": [ "torbrowser-launcher" ],
+        "pacman": [ "torbrowser-launcher" ],
+        "notes": { "tr": "Linux'ta Tor Project'in Tor Browser Launcher aracı kurulur; ilk açılışta Tor Browser'ı indirip imzasını doğrular." }
+      }
+    },
+    {
+      "id": "zen-browser",
+      "name": "Zen Browser",
+      "publisher": "Zen OSS Team",
+      "category": "browsers",
+      "summary": { "tr": "Dikey sekmeli, sade ve modern Firefox tabanlı tarayıcı." },
+      "description": { "tr": "Firefox tabanlı; dikey sekmeler, çalışma alanları ve bölünmüş görünüm sunan açık kaynak tarayıcı. Sakin ve odaklı bir gezinme deneyimi hedefler." },
+      "homepage": "https://zen-browser.app/",
+      "license": { "tr": "MPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/zen-browser/desktop/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Z", "color": "#F76F53" },
+      "tags": [ "tarayıcı", "browser", "firefox", "dikey sekme", "açık kaynak" ],
+      "elevation": "likely",
+      "winget": { "id": "Zen-Team.Zen-Browser", "publisher": "Zen OSS Team" },
+      "linux": {
+        "flatpak": "app.zen_browser.zen"
+      }
+    },
+    {
+      "id": "discord",
+      "name": "Discord",
+      "publisher": "Discord Inc.",
+      "category": "communication",
+      "summary": { "tr": "Sesli, görüntülü ve yazılı sohbet platformu." },
+      "description": { "tr": "Topluluklar ve arkadaş grupları için sesli kanallar, görüntülü görüşme, ekran paylaşımı ve yazılı sohbet sunan iletişim uygulaması. Kullanıcı hesabına kurulur." },
+      "homepage": "https://discord.com/download",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://discord.com/terms",
+      "icon": { "monogram": "D", "color": "#5865F2" },
+      "tags": [ "sohbet", "chat", "sesli", "oyun", "topluluk", "iletişim" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Discord.Discord", "publisher": "Discord Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Discord$", "publisher": "^Discord Inc\\.?$" } ]
+      },
+      "linux": {
+        "flatpak": "com.discordapp.Discord"
+      }
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram Desktop",
+      "publisher": "Telegram FZ-LLC",
+      "category": "communication",
+      "summary": { "tr": "Telegram'ın resmi masaüstü uygulaması." },
+      "description": { "tr": "Telegram mesajlaşma servisinin açık kaynak resmi masaüstü istemcisi. Telefonundaki sohbetlerle eşitlenir." },
+      "homepage": "https://desktop.telegram.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/telegramdesktop/tdesktop/blob/dev/LICENSE",
+      "icon": { "monogram": "T", "color": "#229ED9" },
+      "tags": [ "mesaj", "sohbet", "chat", "iletişim", "telegram" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Telegram.TelegramDesktop", "publisher": "Telegram FZ-LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^Telegram Desktop", "publisher": "^Telegram FZ-LLC$" } ]
+      },
+      "linux": {
+        "flatpak": "org.telegram.desktop",
+        "pacman": [ "telegram-desktop" ]
+      }
+    },
+    {
+      "id": "zoom",
+      "name": "Zoom",
+      "publisher": "Zoom",
+      "category": "communication",
+      "summary": { "tr": "Görüntülü toplantı ve konferans uygulaması." },
+      "description": { "tr": "Görüntülü toplantı, webinar ve ekran paylaşımı için Zoom Workplace masaüstü uygulaması." },
+      "homepage": "https://zoom.us/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://explore.zoom.us/en/terms/",
+      "icon": { "monogram": "Z", "color": "#0B5CFF" },
+      "tags": [ "toplantı", "görüntülü", "video", "konferans", "meeting", "iletişim" ],
+      "elevation": "likely",
+      "winget": { "id": "Zoom.Zoom", "publisher": "Zoom" },
+      "detection": {
+        "registry": [ { "displayName": "^Zoom( Workplace)?( \\(64-bit\\))?$", "publisher": "^Zoom" } ]
+      },
+      "linux": {
+        "flatpak": "us.zoom.Zoom"
+      }
+    },
+    {
+      "id": "microsoft-teams",
+      "name": "Microsoft Teams",
+      "publisher": "Microsoft Corporation",
+      "category": "communication",
+      "summary": { "tr": "İş ve okul için sohbet, toplantı ve iş birliği uygulaması." },
+      "description": { "tr": "Microsoft'un sohbet, görüntülü toplantı, dosya paylaşımı ve ekip çalışması uygulaması (yeni Teams). Okul veya iş hesabıyla ya da kişisel Microsoft hesabıyla kullanılabilir." },
+      "homepage": "https://www.microsoft.com/microsoft-teams/group-chat-software",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.microsoft.com/legal/terms-of-use",
+      "icon": { "monogram": "T", "color": "#4B53BC" },
+      "tags": [ "toplantı", "meeting", "sohbet", "okul", "iş", "microsoft", "iletişim" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "MSIX paketi olduğu için kayıt defterinde görünmez; kurulu olup olmadığı yalnızca winget ile doğrulanabilir." },
+      "winget": { "id": "Microsoft.Teams", "publisher": "Microsoft Corporation" }
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "publisher": "Slack Technologies Inc.",
+      "category": "communication",
+      "summary": { "tr": "Ekipler için kanal tabanlı mesajlaşma uygulaması." },
+      "description": { "tr": "Kanallar, doğrudan mesajlar, sesli görüşmeler (huddle) ve yüzlerce uygulama entegrasyonu sunan iş iletişim platformu. Kullanıcı hesabına kurulur." },
+      "homepage": "https://slack.com/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://slack.com/terms-of-service/user",
+      "icon": { "monogram": "S", "color": "#4A154B" },
+      "tags": [ "sohbet", "chat", "ekip", "iş", "mesaj", "iletişim" ],
+      "elevation": "unlikely",
+      "winget": { "id": "SlackTechnologies.Slack", "publisher": "Slack Technologies Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Slack$", "publisher": "^Slack Technologies" } ]
+      },
+      "linux": {
+        "flatpak": "com.slack.Slack"
+      }
+    },
+    {
+      "id": "signal",
+      "name": "Signal",
+      "publisher": "Signal Messenger, LLC",
+      "category": "communication",
+      "summary": { "tr": "Uçtan uca şifreli, gizlilik odaklı mesajlaşma." },
+      "description": { "tr": "Signal'in masaüstü uygulaması. Mesajlar ve aramalar uçtan uca şifrelenir; telefondaki Signal hesabına bağlanarak kullanılır. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.signal.org/",
+      "license": { "tr": "AGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/signalapp/Signal-Desktop/blob/HEAD/LICENSE",
+      "icon": { "monogram": "S", "color": "#3A76F0" },
+      "tags": [ "mesaj", "sohbet", "şifreli", "gizlilik", "privacy", "iletişim" ],
+      "elevation": "unlikely",
+      "winget": { "id": "OpenWhisperSystems.Signal", "publisher": "Signal Messenger, LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^Signal( [\\d.]+)?$", "publisher": "^Signal Messenger" } ]
+      },
+      "linux": {
+        "flatpak": "org.signal.Signal"
+      }
+    },
+    {
+      "id": "thunderbird",
+      "name": "Mozilla Thunderbird",
+      "publisher": "Mozilla",
+      "category": "communication",
+      "summary": { "tr": "Ücretsiz ve açık kaynak e-posta ve takvim uygulaması (Türkçe)." },
+      "description": { "tr": "Birden fazla e-posta hesabını tek yerde yöneten; takvim, adres defteri ve RSS desteği sunan Mozilla'nın e-posta istemcisi. Bu paket Thunderbird'ün Türkçe sürümünü kurar." },
+      "homepage": "https://www.thunderbird.net/",
+      "license": { "tr": "MPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://www.mozilla.org/MPL/2.0",
+      "icon": { "monogram": "Tb", "color": "#0A84FF" },
+      "tags": [ "e-posta", "eposta", "mail", "email", "takvim", "outlook", "mozilla" ],
+      "elevation": "likely",
+      "winget": { "id": "Mozilla.Thunderbird.tr", "publisher": "Mozilla" },
+      "detection": {
+        "registry": [ { "displayName": "^Mozilla Thunderbird( \\(.*\\))?$", "publisher": "^Mozilla$" } ],
+        "wingetIds": [ "Mozilla.Thunderbird" ]
+      },
+      "linux": {
+        "flatpak": "org.mozilla.thunderbird",
+        "apt": [ "thunderbird" ],
+        "dnf": [ "thunderbird" ],
+        "pacman": [ "thunderbird" ]
+      }
+    },
+    {
+      "id": "element",
+      "name": "Element",
+      "publisher": "Element",
+      "category": "communication",
+      "summary": { "tr": "Matrix ağı için güvenli ve merkeziyetsiz sohbet uygulaması." },
+      "description": { "tr": "Açık Matrix protokolünü kullanan, uçtan uca şifreli mesajlaşma ve görüntülü görüşme uygulaması. Kendi sunucunu kullanabilir veya matrix.org gibi herkese açık sunuculara bağlanabilirsin." },
+      "homepage": "https://element.io/download",
+      "license": { "tr": "AGPL-3.0 / GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/element-hq/element-desktop/blob/HEAD/LICENSE-GPL-3.0",
+      "icon": { "monogram": "E", "color": "#0DBD8B" },
+      "tags": [ "matrix", "sohbet", "chat", "şifreli", "iletişim" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Element.Element", "publisher": "Element" },
+      "detection": {
+        "registry": [ { "displayName": "^Element$", "publisher": "^Element" } ]
+      },
+      "linux": {
+        "flatpak": "im.riot.Riot"
+      }
+    },
+    {
+      "id": "viber",
+      "name": "Viber",
+      "publisher": "Rakuten",
+      "category": "communication",
+      "summary": { "tr": "Ücretsiz mesajlaşma ve görüntülü arama uygulaması." },
+      "description": { "tr": "Viber'ın masaüstü uygulaması; telefondaki Viber hesabınla eşitlenen mesajlaşma, sesli ve görüntülü arama sunar." },
+      "homepage": "https://www.viber.com/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.viber.com/terms/viber-terms-use/",
+      "icon": { "monogram": "V", "color": "#7360F2" },
+      "tags": [ "mesaj", "sohbet", "arama", "görüntülü", "iletişim" ],
+      "elevation": "likely",
+      "winget": { "id": "Rakuten.Viber", "publisher": "Rakuten" },
+      "detection": {
+        "registry": [ { "displayName": "^Viber$", "publisher": "^(Rakuten|Viber)" } ]
+      },
+      "linux": {
+        "flatpak": "com.viber.Viber"
+      }
+    },
+    {
+      "id": "vlc",
+      "name": "VLC Media Player",
+      "publisher": "VideoLAN",
+      "category": "media",
+      "summary": { "tr": "Hemen her video ve ses biçimini oynatan oynatıcı." },
+      "description": { "tr": "Ek codec gerektirmeden neredeyse tüm video, ses, DVD ve akış biçimlerini oynatabilen açık kaynak medya oynatıcı." },
+      "homepage": "https://www.videolan.org/vlc/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://code.videolan.org/videolan/vlc/-/blob/HEAD/COPYING",
+      "icon": { "monogram": "VLC", "color": "#E57A00" },
+      "tags": [ "video", "müzik", "oynatıcı", "player", "medya", "film" ],
+      "elevation": "likely",
+      "winget": { "id": "VideoLAN.VLC", "publisher": "VideoLAN" },
+      "detection": {
+        "registry": [ { "displayName": "^VLC media player$", "publisher": "^VideoLAN$" } ]
+      },
+      "linux": {
+        "flatpak": "org.videolan.VLC",
+        "apt": [ "vlc" ],
+        "dnf": [ "vlc" ],
+        "pacman": [ "vlc" ]
+      }
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "publisher": "Spotify AB",
+      "category": "media",
+      "summary": { "tr": "Milyonlarca şarkı ve podcast için müzik uygulaması." },
+      "description": { "tr": "Spotify'ın resmi masaüstü uygulaması; müzik, podcast ve sesli kitap dinlemek için. Ücretsiz (reklamlı) veya Premium hesapla kullanılabilir. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.spotify.com/download/windows/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.spotify.com/legal/end-user-agreement/",
+      "icon": { "monogram": "S", "color": "#1DB954" },
+      "tags": [ "müzik", "music", "podcast", "şarkı", "dinle" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Spotify yönetici olarak kurulmayı reddeder; DeployNest'i yönetici olarak çalıştırma." },
+      "winget": { "id": "Spotify.Spotify", "publisher": "Spotify AB" },
+      "detection": {
+        "registry": [ { "displayName": "^Spotify$", "publisher": "^Spotify AB$" } ]
+      },
+      "linux": {
+        "flatpak": "com.spotify.Client"
+      }
+    },
+    {
+      "id": "mpc-hc",
+      "name": "MPC-HC",
+      "publisher": "MPC-HC Team",
+      "category": "media",
+      "summary": { "tr": "Hafif ve hızlı klasik video oynatıcı." },
+      "description": { "tr": "Media Player Classic - Home Cinema (clsid2 sürümü); düşük sistem kaynağı kullanan, altyazıları ve çoğu video biçimini yerleşik olarak destekleyen açık kaynak oynatıcı." },
+      "homepage": "https://github.com/clsid2/mpc-hc",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/clsid2/mpc-hc/blob/HEAD/COPYING.txt",
+      "icon": { "monogram": "MPC", "color": "#2B4B7C" },
+      "tags": [ "video", "oynatıcı", "player", "film", "altyazı", "medya" ],
+      "elevation": "likely",
+      "winget": { "id": "clsid2.mpc-hc", "publisher": "MPC-HC Team" },
+      "detection": {
+        "registry": [ { "displayName": "^MPC-HC [\\d.]+", "publisher": "^MPC-HC Team$" } ]
+      }
+    },
+    {
+      "id": "potplayer",
+      "name": "PotPlayer",
+      "publisher": "Kakao Corp.",
+      "category": "media",
+      "summary": { "tr": "Gelişmiş ayarlara sahip güçlü video oynatıcı." },
+      "description": { "tr": "Geniş codec desteği, donanım hızlandırma, 3D ve 360° video, ayrıntılı görüntü/ses ayarları ve gelişmiş altyazı seçenekleri sunan ücretsiz oynatıcı." },
+      "homepage": "https://potplayer.tv/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://potplayer.tv/publicRelation",
+      "icon": { "monogram": "P", "color": "#E8B019" },
+      "tags": [ "video", "oynatıcı", "player", "film", "altyazı", "medya" ],
+      "elevation": "likely",
+      "winget": { "id": "Daum.PotPlayer", "publisher": "Kakao Corp." },
+      "detection": {
+        "registry": [ { "displayName": "^PotPlayer(-64 bit)?$", "publisher": "^Kakao" } ]
+      }
+    },
+    {
+      "id": "k-lite-codec-pack",
+      "name": "K-Lite Codec Pack Standard",
+      "publisher": "KLCP",
+      "category": "media",
+      "summary": { "tr": "Windows için video ve ses codec paketi." },
+      "description": { "tr": "Windows'taki oynatıcıların neredeyse tüm video ve ses biçimlerini açabilmesi için gereken codec ve filtreleri MPC-HC oynatıcıyla birlikte kurar." },
+      "homepage": "https://codecguide.com/download_k-lite_codec_pack_standard.htm",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://codecguide.com/license_standard.rtf",
+      "icon": { "monogram": "KL", "color": "#D83A2E" },
+      "tags": [ "codec", "kodek", "video", "ses", "medya", "film" ],
+      "elevation": "likely",
+      "notes": { "tr": "VLC veya MPC-HC gibi kendi codec'leriyle gelen bir oynatıcı kullanıyorsan codec paketine genellikle gerek yoktur." },
+      "winget": { "id": "CodecGuide.K-LiteCodecPack.Standard", "publisher": "KLCP" },
+      "detection": {
+        "registry": [ { "displayName": "^K-Lite (Mega |Full |Standard |Basic )?Codec Pack", "publisher": "^KLCP$" } ]
+      }
+    },
+    {
+      "id": "foobar2000",
+      "name": "foobar2000",
+      "publisher": "Peter Pawlowski",
+      "category": "media",
+      "summary": { "tr": "Hafif ve özelleştirilebilir gelişmiş müzik çalar." },
+      "description": { "tr": "FLAC ve ALAC gibi kayıpsız biçimleri, ayrıntılı etiket düzenlemeyi, ReplayGain'i ve eklentileri destekleyen, düşük kaynak kullanan müzik çalar." },
+      "homepage": "https://www.foobar2000.org/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.foobar2000.org/license",
+      "icon": { "monogram": "fb", "color": "#3A3A3A" },
+      "tags": [ "müzik", "music", "çalar", "flac", "ses" ],
+      "elevation": "likely",
+      "winget": { "id": "PeterPawlowski.foobar2000", "publisher": "Peter Pawlowski" },
+      "detection": {
+        "registry": [ { "displayName": "^foobar2000", "publisher": "^Peter Pawlowski$" } ]
+      }
+    },
+    {
+      "id": "aimp",
+      "name": "AIMP",
+      "publisher": "Artem Izmaylov",
+      "category": "media",
+      "summary": { "tr": "Ses kalitesi yüksek, temalarla özelleştirilebilir müzik çalar." },
+      "description": { "tr": "Geniş biçim desteği, ekolayzer, çalma listesi yönetimi, internet radyosu ve ses dönüştürücü içeren ücretsiz müzik çalar." },
+      "homepage": "https://www.aimp.ru",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.aimp.ru/?do=eula&os=windows",
+      "icon": { "monogram": "A", "color": "#F6A01A" },
+      "tags": [ "müzik", "music", "çalar", "mp3", "radyo", "ses" ],
+      "elevation": "likely",
+      "winget": { "id": "AIMP.AIMP", "publisher": "Artem Izmaylov" },
+      "detection": {
+        "registry": [ { "displayName": "^AIMP$", "publisher": "^Artem Izmaylov$" } ]
+      }
+    },
+    {
+      "id": "itunes",
+      "name": "iTunes",
+      "publisher": "Apple Inc.",
+      "category": "media",
+      "summary": { "tr": "Apple'ın medya oynatıcısı ve iPhone yönetim aracı." },
+      "description": { "tr": "Müzik kütüphaneni yönetmek, iPhone ve iPad'i yedeklemek ve eşitlemek için Apple'ın Windows uygulaması." },
+      "homepage": "https://www.apple.com/itunes/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.apple.com/legal/sla/docs/iTunesWindows.pdf",
+      "icon": { "monogram": "iT", "color": "#FB5BC5" },
+      "tags": [ "apple", "iphone", "müzik", "yedekleme", "ipad" ],
+      "elevation": "likely",
+      "winget": { "id": "Apple.iTunes", "publisher": "Apple Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^iTunes$", "publisher": "^Apple Inc\\.$" } ]
+      }
+    },
+    {
+      "id": "stremio",
+      "name": "Stremio",
+      "publisher": "Smart Code Ltd",
+      "category": "media",
+      "summary": { "tr": "Film, dizi ve canlı yayın için medya merkezi." },
+      "description": { "tr": "Eklentiler aracılığıyla farklı kaynaklardaki film, dizi ve kanalları tek bir arayüzde düzenleyen medya merkezi uygulaması. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.stremio.com/",
+      "license": { "tr": "GPL (açık kaynak)" },
+      "licenseUrl": "https://raw.githubusercontent.com/Stremio/stremio-shell/master/LICENSE.md",
+      "icon": { "monogram": "St", "color": "#7B5BF5" },
+      "tags": [ "film", "dizi", "video", "medya", "yayın" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Stremio.Stremio", "publisher": "Smart Code Ltd" },
+      "detection": {
+        "registry": [ { "displayName": "^Stremio$", "publisher": "^Smart Code" } ]
+      },
+      "linux": {
+        "flatpak": "com.stremio.Stremio"
+      }
+    },
+    {
+      "id": "mpv",
+      "name": "mpv",
+      "publisher": "mpv contributors",
+      "category": "media",
+      "summary": { "tr": "Sade arayüzlü, güçlü ve hafif video oynatıcı." },
+      "description": { "tr": "Neredeyse tüm video ve ses biçimlerini oynatan, donanım hızlandırmalı, klavye ve betiklerle yönetilen açık kaynak oynatıcı." },
+      "homepage": "https://mpv.io/",
+      "license": { "tr": "GPL-2.0+ (açık kaynak)" },
+      "licenseUrl": "https://github.com/mpv-player/mpv/blob/master/Copyright",
+      "icon": { "monogram": "mpv", "color": "#691F69" },
+      "tags": [ "video", "oynatıcı", "player", "film", "medya" ],
+      "linux": {
+        "flatpak": "io.mpv.Mpv",
+        "apt": [ "mpv" ],
+        "dnf": [ "mpv" ],
+        "pacman": [ "mpv" ]
+      }
+    },
+    {
+      "id": "multimedia-codecs",
+      "name": "Ubuntu Kısıtlı Ekstralar",
+      "publisher": "Canonical",
+      "category": "media",
+      "summary": { "tr": "MP3, H.264 codec'leri ve Microsoft yazı tipleri (Ubuntu)." },
+      "description": { "tr": "Ubuntu'da yasal kısıtlar nedeniyle varsayılan gelmeyen MP3/AAC/H.264 gibi codec'leri, Microsoft temel yazı tiplerini ve unrar aracını kuran meta paket." },
+      "homepage": "https://packages.ubuntu.com/ubuntu-restricted-extras",
+      "license": { "tr": "Çeşitli (bazıları tescilli)" },
+      "icon": { "monogram": "MM", "color": "#E95420" },
+      "tags": [ "codec", "kodek", "mp3", "font", "yazı tipi", "ubuntu" ],
+      "linux": {
+        "apt": [ "ubuntu-restricted-extras" ],
+        "notes": { "tr": "Yalnızca Ubuntu ve türevlerinde (Linux Mint, Pop!_OS vb.) bulunur. Microsoft yazı tiplerinin lisansını onaylaman istenebilir." }
+      }
+    },
+    {
+      "id": "obs-studio",
+      "name": "OBS Studio",
+      "publisher": "OBS Project",
+      "category": "creative",
+      "summary": { "tr": "Ekran kaydı ve canlı yayın yazılımı." },
+      "description": { "tr": "Ekran kaydı, oyun kaydı ve Twitch/YouTube gibi platformlarda canlı yayın için açık kaynak yazılım. Sahne, kaynak ve geçiş desteği sunar." },
+      "homepage": "https://obsproject.com/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/obsproject/obs-studio/blob/HEAD/COPYING",
+      "icon": { "monogram": "OBS", "color": "#3A3A44" },
+      "tags": [ "kayıt", "yayın", "stream", "ekran kaydı", "recording" ],
+      "elevation": "likely",
+      "winget": { "id": "OBSProject.OBSStudio", "publisher": "OBS Project" },
+      "detection": {
+        "registry": [ { "displayName": "^OBS Studio$", "publisher": "^OBS Project$" } ]
+      },
+      "linux": {
+        "flatpak": "com.obsproject.Studio",
+        "apt": [ "obs-studio" ],
+        "dnf": [ "obs-studio" ],
+        "pacman": [ "obs-studio" ]
+      }
+    },
+    {
+      "id": "audacity",
+      "name": "Audacity",
+      "publisher": "Audacity",
+      "category": "creative",
+      "summary": { "tr": "Ücretsiz ses kaydı ve düzenleme programı." },
+      "description": { "tr": "Ses kaydetme, kesme, birleştirme, gürültü azaltma ve efekt uygulama için açık kaynak ses düzenleyici." },
+      "homepage": "https://www.audacityteam.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/audacity/audacity/blob/HEAD/LICENSE.txt",
+      "icon": { "monogram": "A", "color": "#1F5FBF" },
+      "tags": [ "ses", "kayıt", "audio", "podcast", "müzik", "düzenleme" ],
+      "elevation": "likely",
+      "winget": { "id": "Audacity.Audacity", "publisher": "Audacity" },
+      "detection": {
+        "registry": [ { "displayName": "^Audacity( \\d|$)", "publisher": "^Audacity( Team)?$" } ]
+      },
+      "linux": {
+        "flatpak": "org.audacityteam.Audacity",
+        "apt": [ "audacity" ],
+        "dnf": [ "audacity" ],
+        "pacman": [ "audacity" ]
+      }
+    },
+    {
+      "id": "gimp",
+      "name": "GIMP",
+      "publisher": "The GIMP Team",
+      "category": "creative",
+      "summary": { "tr": "Ücretsiz ve güçlü fotoğraf düzenleme programı." },
+      "description": { "tr": "Katmanlar, maskeler, filtreler ve eklentilerle fotoğraf rötuşu, görüntü düzenleme ve dijital çizim için açık kaynak program. Photoshop'a popüler bir alternatiftir." },
+      "homepage": "https://www.gimp.org/downloads/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://www.gimp.org/about/COPYING",
+      "icon": { "monogram": "GIMP", "color": "#5C5543" },
+      "tags": [ "fotoğraf", "resim", "düzenleme", "photoshop", "grafik", "rötuş" ],
+      "elevation": "unknown",
+      "winget": { "id": "GIMP.GIMP.3", "publisher": "The GIMP Team" },
+      "detection": {
+        "registry": [ { "displayName": "^GIMP 3[\\d.\\-]*$", "publisher": "^The GIMP Team$" } ]
+      },
+      "linux": {
+        "flatpak": "org.gimp.GIMP",
+        "apt": [ "gimp" ],
+        "dnf": [ "gimp" ],
+        "pacman": [ "gimp" ]
+      }
+    },
+    {
+      "id": "krita",
+      "name": "Krita",
+      "publisher": "Krita Foundation",
+      "category": "creative",
+      "summary": { "tr": "Dijital resim ve illüstrasyon için profesyonel çizim programı." },
+      "description": { "tr": "Sanatçılar tarafından geliştirilen; zengin fırça motorları, katmanlar ve animasyon desteği sunan açık kaynak dijital boyama programı. Çizim tabletleriyle uyumludur." },
+      "homepage": "https://krita.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://krita.org/en/about/license/",
+      "icon": { "monogram": "Kr", "color": "#3BABFF" },
+      "tags": [ "çizim", "resim", "illüstrasyon", "tablet", "boyama", "grafik" ],
+      "elevation": "likely",
+      "winget": { "id": "KDE.Krita", "publisher": "Krita Foundation" },
+      "detection": {
+        "registry": [ { "displayName": "^Krita", "publisher": "^Krita Foundation$" } ]
+      },
+      "linux": {
+        "flatpak": "org.kde.krita",
+        "apt": [ "krita" ],
+        "dnf": [ "krita" ],
+        "pacman": [ "krita" ]
+      }
+    },
+    {
+      "id": "inkscape",
+      "name": "Inkscape",
+      "publisher": "Inkscape",
+      "category": "creative",
+      "summary": { "tr": "Vektör grafik ve logo tasarım programı." },
+      "description": { "tr": "SVG tabanlı; logo, ikon, diyagram ve baskı tasarımı için açık kaynak vektör çizim programı. Illustrator'a ücretsiz bir alternatiftir." },
+      "homepage": "https://inkscape.org/release/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://inkscape.org/about/license/",
+      "icon": { "monogram": "Ink", "color": "#2A2A2A" },
+      "tags": [ "vektör", "svg", "logo", "tasarım", "illustrator", "grafik" ],
+      "elevation": "likely",
+      "winget": { "id": "Inkscape.Inkscape", "publisher": "Inkscape" },
+      "detection": {
+        "registry": [ { "displayName": "^Inkscape$", "publisher": "^Inkscape$" } ]
+      },
+      "linux": {
+        "flatpak": "org.inkscape.Inkscape",
+        "apt": [ "inkscape" ],
+        "dnf": [ "inkscape" ],
+        "pacman": [ "inkscape" ]
+      }
+    },
+    {
+      "id": "paint-net",
+      "name": "Paint.NET",
+      "publisher": "dotPDN LLC",
+      "category": "creative",
+      "summary": { "tr": "Kullanımı kolay, hızlı görüntü düzenleyici." },
+      "description": { "tr": "Katmanlar, sınırsız geri alma, efektler ve eklenti desteği sunan, Windows için ücretsiz ve hafif fotoğraf düzenleme programı." },
+      "homepage": "https://getpaint.net/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://getpaint.net/license.html",
+      "icon": { "monogram": "PDN", "color": "#2D7FD3" },
+      "tags": [ "fotoğraf", "resim", "düzenleme", "paint", "grafik" ],
+      "elevation": "likely",
+      "winget": { "id": "dotPDN.PaintDotNet", "publisher": "dotPDN LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^paint\\.net$", "publisher": "^dotPDN LLC$" } ]
+      }
+    },
+    {
+      "id": "pinta",
+      "name": "Pinta",
+      "publisher": "Pinta Project",
+      "category": "creative",
+      "summary": { "tr": "Paint.NET benzeri basit görüntü düzenleyici." },
+      "description": { "tr": "Katmanlar, sınırsız geri alma ve temel efektler sunan, Paint.NET'ten esinlenmiş açık kaynak çizim ve görüntü düzenleme programı." },
+      "homepage": "https://www.pinta-project.com/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/PintaProject/Pinta/blob/master/license-mit.txt",
+      "icon": { "monogram": "Pi", "color": "#6B9BD2" },
+      "tags": [ "resim", "çizim", "düzenleme", "paint", "grafik" ],
+      "linux": {
+        "flatpak": "com.github.PintaProject.Pinta",
+        "dnf": [ "pinta" ],
+        "pacman": [ "pinta" ]
+      }
+    },
+    {
+      "id": "blender",
+      "name": "Blender",
+      "publisher": "Blender Foundation",
+      "category": "creative",
+      "summary": { "tr": "3B modelleme, animasyon ve görüntü oluşturma paketi." },
+      "description": { "tr": "Modelleme, heykel, doku, animasyon, simülasyon, render ve video kurgu araçlarını bir arada sunan açık kaynak 3B içerik üretim paketi." },
+      "homepage": "https://www.blender.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://www.blender.org/about/license/",
+      "icon": { "monogram": "Bl", "color": "#E87D0D" },
+      "tags": [ "3d", "3b", "modelleme", "animasyon", "render", "tasarım" ],
+      "elevation": "likely",
+      "winget": { "id": "BlenderFoundation.Blender", "publisher": "Blender Foundation" },
+      "detection": {
+        "registry": [ { "displayName": "^blender$", "publisher": "^Blender Foundation$" } ]
+      },
+      "linux": {
+        "flatpak": "org.blender.Blender",
+        "apt": [ "blender" ],
+        "dnf": [ "blender" ],
+        "pacman": [ "blender" ]
+      }
+    },
+    {
+      "id": "darktable",
+      "name": "darktable",
+      "publisher": "darktable team",
+      "category": "creative",
+      "summary": { "tr": "RAW fotoğraf işleme ve arşivleme programı." },
+      "description": { "tr": "Fotoğrafçılar için RAW dosyalarını tahribatsız düzenlemeye ve fotoğraf arşivini yönetmeye yarayan açık kaynak program; Lightroom'a alternatiftir." },
+      "homepage": "https://www.darktable.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/darktable-org/darktable/blob/HEAD/LICENSE",
+      "icon": { "monogram": "dt", "color": "#4F4F4F" },
+      "tags": [ "fotoğraf", "raw", "lightroom", "düzenleme", "kamera" ],
+      "elevation": "unknown",
+      "winget": { "id": "darktable.darktable", "publisher": "darktable team" },
+      "detection": {
+        "registry": [ { "displayName": "^darktable", "publisher": "^darktable" } ]
+      },
+      "linux": {
+        "flatpak": "org.darktable.Darktable",
+        "apt": [ "darktable" ],
+        "dnf": [ "darktable" ],
+        "pacman": [ "darktable" ]
+      }
+    },
+    {
+      "id": "irfanview",
+      "name": "IrfanView",
+      "publisher": "Irfan Skiljan",
+      "category": "creative",
+      "summary": { "tr": "Çok hızlı ve hafif resim görüntüleyici." },
+      "description": { "tr": "Neredeyse tüm resim biçimlerini açabilen; toplu yeniden adlandırma, dönüştürme ve basit düzenleme araçları sunan klasik görüntüleyici. Kişisel ve ticari olmayan kullanım için ücretsizdir." },
+      "homepage": "https://www.irfanview.com/",
+      "license": { "tr": "Ücretsiz (kişisel kullanım)" },
+      "licenseUrl": "https://www.irfanview.com/eula.htm",
+      "icon": { "monogram": "IV", "color": "#D62828" },
+      "tags": [ "resim", "fotoğraf", "görüntüleyici", "viewer", "dönüştürme" ],
+      "elevation": "likely",
+      "winget": { "id": "IrfanSkiljan.IrfanView", "publisher": "Irfan Skiljan" },
+      "detection": {
+        "registry": [ { "displayName": "^IrfanView [\\d.]+", "publisher": "^Irfan Skiljan$" } ]
+      }
+    },
+    {
+      "id": "imageglass",
+      "name": "ImageGlass",
+      "publisher": "Duong Dieu Phap",
+      "category": "creative",
+      "summary": { "tr": "Modern ve hafif resim görüntüleyici." },
+      "description": { "tr": "WebP, AVIF, HEIC, SVG ve RAW dahil 90'dan fazla biçimi destekleyen, Windows 11 tasarımına uygun açık kaynak resim görüntüleyici." },
+      "homepage": "https://imageglass.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://imageglass.org/license",
+      "icon": { "monogram": "IG", "color": "#00A2FF" },
+      "tags": [ "resim", "fotoğraf", "görüntüleyici", "viewer", "webp", "heic" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "MSIX paketi olduğu için kayıt defterinde görünmez; kurulu olup olmadığı yalnızca winget ile doğrulanabilir." },
+      "winget": { "id": "DuongDieuPhap.ImageGlass", "publisher": "Duong Dieu Phap" }
+    },
+    {
+      "id": "shotcut",
+      "name": "Shotcut",
+      "publisher": "Meltytech",
+      "category": "creative",
+      "summary": { "tr": "Ücretsiz ve açık kaynak video düzenleyici." },
+      "description": { "tr": "Geniş biçim desteği, zaman çizelgesi kurgusu, filtreler ve 4K desteği sunan, platformlar arası açık kaynak video düzenleme programı." },
+      "homepage": "https://shotcut.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/mltframework/shotcut/blob/HEAD/COPYING",
+      "icon": { "monogram": "Sc", "color": "#1F6FB2" },
+      "tags": [ "video", "kurgu", "montaj", "düzenleme", "editor" ],
+      "elevation": "likely",
+      "winget": { "id": "Meltytech.Shotcut", "publisher": "Meltytech" },
+      "detection": {
+        "registry": [ { "displayName": "^Shotcut$", "publisher": "^Meltytech" } ]
+      },
+      "linux": {
+        "flatpak": "org.shotcut.Shotcut",
+        "apt": [ "shotcut" ],
+        "dnf": [ "shotcut" ],
+        "pacman": [ "shotcut" ]
+      }
+    },
+    {
+      "id": "kdenlive",
+      "name": "Kdenlive",
+      "publisher": "KDE e.V.",
+      "category": "creative",
+      "summary": { "tr": "Çok izli, profesyonel açık kaynak video kurgu programı." },
+      "description": { "tr": "KDE topluluğunun çoklu iz zaman çizelgesi, efektler, geçişler, renk düzeltme ve vekil (proxy) kurgu desteği sunan video düzenleyicisi." },
+      "homepage": "https://kdenlive.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://invent.kde.org/multimedia/kdenlive/-/blob/HEAD/COPYING",
+      "icon": { "monogram": "Kd", "color": "#527EB2" },
+      "tags": [ "video", "kurgu", "montaj", "düzenleme", "editor", "kde" ],
+      "elevation": "unknown",
+      "winget": { "id": "KDE.Kdenlive", "publisher": "KDE e.V." },
+      "detection": {
+        "registry": [ { "displayName": "^Kdenlive$", "publisher": "^KDE" } ]
+      },
+      "linux": {
+        "flatpak": "org.kde.kdenlive",
+        "apt": [ "kdenlive" ],
+        "dnf": [ "kdenlive" ],
+        "pacman": [ "kdenlive" ]
+      }
+    },
+    {
+      "id": "handbrake",
+      "name": "HandBrake",
+      "publisher": "The HandBrake Team",
+      "category": "creative",
+      "summary": { "tr": "Video dönüştürme ve sıkıştırma aracı." },
+      "description": { "tr": "Videoları MP4, MKV ve WebM biçimlerine dönüştüren, cihaz ön ayarları sunan açık kaynak video kodlayıcı. Büyük video dosyalarını küçültmek için idealdir." },
+      "homepage": "https://handbrake.fr/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/HandBrake/HandBrake/blob/HEAD/LICENSE",
+      "icon": { "monogram": "HB", "color": "#E4302B" },
+      "tags": [ "video", "dönüştürme", "sıkıştırma", "mp4", "mkv", "converter" ],
+      "elevation": "likely",
+      "notes": { "tr": "HandBrake .NET 10 Masaüstü Çalışma Zamanı'na ihtiyaç duyar; winget gerekirse bunu bağımlılık olarak kurar." },
+      "winget": { "id": "HandBrake.HandBrake", "publisher": "The HandBrake Team" },
+      "detection": {
+        "registry": [ { "displayName": "^HandBrake [\\d.]+$", "publisher": "^The HandBrake Team$" } ]
+      },
+      "linux": {
+        "flatpak": "fr.handbrake.ghb",
+        "apt": [ "handbrake" ],
+        "pacman": [ "handbrake" ]
+      }
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "publisher": "Figma, Inc.",
+      "category": "creative",
+      "summary": { "tr": "Arayüz ve ürün tasarımı için iş birliği aracı." },
+      "description": { "tr": "Arayüz tasarımı, prototipleme ve ekipçe eş zamanlı çalışma için Figma'nın masaüstü uygulaması. Figma hesabı gerekir; ücretsiz planı vardır." },
+      "homepage": "https://www.figma.com/downloads/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.figma.com/tos/",
+      "icon": { "monogram": "F", "color": "#A259FF" },
+      "tags": [ "tasarım", "ui", "ux", "arayüz", "prototip", "design" ],
+      "elevation": "unknown",
+      "winget": { "id": "Figma.Figma", "publisher": "Figma, Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Figma$", "publisher": "^Figma" } ]
+      }
+    },
+    {
+      "id": "libreoffice",
+      "name": "LibreOffice",
+      "publisher": "The Document Foundation",
+      "category": "office",
+      "summary": { "tr": "Ücretsiz ve açık kaynak ofis paketi." },
+      "description": { "tr": "Kelime işlemci (Writer), hesap tablosu (Calc), sunum (Impress) ve daha fazlasını içeren ofis paketi. Microsoft Office belgelerini açıp düzenleyebilir." },
+      "homepage": "https://www.libreoffice.org/",
+      "license": { "tr": "MPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://www.libreoffice.org/licenses/",
+      "icon": { "monogram": "LO", "color": "#18A303" },
+      "tags": [ "ofis", "office", "word", "excel", "belge", "sunum" ],
+      "elevation": "likely",
+      "notes": { "tr": "winget, LibreOffice'in ihtiyaç duyduğu Microsoft Visual C++ çalışma zamanını bağımlılık olarak ayrıca kurabilir. İndirme boyutu büyüktür (yaklaşık 350 MB ve üzeri)." },
+      "winget": { "id": "TheDocumentFoundation.LibreOffice", "publisher": "The Document Foundation" },
+      "detection": {
+        "registry": [ { "displayName": "^LibreOffice \\d", "publisher": "^The Document Foundation$" } ]
+      },
+      "linux": {
+        "flatpak": "org.libreoffice.LibreOffice",
+        "apt": [ "libreoffice" ],
+        "dnf": [ "libreoffice" ],
+        "pacman": [ "libreoffice-fresh" ]
+      }
+    },
+    {
+      "id": "sumatrapdf",
+      "name": "SumatraPDF",
+      "publisher": "Krzysztof Kowalczyk",
+      "category": "office",
+      "summary": { "tr": "Hafif ve hızlı PDF, EPUB ve çizgi roman okuyucu." },
+      "description": { "tr": "PDF, EPUB, MOBI, XPS, DjVu ve CBZ/CBR dosyalarını açabilen, çok hafif açık kaynak belge okuyucu." },
+      "homepage": "https://www.sumatrapdfreader.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/sumatrapdfreader/sumatrapdf/blob/master/COPYING",
+      "icon": { "monogram": "S", "color": "#B8860B" },
+      "tags": [ "pdf", "okuyucu", "reader", "epub", "belge", "e-kitap" ],
+      "elevation": "unknown",
+      "winget": { "id": "SumatraPDF.SumatraPDF", "publisher": "Krzysztof Kowalczyk" },
+      "detection": {
+        "registry": [ { "displayName": "^SumatraPDF$", "publisher": "^Krzysztof Kowalczyk$" } ]
+      }
+    },
+    {
+      "id": "onlyoffice",
+      "name": "ONLYOFFICE Desktop Editors",
+      "publisher": "Ascensio System SIA",
+      "category": "office",
+      "summary": { "tr": "Microsoft Office biçimleriyle yüksek uyumlu ofis paketi." },
+      "description": { "tr": "Belge, hesap tablosu, sunum ve PDF düzenleyicilerini tek uygulamada sunan açık kaynak ofis paketi. DOCX, XLSX ve PPTX dosyalarıyla uyumluluğu yüksektir." },
+      "homepage": "https://www.onlyoffice.com/en/desktop.aspx",
+      "license": { "tr": "AGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/ONLYOFFICE/DesktopEditors/blob/HEAD/LICENSE",
+      "icon": { "monogram": "OO", "color": "#FF6F3D" },
+      "tags": [ "ofis", "office", "word", "excel", "powerpoint", "belge" ],
+      "elevation": "likely",
+      "winget": { "id": "ONLYOFFICE.DesktopEditors", "publisher": "Ascensio System SIA" },
+      "detection": {
+        "registry": [ { "displayName": "^ONLYOFFICE [\\d.]+ \\((x64|x86|arm64)\\)$", "publisher": "^Ascensio System SIA$" } ]
+      },
+      "linux": {
+        "flatpak": "org.onlyoffice.desktopeditors"
+      }
+    },
+    {
+      "id": "microsoft-365",
+      "name": "Microsoft 365 (Office)",
+      "publisher": "Microsoft Corporation",
+      "category": "office",
+      "summary": { "tr": "Word, Excel, PowerPoint ve Outlook (abonelik gerekir)." },
+      "description": { "tr": "Microsoft'un Word, Excel, PowerPoint, Outlook, OneNote ve Access uygulamalarını içeren ofis paketi. Kullanmak için Microsoft 365 aboneliği veya geçerli bir kurumsal lisans gerekir." },
+      "homepage": "https://www.office.com/",
+      "license": { "tr": "Ücretli abonelik (tescilli)" },
+      "licenseUrl": "https://docs.microsoft.com/legal/termsofuse",
+      "icon": { "monogram": "365", "color": "#D83B01" },
+      "tags": [ "ofis", "office", "word", "excel", "powerpoint", "outlook", "microsoft" ],
+      "elevation": "likely",
+      "notes": { "tr": "Abonelik veya lisans olmadan uygulamalar salt okunur modda açılır. İndirme boyutu büyüktür (yaklaşık 3 GB)." },
+      "winget": { "id": "Microsoft.Office", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft 365( Apps for [a-z]+)? - [a-z]{2}-[a-z]{2}$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "adobe-acrobat-reader",
+      "name": "Adobe Acrobat Reader",
+      "publisher": "Adobe",
+      "category": "office",
+      "summary": { "tr": "PDF görüntüleme, yazdırma ve yorum ekleme için standart araç." },
+      "description": { "tr": "Adobe'nin ücretsiz PDF okuyucusu; PDF'leri açma, yazdırma, form doldurma, imzalama ve yorum ekleme özellikleri sunar." },
+      "homepage": "https://www.adobe.com/acrobat/pdf-reader.html",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.adobe.com/legal/terms.html",
+      "icon": { "monogram": "A", "color": "#EC1C24" },
+      "tags": [ "pdf", "okuyucu", "reader", "belge", "adobe", "imza" ],
+      "elevation": "likely",
+      "winget": { "id": "Adobe.Acrobat.Reader.64-bit", "publisher": "Adobe" },
+      "detection": {
+        "registry": [ { "displayName": "^Adobe Acrobat( Reader)?( DC)?( \\(64-bit\\))?$", "publisher": "^Adobe" } ]
+      }
+    },
+    {
+      "id": "foxit-pdf-reader",
+      "name": "Foxit PDF Reader",
+      "publisher": "Foxit Software Inc.",
+      "category": "office",
+      "summary": { "tr": "Hızlı ve özellikli PDF okuyucu." },
+      "description": { "tr": "PDF görüntüleme, açıklama ekleme, form doldurma ve imzalama özellikleri sunan, Adobe Reader'a hafif bir alternatif." },
+      "homepage": "https://www.foxitsoftware.com/pdf-reader/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.foxit.com/pdf-editor/eula.html",
+      "icon": { "monogram": "F", "color": "#E9541E" },
+      "tags": [ "pdf", "okuyucu", "reader", "belge" ],
+      "elevation": "likely",
+      "winget": { "id": "Foxit.FoxitReader", "publisher": "Foxit Software Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Foxit PDF Reader$", "publisher": "^Foxit Software" } ]
+      }
+    },
+    {
+      "id": "pdf24-creator",
+      "name": "PDF24 Creator",
+      "publisher": "geek software GmbH",
+      "category": "office",
+      "summary": { "tr": "PDF birleştirme, sıkıştırma ve dönüştürme araç kutusu." },
+      "description": { "tr": "PDF dosyalarını birleştirme, bölme, sıkıştırma, dönüştürme, metin tanıma (OCR) ve sanal PDF yazıcı özelliklerini çevrimdışı sunan ücretsiz araç kutusu." },
+      "homepage": "https://www.pdf24.org/en/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.pdf24.org/en/terms-of-use",
+      "icon": { "monogram": "24", "color": "#E3001B" },
+      "tags": [ "pdf", "birleştir", "sıkıştır", "dönüştür", "ocr", "yazıcı" ],
+      "elevation": "likely",
+      "winget": { "id": "geeksoftwareGmbH.PDF24Creator", "publisher": "geek software GmbH" },
+      "detection": {
+        "registry": [ { "displayName": "^PDF24 Creator", "publisher": "^(PDF24\\.org|geek Software GmbH)$" } ]
+      }
+    },
+    {
+      "id": "notion",
+      "name": "Notion",
+      "publisher": "Notion Labs, Inc",
+      "category": "office",
+      "summary": { "tr": "Not, belge ve proje yönetimi için çalışma alanı." },
+      "description": { "tr": "Notlar, belgeler, veritabanları, görev listeleri ve wiki sayfalarını tek bir çalışma alanında birleştiren uygulama. Notion hesabı gerekir; kullanıcı hesabına kurulur." },
+      "homepage": "https://www.notion.com/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.notion.so/Terms-Conditions-4e1c5dd3e3de45dfa4a8ed60f1a43da0",
+      "icon": { "monogram": "N", "color": "#191919" },
+      "tags": [ "not", "notes", "proje", "görev", "wiki", "verimlilik" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Notion.Notion", "publisher": "Notion Labs, Inc" },
+      "detection": {
+        "registry": [ { "displayName": "^Notion( [\\d.]+)?$", "publisher": "^Notion Labs" } ]
+      }
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "publisher": "Obsidian",
+      "category": "office",
+      "summary": { "tr": "Markdown tabanlı, bağlantılı not alma uygulaması." },
+      "description": { "tr": "Notları bilgisayarındaki düz Markdown dosyalarında saklayan; notlar arası bağlantılar, grafik görünümü ve binlerce topluluk eklentisi sunan bilgi yönetimi uygulaması." },
+      "homepage": "https://obsidian.md/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://obsidian.md/terms",
+      "icon": { "monogram": "Ob", "color": "#7C3AED" },
+      "tags": [ "not", "notes", "markdown", "bilgi", "günlük" ],
+      "elevation": "unknown",
+      "winget": { "id": "Obsidian.Obsidian", "publisher": "Obsidian" },
+      "detection": {
+        "registry": [ { "displayName": "^Obsidian( [\\d.]+)?$", "publisher": "^Obsidian$" } ]
+      },
+      "linux": {
+        "flatpak": "md.obsidian.Obsidian"
+      }
+    },
+    {
+      "id": "joplin",
+      "name": "Joplin",
+      "publisher": "Laurent Cozic",
+      "category": "office",
+      "summary": { "tr": "Açık kaynak, şifreli eşitlemeli not uygulaması." },
+      "description": { "tr": "Markdown notlarını ve yapılacaklar listelerini defterlerde düzenleyen; Nextcloud, Dropbox, OneDrive veya Joplin Cloud ile uçtan uca şifreli eşitleme yapabilen not uygulaması." },
+      "homepage": "https://joplinapp.org/",
+      "license": { "tr": "AGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/laurent22/joplin/blob/HEAD/LICENSE",
+      "icon": { "monogram": "J", "color": "#1071D3" },
+      "tags": [ "not", "notes", "markdown", "yapılacaklar", "evernote" ],
+      "elevation": "unknown",
+      "winget": { "id": "Joplin.Joplin", "publisher": "Laurent Cozic" },
+      "detection": {
+        "registry": [ { "displayName": "^Joplin( [\\d.]+)?$", "publisher": "^Laurent Cozic$" } ]
+      },
+      "linux": {
+        "flatpak": "net.cozic.joplin_desktop"
+      }
+    },
+    {
+      "id": "zotero",
+      "name": "Zotero",
+      "publisher": "Corporation for Digital Scholarship",
+      "category": "office",
+      "summary": { "tr": "Kaynakça ve akademik makale yöneticisi." },
+      "description": { "tr": "Akademik kaynakları toplamak, düzenlemek, PDF'lere not almak ve Word ile LibreOffice'te otomatik kaynakça oluşturmak için ücretsiz araç. Öğrenciler ve araştırmacılar için idealdir." },
+      "homepage": "https://www.zotero.org/",
+      "license": { "tr": "AGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://www.zotero.org/support/licensing",
+      "icon": { "monogram": "Z", "color": "#CC2936" },
+      "tags": [ "kaynakça", "akademik", "tez", "makale", "öğrenci", "atıf" ],
+      "elevation": "likely",
+      "winget": { "id": "DigitalScholar.Zotero", "publisher": "Corporation for Digital Scholarship" },
+      "detection": {
+        "registry": [ { "displayName": "^Zotero( [\\d.]+.*)?$", "publisher": "^Corporation for Digital Scholarship$" } ]
+      },
+      "linux": {
+        "flatpak": "org.zotero.Zotero"
+      }
+    },
+    {
+      "id": "calibre",
+      "name": "calibre",
+      "publisher": "Kovid Goyal",
+      "category": "office",
+      "summary": { "tr": "E-kitap kütüphanesi yöneticisi ve dönüştürücü." },
+      "description": { "tr": "E-kitap koleksiyonunu düzenleyen; EPUB, MOBI, AZW3 ve PDF gibi biçimler arasında dönüştürme yapan ve e-kitap okuyucularıyla eşitleyen açık kaynak program." },
+      "homepage": "https://calibre-ebook.com/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/kovidgoyal/calibre/blob/HEAD/LICENSE",
+      "icon": { "monogram": "cal", "color": "#6E4B2A" },
+      "tags": [ "e-kitap", "ebook", "epub", "kindle", "kitap" ],
+      "elevation": "likely",
+      "winget": { "id": "calibre.calibre", "publisher": "Kovid Goyal" },
+      "detection": {
+        "registry": [ { "displayName": "^calibre( 64bit)?$", "publisher": "^Kovid Goyal$" } ]
+      },
+      "linux": {
+        "flatpak": "com.calibre_ebook.calibre",
+        "apt": [ "calibre" ],
+        "dnf": [ "calibre" ],
+        "pacman": [ "calibre" ]
+      }
+    },
+    {
+      "id": "anki",
+      "name": "Anki",
+      "publisher": "Anki",
+      "category": "office",
+      "summary": { "tr": "Aralıklı tekrar yöntemiyle akıllı bilgi kartları." },
+      "description": { "tr": "Kelime, sınav konuları ve her türlü bilgiyi aralıklı tekrar algoritmasıyla kalıcı olarak öğrenmeni sağlayan açık kaynak bilgi kartı (flashcard) uygulaması." },
+      "homepage": "https://apps.ankiweb.net/",
+      "license": { "tr": "AGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/ankitects/anki/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Ak", "color": "#3A7BD5" },
+      "tags": [ "öğrenme", "ders", "kelime", "flashcard", "öğrenci", "sınav" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Anki.Anki", "publisher": "Anki" },
+      "detection": {
+        "registry": [ { "displayName": "^Anki$", "publisher": "^Damien Elmes$" } ]
+      },
+      "linux": {
+        "flatpak": "net.ankiweb.Anki"
+      }
+    },
+    {
+      "id": "google-drive",
+      "name": "Google Drive",
+      "publisher": "Google LLC",
+      "category": "cloud",
+      "summary": { "tr": "Google Drive dosyalarını bilgisayarınla eşitle." },
+      "description": { "tr": "Google Drive'daki dosyalarını Dosya Gezgini'nde bir sürücü olarak gösteren ve yedeklemek istediğin klasörleri buluta eşitleyen resmi masaüstü uygulaması." },
+      "homepage": "https://workspace.google.com/products/drive/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.google.com/drive/terms-of-service/",
+      "icon": { "monogram": "GD", "color": "#1FA463" },
+      "tags": [ "bulut", "cloud", "yedekleme", "eşitleme", "google", "depolama" ],
+      "elevation": "likely",
+      "winget": { "id": "Google.GoogleDrive", "publisher": "Google LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^Google Drive$", "publisher": "^Google LLC$" } ]
+      }
+    },
+    {
+      "id": "dropbox",
+      "name": "Dropbox",
+      "publisher": "Dropbox, Inc.",
+      "category": "cloud",
+      "summary": { "tr": "Bulut depolama ve dosya eşitleme." },
+      "description": { "tr": "Dosyalarını Dropbox bulutuyla eşitleyen; cihazlar arasında paylaşmanı ve sürüm geçmişine ulaşmanı sağlayan masaüstü uygulaması." },
+      "homepage": "https://www.dropbox.com/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.dropbox.com/terms",
+      "icon": { "monogram": "Db", "color": "#0061FF" },
+      "tags": [ "bulut", "cloud", "yedekleme", "eşitleme", "depolama" ],
+      "elevation": "likely",
+      "winget": { "id": "Dropbox.Dropbox", "publisher": "Dropbox, Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Dropbox$", "publisher": "^Dropbox, Inc\\.$" } ]
+      },
+      "linux": {
+        "flatpak": "com.dropbox.Client"
+      }
+    },
+    {
+      "id": "onedrive",
+      "name": "Microsoft OneDrive",
+      "publisher": "Microsoft Corporation",
+      "category": "cloud",
+      "summary": { "tr": "Microsoft hesabınla bulut depolama ve eşitleme." },
+      "description": { "tr": "Microsoft'un bulut depolama hizmeti için eşitleme uygulaması. Windows 10 ve 11'de genellikle önceden yüklü gelir ve kendi kendini günceller." },
+      "homepage": "https://www.microsoft.com/microsoft-365/onedrive/download",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.microsoft.com/legal/terms-of-use",
+      "icon": { "monogram": "OD", "color": "#0364B8" },
+      "tags": [ "bulut", "cloud", "yedekleme", "eşitleme", "microsoft" ],
+      "elevation": "unknown",
+      "notes": { "tr": "OneDrive çoğu Windows bilgisayarda zaten kuruludur." },
+      "winget": { "id": "Microsoft.OneDrive", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft OneDrive$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "mega",
+      "name": "MEGA",
+      "publisher": "Mega Limited",
+      "category": "cloud",
+      "summary": { "tr": "Uçtan uca şifreli bulut depolama eşitleme uygulaması." },
+      "description": { "tr": "MEGA bulut depolama hizmetinin MEGAsync masaüstü uygulaması; klasör eşitleme, yedekleme ve hızlı yükleme/indirme sunar." },
+      "homepage": "https://mega.nz/sync",
+      "license": { "tr": "Ücretsiz (kaynak kodu açık)" },
+      "licenseUrl": "https://github.com/meganz/MEGAsync/blob/master/LICENCE.md",
+      "icon": { "monogram": "M", "color": "#D9272E" },
+      "tags": [ "bulut", "cloud", "şifreli", "yedekleme", "eşitleme" ],
+      "elevation": "likely",
+      "winget": { "id": "Mega.MEGASync", "publisher": "Mega Limited" },
+      "detection": {
+        "registry": [ { "displayName": "^MEGAsync$", "publisher": "^Mega Limited$" } ]
+      }
+    },
+    {
+      "id": "proton-drive",
+      "name": "Proton Drive",
+      "publisher": "Proton AG",
+      "category": "cloud",
+      "summary": { "tr": "İsviçre merkezli, şifreli bulut depolama." },
+      "description": { "tr": "Proton'un uçtan uca şifreli bulut depolama hizmeti için Windows uygulaması; dosya eşitleme ve fotoğraf yedekleme sunar. Proton hesabı gerekir." },
+      "homepage": "https://proton.me/drive",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://proton.me/legal/terms",
+      "icon": { "monogram": "PD", "color": "#6D4AFF" },
+      "tags": [ "bulut", "cloud", "şifreli", "gizlilik", "proton" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Proton.ProtonDrive", "publisher": "Proton AG" },
+      "detection": {
+        "registry": [ { "displayName": "^Proton Drive$", "publisher": "^Proton AG$" } ]
+      }
+    },
+    {
+      "id": "nextcloud",
+      "name": "Nextcloud",
+      "publisher": "Nextcloud GmbH",
+      "category": "cloud",
+      "summary": { "tr": "Kendi sunucunla dosya eşitleme istemcisi." },
+      "description": { "tr": "Nextcloud sunucundaki (kendi barındırdığın veya bir sağlayıcının) dosyaları bilgisayarınla eşitleyen açık kaynak masaüstü istemcisi." },
+      "homepage": "https://nextcloud.com/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://raw.githubusercontent.com/nextcloud/desktop/master/COPYING",
+      "icon": { "monogram": "NC", "color": "#0082C9" },
+      "tags": [ "bulut", "cloud", "eşitleme", "sunucu", "self-hosted" ],
+      "elevation": "likely",
+      "winget": { "id": "Nextcloud.NextcloudDesktop", "publisher": "Nextcloud GmbH" },
+      "detection": {
+        "registry": [ { "displayName": "^Nextcloud$", "publisher": "^Nextcloud GmbH$" } ]
+      },
+      "linux": {
+        "flatpak": "com.nextcloud.desktopclient.nextcloud",
+        "apt": [ "nextcloud-desktop" ],
+        "dnf": [ "nextcloud-client" ],
+        "pacman": [ "nextcloud-client" ]
+      }
+    },
+    {
+      "id": "localsend",
+      "name": "LocalSend",
+      "publisher": "Tien Do Nam",
+      "category": "cloud",
+      "summary": { "tr": "Aynı ağdaki cihazlar arasında internetsiz dosya paylaşımı." },
+      "description": { "tr": "Telefon, tablet ve bilgisayarlar arasında yerel ağ üzerinden, hesap veya internet gerektirmeden şifreli dosya ve metin gönderen açık kaynak AirDrop alternatifi." },
+      "homepage": "https://localsend.org/",
+      "license": { "tr": "Apache-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/localsend/localsend/blob/HEAD/LICENSE",
+      "icon": { "monogram": "LS", "color": "#0F9D8C" },
+      "tags": [ "dosya paylaşımı", "airdrop", "transfer", "telefon", "wifi" ],
+      "elevation": "unknown",
+      "winget": { "id": "LocalSend.LocalSend", "publisher": "Tien Do Nam" },
+      "detection": {
+        "registry": [ { "displayName": "^LocalSend( version [\\d.]+)?$", "publisher": "^Tien Do Nam$" } ]
+      },
+      "linux": {
+        "flatpak": "org.localsend.localsend_app"
+      }
+    },
+    {
+      "id": "bitwarden",
+      "name": "Bitwarden",
+      "publisher": "Bitwarden Inc.",
+      "category": "security",
+      "summary": { "tr": "Açık kaynak, uçtan uca şifreli şifre yöneticisi." },
+      "description": { "tr": "Şifrelerini, kartlarını ve güvenli notlarını uçtan uca şifreleyerek saklayan ve tüm cihazlarında eşitleyen şifre yöneticisi. Ücretsiz planı sınırsız şifre içerir." },
+      "homepage": "https://bitwarden.com/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/bitwarden/clients/blob/HEAD/LICENSE.txt",
+      "icon": { "monogram": "BW", "color": "#175DDC" },
+      "tags": [ "şifre", "parola", "password", "güvenlik", "şifre yöneticisi" ],
+      "elevation": "unknown",
+      "winget": { "id": "Bitwarden.Bitwarden", "publisher": "Bitwarden Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Bitwarden( [\\d.]+)?$", "publisher": "^Bitwarden Inc\\.$" } ]
+      },
+      "linux": {
+        "flatpak": "com.bitwarden.desktop"
+      }
+    },
+    {
+      "id": "keepassxc",
+      "name": "KeePassXC",
+      "publisher": "KeePassXC Team",
+      "category": "security",
+      "summary": { "tr": "Çevrimdışı, açık kaynak şifre yöneticisi." },
+      "description": { "tr": "Şifrelerini bilgisayarında şifreli bir veritabanında (KDBX) saklayan, bulut gerektirmeyen şifre yöneticisi. Tarayıcı entegrasyonu ve iki adımlı doğrulama (TOTP) desteği sunar." },
+      "homepage": "https://keepassxc.org/",
+      "license": { "tr": "GPL-2.0+ (açık kaynak)" },
+      "licenseUrl": "https://github.com/keepassxreboot/keepassxc/blob/HEAD/COPYING",
+      "icon": { "monogram": "KP", "color": "#6CAC4D" },
+      "tags": [ "şifre", "parola", "password", "keepass", "güvenlik" ],
+      "elevation": "likely",
+      "winget": { "id": "KeePassXCTeam.KeePassXC", "publisher": "KeePassXC Team" },
+      "detection": {
+        "registry": [ { "displayName": "^KeePassXC$", "publisher": "^KeePassXC Team$" } ]
+      },
+      "linux": {
+        "flatpak": "org.keepassxc.KeePassXC",
+        "apt": [ "keepassxc" ],
+        "dnf": [ "keepassxc" ],
+        "pacman": [ "keepassxc" ]
+      }
+    },
+    {
+      "id": "1password",
+      "name": "1Password",
+      "publisher": "AgileBits Inc.",
+      "category": "security",
+      "summary": { "tr": "Aileler ve ekipler için şifre yöneticisi (abonelik)." },
+      "description": { "tr": "Şifreleri, geçiş anahtarlarını (passkey), kartları ve belgeleri şifreli kasalarda saklayan şifre yöneticisi. Kullanmak için 1Password aboneliği gerekir." },
+      "homepage": "https://1password.com/downloads/windows",
+      "license": { "tr": "Ücretli abonelik (tescilli)" },
+      "licenseUrl": "https://1password.com/legal/terms-of-service",
+      "icon": { "monogram": "1P", "color": "#0572EC" },
+      "tags": [ "şifre", "parola", "password", "passkey", "güvenlik" ],
+      "elevation": "likely",
+      "winget": { "id": "AgileBits.1Password", "publisher": "AgileBits Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^1Password$", "publisher": "^AgileBits" } ]
+      },
+      "linux": {
+        "flatpak": "com.onepassword.OnePassword"
+      }
+    },
+    {
+      "id": "proton-pass",
+      "name": "Proton Pass",
+      "publisher": "Proton AG",
+      "category": "security",
+      "summary": { "tr": "Proton'un uçtan uca şifreli şifre yöneticisi." },
+      "description": { "tr": "Şifreleri, geçiş anahtarlarını, e-posta takma adlarını ve 2FA kodlarını uçtan uca şifreli saklayan şifre yöneticisi. Proton hesabı gerekir." },
+      "homepage": "https://proton.me/pass",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/protonpass/proton-pass-common/blob/HEAD/LICENSE",
+      "icon": { "monogram": "PP", "color": "#6D4AFF" },
+      "tags": [ "şifre", "parola", "password", "proton", "gizlilik" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "MSIX paketi olduğu için kayıt defterinde görünmez; kurulu olup olmadığı yalnızca winget ile doğrulanabilir." },
+      "winget": { "id": "Proton.ProtonPass", "publisher": "Proton AG" },
+      "linux": {
+        "flatpak": "me.proton.Pass"
+      }
+    },
+    {
+      "id": "malwarebytes",
+      "name": "Malwarebytes",
+      "publisher": "Malwarebytes",
+      "category": "security",
+      "summary": { "tr": "Kötü amaçlı yazılım tarayıcı ve temizleyici." },
+      "description": { "tr": "Virüs, casus yazılım, reklam yazılımı ve fidye yazılımlarını tarayıp temizleyen güvenlik programı. Ücretsiz sürüm isteğe bağlı tarama yapar; gerçek zamanlı koruma Premium gerektirir." },
+      "homepage": "https://www.malwarebytes.com/mwb-download",
+      "license": { "tr": "Ücretsiz / Premium (tescilli)" },
+      "licenseUrl": "https://www.malwarebytes.com/eula",
+      "icon": { "monogram": "MB", "color": "#0D3ECC" },
+      "tags": [ "virüs", "antivirüs", "kötü amaçlı", "malware", "güvenlik", "temizlik" ],
+      "elevation": "likely",
+      "winget": { "id": "Malwarebytes.Malwarebytes", "publisher": "Malwarebytes" },
+      "detection": {
+        "registry": [ { "displayName": "^Malwarebytes version [\\d.]+$", "publisher": "^Malwarebytes$" } ]
+      }
+    },
+    {
+      "id": "proton-vpn",
+      "name": "Proton VPN",
+      "publisher": "Proton AG",
+      "category": "security",
+      "summary": { "tr": "Ücretsiz planı olan, kayıt tutmayan VPN." },
+      "description": { "tr": "İsviçre merkezli Proton'un; kayıt tutmama politikası ve sınırsız veri içeren ücretsiz planı bulunan açık kaynak VPN uygulaması." },
+      "homepage": "https://protonvpn.com/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/ProtonVPN/win-app/blob/HEAD/LICENSE",
+      "icon": { "monogram": "VPN", "color": "#6D4AFF" },
+      "tags": [ "vpn", "gizlilik", "privacy", "proton", "güvenlik" ],
+      "elevation": "likely",
+      "winget": { "id": "Proton.ProtonVPN", "publisher": "Proton AG" },
+      "detection": {
+        "registry": [ { "displayName": "^Proton ?VPN$", "publisher": "^Proton AG$" } ]
+      },
+      "linux": {
+        "flatpak": "com.protonvpn.www"
+      }
+    },
+    {
+      "id": "cloudflare-warp",
+      "name": "Cloudflare WARP (1.1.1.1)",
+      "publisher": "Cloudflare, Inc.",
+      "category": "security",
+      "summary": { "tr": "Daha hızlı ve güvenli internet için 1.1.1.1 ve WARP." },
+      "description": { "tr": "Cloudflare'in 1.1.1.1 DNS çözümleyicisini ve WARP şifreli bağlantısını kullanarak internet trafiğini koruyan ücretsiz uygulama." },
+      "homepage": "https://one.one.one.one/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.cloudflare.com/terms/",
+      "icon": { "monogram": "1.1", "color": "#F38020" },
+      "tags": [ "vpn", "dns", "1.1.1.1", "warp", "gizlilik", "cloudflare" ],
+      "elevation": "likely",
+      "winget": { "id": "Cloudflare.Warp", "publisher": "Cloudflare, Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Cloudflare (WARP|One Client)$", "publisher": "^Cloudflare, Inc\\.$" } ]
+      }
+    },
+    {
+      "id": "mullvad-vpn",
+      "name": "Mullvad VPN",
+      "publisher": "Mullvad VPN",
+      "category": "security",
+      "summary": { "tr": "Kişisel bilgi istemeyen, gizlilik odaklı ücretli VPN." },
+      "description": { "tr": "E-posta veya kişisel bilgi istemeden anonim hesap numarasıyla çalışan, açık kaynak ve bağımsız denetimden geçmiş ücretli VPN hizmetinin uygulaması." },
+      "homepage": "https://mullvad.net/",
+      "license": { "tr": "GPL-3.0 (uygulama açık kaynak, hizmet ücretli)" },
+      "licenseUrl": "https://github.com/mullvad/mullvadvpn-app/blob/HEAD/LICENSE.md",
+      "icon": { "monogram": "MV", "color": "#294D73" },
+      "tags": [ "vpn", "gizlilik", "privacy", "anonim" ],
+      "elevation": "likely",
+      "winget": { "id": "MullvadVPN.MullvadVPN", "publisher": "Mullvad VPN" },
+      "detection": {
+        "registry": [ { "displayName": "^Mullvad VPN( [\\d.]+)?$", "publisher": "^Mullvad VPN" } ]
+      }
+    },
+    {
+      "id": "veracrypt",
+      "name": "VeraCrypt",
+      "publisher": "IDRIX",
+      "category": "security",
+      "summary": { "tr": "Disk ve dosya şifreleme aracı." },
+      "description": { "tr": "Şifreli sanal diskler oluşturan; USB bellekleri ve tüm sürücüleri güçlü algoritmalarla şifreleyen açık kaynak araç (TrueCrypt'in devamı)." },
+      "homepage": "https://veracrypt.io/",
+      "license": { "tr": "Apache-2.0 / TrueCrypt (açık kaynak)" },
+      "licenseUrl": "https://veracrypt.io/en/VeraCrypt%20License.html",
+      "icon": { "monogram": "VC", "color": "#1B5E9E" },
+      "tags": [ "şifreleme", "encryption", "disk", "usb", "güvenlik" ],
+      "elevation": "likely",
+      "winget": { "id": "IDRIX.VeraCrypt", "publisher": "IDRIX" },
+      "detection": {
+        "registry": [ { "displayName": "^VeraCrypt( [\\d.]+)?$", "publisher": "^(AM Crypto|IDRIX)$" } ]
+      }
+    },
+    {
+      "id": "gufw",
+      "name": "Gufw Güvenlik Duvarı",
+      "publisher": "Gufw",
+      "category": "security",
+      "summary": { "tr": "UFW güvenlik duvarı için basit grafik arayüz." },
+      "description": { "tr": "Ubuntu'nun UFW güvenlik duvarını kuralları tek tıkla açıp kapatarak yönetmeni sağlayan açık kaynak grafik arayüz." },
+      "homepage": "https://gufw.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/costales/gufw/blob/master/COPYING.GPL3",
+      "icon": { "monogram": "FW", "color": "#C0392B" },
+      "tags": [ "güvenlik duvarı", "firewall", "ufw", "ağ", "güvenlik" ],
+      "linux": {
+        "apt": [ "gufw" ],
+        "pacman": [ "gufw" ]
       }
     },
     {
@@ -116,6 +1586,12 @@
       },
       "detection": {
         "registry": [ { "displayName": "^7-Zip \\d", "publisher": "^Igor Pavlov$" } ]
+      },
+      "linux": {
+        "apt": [ "7zip" ],
+        "dnf": [ "7zip" ],
+        "pacman": [ "7zip" ],
+        "notes": { "tr": "Linux'ta komut satırı sürümü (7z) kurulur." }
       }
     },
     {
@@ -136,111 +1612,883 @@
       "detection": {}
     },
     {
-      "id": "vlc",
-      "name": "VLC Media Player",
-      "publisher": "VideoLAN",
-      "category": "media",
-      "summary": { "tr": "Hemen her video ve ses biçimini oynatan oynatıcı." },
-      "description": { "tr": "Ek codec gerektirmeden neredeyse tüm video, ses, DVD ve akış biçimlerini oynatabilen açık kaynak medya oynatıcı." },
-      "homepage": "https://www.videolan.org/vlc/",
-      "license": { "tr": "GPL-2.0 (açık kaynak)" },
-      "licenseUrl": "https://code.videolan.org/videolan/vlc/-/blob/HEAD/COPYING",
-      "icon": { "monogram": "VLC", "color": "#E57A00" },
-      "tags": [ "video", "müzik", "oynatıcı", "player", "medya", "film" ],
+      "id": "everything",
+      "name": "Everything",
+      "publisher": "voidtools",
+      "category": "archive",
+      "summary": { "tr": "Dosyaları anında bulan arama aracı." },
+      "description": { "tr": "Dosya ve klasörleri ada göre anında bulan, çok hafif masaüstü arama aracı. NTFS dizinini kullanarak saniyeler içinde indeksler." },
+      "homepage": "https://www.voidtools.com/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://www.voidtools.com/License.txt",
+      "icon": { "monogram": "E", "color": "#D9731A" },
+      "tags": [ "arama", "search", "dosya", "bul", "file" ],
       "elevation": "likely",
-      "winget": { "id": "VideoLAN.VLC", "publisher": "VideoLAN" },
+      "winget": { "id": "voidtools.Everything", "publisher": "voidtools" },
+      "direct": {
+        "url": "https://www.voidtools.com/Everything-1.4.1.1032.x64.msi",
+        "allowedHosts": [ "www.voidtools.com" ],
+        "installerType": "msi",
+        "version": "1.4.1.1032",
+        "sha256": "4e7a80885aab8566b750c56a2a2b3e7c3c1f4920bcc53777e07f5eeb9e1f7485",
+        "sizeBytes": 2351104
+      },
       "detection": {
-        "registry": [ { "displayName": "^VLC media player$", "publisher": "^VideoLAN$" } ]
+        "registry": [ { "displayName": "^Everything [\\d.]+ \\((x64|x86)\\)$", "publisher": "^voidtools$" } ]
       }
     },
     {
-      "id": "obs-studio",
-      "name": "OBS Studio",
-      "publisher": "OBS Project",
-      "category": "media",
-      "summary": { "tr": "Ekran kaydı ve canlı yayın yazılımı." },
-      "description": { "tr": "Ekran kaydı, oyun kaydı ve Twitch/YouTube gibi platformlarda canlı yayın için açık kaynak yazılım. Sahne, kaynak ve geçiş desteği sunar." },
-      "homepage": "https://obsproject.com/",
-      "license": { "tr": "GPL-2.0 (açık kaynak)" },
-      "licenseUrl": "https://github.com/obsproject/obs-studio/blob/HEAD/COPYING",
-      "icon": { "monogram": "OBS", "color": "#3A3A44" },
-      "tags": [ "kayıt", "yayın", "stream", "ekran kaydı", "recording" ],
+      "id": "winrar",
+      "name": "WinRAR",
+      "publisher": "win.rar GmbH",
+      "category": "archive",
+      "summary": { "tr": "RAR ve ZIP arşivleri için popüler arşiv yöneticisi." },
+      "description": { "tr": "RAR ve ZIP arşivleri oluşturabilen; 7Z, TAR ve ISO gibi birçok biçimi açabilen arşiv programı. 40 günlük deneme sürümüdür; sonrasında lisans satın alınması istenir." },
+      "homepage": "https://www.win-rar.com/",
+      "license": { "tr": "Deneme sürümü (ücretli lisans)" },
+      "licenseUrl": "https://www.win-rar.com/winrarlicense.html",
+      "icon": { "monogram": "RAR", "color": "#7A3E9D" },
+      "tags": [ "rar", "zip", "arşiv", "sıkıştırma", "archive" ],
       "elevation": "likely",
-      "winget": { "id": "OBSProject.OBSStudio", "publisher": "OBS Project" },
+      "winget": { "id": "RARLab.WinRAR", "publisher": "win.rar GmbH" },
       "detection": {
-        "registry": [ { "displayName": "^OBS Studio$", "publisher": "^OBS Project$" } ]
+        "registry": [ { "displayName": "^WinRAR [\\d.]+", "publisher": "^win\\.rar GmbH$" } ]
       }
     },
     {
-      "id": "audacity",
-      "name": "Audacity",
-      "publisher": "Audacity",
-      "category": "media",
-      "summary": { "tr": "Ücretsiz ses kaydı ve düzenleme programı." },
-      "description": { "tr": "Ses kaydetme, kesme, birleştirme, gürültü azaltma ve efekt uygulama için açık kaynak ses düzenleyici." },
-      "homepage": "https://www.audacityteam.org/",
+      "id": "peazip",
+      "name": "PeaZip",
+      "publisher": "Giorgio Tani",
+      "category": "archive",
+      "summary": { "tr": "200'den fazla arşiv biçimini açan açık kaynak arşivleyici." },
+      "description": { "tr": "7Z, RAR, ZIP, TAR, ZST ve 200'den fazla biçimi destekleyen; şifreleme ve güvenli silme özellikleri sunan açık kaynak arşiv yöneticisi." },
+      "homepage": "https://peazip.github.io/",
+      "license": { "tr": "LGPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/peazip/PeaZip/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Pz", "color": "#3E8E41" },
+      "tags": [ "zip", "rar", "7z", "arşiv", "sıkıştırma", "archive" ],
+      "elevation": "likely",
+      "winget": { "id": "Giorgiotani.Peazip", "publisher": "Giorgio Tani" },
+      "detection": {
+        "registry": [ { "displayName": "^PeaZip [\\d.]+", "publisher": "^Giorgio Tani$" } ]
+      },
+      "linux": {
+        "flatpak": "io.github.peazip.PeaZip"
+      }
+    },
+    {
+      "id": "quicklook",
+      "name": "QuickLook",
+      "publisher": "Paddy Xu",
+      "category": "archive",
+      "summary": { "tr": "Boşluk tuşuyla dosya önizleme (macOS tarzı)." },
+      "description": { "tr": "Dosya Gezgini'nde bir dosyayı seçip boşluk tuşuna basarak resim, video, PDF, belge ve arşivleri açmadan önizlemeni sağlayan açık kaynak araç." },
+      "homepage": "https://github.com/QL-Win/QuickLook",
       "license": { "tr": "GPL-3.0 (açık kaynak)" },
-      "licenseUrl": "https://github.com/audacity/audacity/blob/HEAD/LICENSE.txt",
-      "icon": { "monogram": "A", "color": "#1F5FBF" },
-      "tags": [ "ses", "kayıt", "audio", "podcast", "müzik", "düzenleme" ],
-      "elevation": "likely",
-      "winget": { "id": "Audacity.Audacity", "publisher": "Audacity" },
-      "detection": {
-        "registry": [ { "displayName": "^Audacity( \\d|$)", "publisher": "^Audacity( Team)?$" } ]
-      }
-    },
-    {
-      "id": "discord",
-      "name": "Discord",
-      "publisher": "Discord Inc.",
-      "category": "communication",
-      "summary": { "tr": "Sesli, görüntülü ve yazılı sohbet platformu." },
-      "description": { "tr": "Topluluklar ve arkadaş grupları için sesli kanallar, görüntülü görüşme, ekran paylaşımı ve yazılı sohbet sunan iletişim uygulaması. Kullanıcı hesabına kurulur." },
-      "homepage": "https://discord.com/download",
-      "license": { "tr": "Ücretsiz (tescilli)" },
-      "licenseUrl": "https://discord.com/terms",
-      "icon": { "monogram": "D", "color": "#5865F2" },
-      "tags": [ "sohbet", "chat", "sesli", "oyun", "topluluk", "iletişim" ],
+      "licenseUrl": "https://raw.githubusercontent.com/QL-Win/QuickLook/3.6.11/LICENSE-GPL.txt",
+      "icon": { "monogram": "QL", "color": "#2A82DA" },
+      "tags": [ "önizleme", "preview", "dosya", "gezgin", "macos" ],
       "elevation": "unlikely",
-      "winget": { "id": "Discord.Discord", "publisher": "Discord Inc." },
+      "winget": { "id": "QL-Win.QuickLook", "publisher": "Paddy Xu" },
       "detection": {
-        "registry": [ { "displayName": "^Discord$", "publisher": "^Discord Inc\\.?$" } ]
+        "registry": [ { "displayName": "^QuickLook$", "publisher": "^QL-Win$" } ]
       }
     },
     {
-      "id": "telegram",
-      "name": "Telegram Desktop",
-      "publisher": "Telegram FZ-LLC",
-      "category": "communication",
-      "summary": { "tr": "Telegram'ın resmi masaüstü uygulaması." },
-      "description": { "tr": "Telegram mesajlaşma servisinin açık kaynak resmi masaüstü istemcisi. Telefonundaki sohbetlerle eşitlenir." },
-      "homepage": "https://desktop.telegram.org/",
+      "id": "wiztree",
+      "name": "WizTree",
+      "publisher": "Antibody Software",
+      "category": "archive",
+      "summary": { "tr": "Diskte yer kaplayan dosyaları saniyeler içinde bulur." },
+      "description": { "tr": "NTFS dosya tablosunu okuyarak diskteki en büyük dosya ve klasörleri çok hızlı listeleyen, görsel ağaç haritası sunan disk alanı analiz aracı. Kişisel kullanım için ücretsizdir." },
+      "homepage": "https://diskanalyzer.com/",
+      "license": { "tr": "Ücretsiz (kişisel kullanım)" },
+      "licenseUrl": "https://diskanalyzer.com/eula",
+      "icon": { "monogram": "WT", "color": "#2E7D32" },
+      "tags": [ "disk", "alan", "boyut", "temizlik", "klasör" ],
+      "elevation": "likely",
+      "winget": { "id": "AntibodySoftware.WizTree", "publisher": "Antibody Software" },
+      "detection": {
+        "registry": [ { "displayName": "^WizTree", "publisher": "^Antibody Software" } ]
+      }
+    },
+    {
+      "id": "treesize-free",
+      "name": "TreeSize Free",
+      "publisher": "JAM Software",
+      "category": "archive",
+      "summary": { "tr": "Klasör boyutlarını gösteren disk alanı aracı." },
+      "description": { "tr": "Hangi klasörlerin diskte ne kadar yer kapladığını ağaç görünümünde gösteren, Dosya Gezgini sağ tık menüsüyle bütünleşen ücretsiz araç." },
+      "homepage": "https://www.jam-software.com/treesize_free",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.jam-software.com/company/license_agreement.shtml",
+      "icon": { "monogram": "TS", "color": "#3B8A3E" },
+      "tags": [ "disk", "alan", "boyut", "klasör", "temizlik" ],
+      "elevation": "unknown",
+      "winget": { "id": "JAMSoftware.TreeSize.Free", "publisher": "JAM Software" },
+      "detection": {
+        "registry": [ { "displayName": "^TreeSize Free", "publisher": "^JAM Software" } ]
+      }
+    },
+    {
+      "id": "cpu-z",
+      "name": "CPU-Z",
+      "publisher": "CPUID, Inc.",
+      "category": "system",
+      "summary": { "tr": "İşlemci, anakart ve bellek bilgilerini gösterir." },
+      "description": { "tr": "İşlemci, anakart, RAM ve ekran kartı hakkında ayrıntılı donanım bilgisi veren ve basit bir işlemci testi içeren ücretsiz araç." },
+      "homepage": "https://www.cpuid.com/softwares/cpu-z.html",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.cpuid.com/terms-of-service.html",
+      "icon": { "monogram": "CPU", "color": "#6B2C91" },
+      "tags": [ "donanım", "işlemci", "cpu", "ram", "anakart", "bilgi" ],
+      "elevation": "likely",
+      "winget": { "id": "CPUID.CPU-Z", "publisher": "CPUID, Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^CPUID CPU-Z [\\d.]+$", "publisher": "^CPUID, Inc\\.$" } ]
+      }
+    },
+    {
+      "id": "cpu-x",
+      "name": "CPU-X",
+      "publisher": "The Tumultuous Unicorn Of Darkness",
+      "category": "system",
+      "summary": { "tr": "İşlemci, anakart ve bellek bilgilerini gösterir (CPU-Z benzeri)." },
+      "description": { "tr": "Linux için işlemci, önbellek, anakart, RAM ve ekran kartı bilgilerini ayrıntılı gösteren, CPU-Z'den esinlenmiş açık kaynak araç." },
+      "homepage": "https://thetumultuousunicornofdarkness.github.io/CPU-X/",
       "license": { "tr": "GPL-3.0 (açık kaynak)" },
-      "licenseUrl": "https://github.com/telegramdesktop/tdesktop/blob/dev/LICENSE",
-      "icon": { "monogram": "T", "color": "#229ED9" },
-      "tags": [ "mesaj", "sohbet", "chat", "iletişim", "telegram" ],
-      "elevation": "unlikely",
-      "winget": { "id": "Telegram.TelegramDesktop", "publisher": "Telegram FZ-LLC" },
-      "detection": {
-        "registry": [ { "displayName": "^Telegram Desktop", "publisher": "^Telegram FZ-LLC$" } ]
+      "licenseUrl": "https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/blob/master/COPYING",
+      "icon": { "monogram": "CPU", "color": "#3465A4" },
+      "tags": [ "donanım", "işlemci", "cpu", "ram", "bilgi" ],
+      "linux": {
+        "flatpak": "io.github.thetumultuousunicornofdarkness.cpu-x",
+        "apt": [ "cpu-x" ],
+        "dnf": [ "cpu-x" ],
+        "pacman": [ "cpu-x" ]
       }
     },
     {
-      "id": "zoom",
-      "name": "Zoom",
-      "publisher": "Zoom",
-      "category": "communication",
-      "summary": { "tr": "Görüntülü toplantı ve konferans uygulaması." },
-      "description": { "tr": "Görüntülü toplantı, webinar ve ekran paylaşımı için Zoom Workplace masaüstü uygulaması." },
-      "homepage": "https://zoom.us/",
-      "license": { "tr": "Ücretsiz (tescilli)" },
-      "licenseUrl": "https://explore.zoom.us/en/terms/",
-      "icon": { "monogram": "Z", "color": "#0B5CFF" },
-      "tags": [ "toplantı", "görüntülü", "video", "konferans", "meeting", "iletişim" ],
+      "id": "hwinfo",
+      "name": "HWiNFO",
+      "publisher": "Martin Malik, REALiX s.r.o.",
+      "category": "system",
+      "summary": { "tr": "Ayrıntılı donanım bilgisi ve sensör izleme." },
+      "description": { "tr": "Tüm donanım bileşenleri hakkında ayrıntılı bilgi veren; sıcaklık, voltaj ve fan hızı gibi sensörleri gerçek zamanlı izleyen araç. Kişisel kullanım için ücretsizdir." },
+      "homepage": "https://www.hwinfo.com/download/",
+      "license": { "tr": "Ücretsiz (kişisel kullanım)" },
+      "licenseUrl": "https://www.hwinfo.com/files/license.pdf",
+      "icon": { "monogram": "HW", "color": "#1E5AA8" },
+      "tags": [ "donanım", "sıcaklık", "sensör", "bilgi", "izleme" ],
       "elevation": "likely",
-      "winget": { "id": "Zoom.Zoom", "publisher": "Zoom" },
+      "winget": { "id": "REALiX.HWiNFO", "publisher": "Martin Malik, REALiX s.r.o." },
       "detection": {
-        "registry": [ { "displayName": "^Zoom( Workplace)?( \\(64-bit\\))?$", "publisher": "^Zoom" } ]
+        "registry": [ { "displayName": "^HWiNFO", "publisher": "^Martin Malik" } ]
+      }
+    },
+    {
+      "id": "hwmonitor",
+      "name": "HWMonitor",
+      "publisher": "CPUID, Inc.",
+      "category": "system",
+      "summary": { "tr": "Sıcaklık, voltaj ve fan hızlarını izler." },
+      "description": { "tr": "İşlemci, ekran kartı ve disk sıcaklıklarını, voltajları ve fan hızlarını tek ekranda gösteren donanım izleme aracı." },
+      "homepage": "https://www.cpuid.com/softwares/hwmonitor.html",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.cpuid.com/softwares/hwmonitor-pro/eula.html",
+      "icon": { "monogram": "HWM", "color": "#C0392B" },
+      "tags": [ "sıcaklık", "fan", "sensör", "donanım", "izleme" ],
+      "elevation": "likely",
+      "winget": { "id": "CPUID.HWMonitor", "publisher": "CPUID, Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^CPUID HWMonitor [\\d.]+$", "publisher": "^CPUID, Inc\\.$" } ]
+      }
+    },
+    {
+      "id": "gpu-z",
+      "name": "GPU-Z",
+      "publisher": "TechPowerUp",
+      "category": "system",
+      "summary": { "tr": "Ekran kartı bilgisi ve sensör izleme aracı." },
+      "description": { "tr": "Ekran kartının modeli, saat hızları, belleği, sürücü sürümü ve sensör değerleri hakkında ayrıntılı bilgi veren hafif araç." },
+      "homepage": "https://www.techpowerup.com/gpuz/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "GPU", "color": "#2C2C2C" },
+      "tags": [ "ekran kartı", "gpu", "nvidia", "amd", "donanım", "bilgi" ],
+      "elevation": "likely",
+      "winget": { "id": "TechPowerUp.GPU-Z", "publisher": "TechPowerUp" },
+      "detection": {
+        "registry": [ { "displayName": "^TechPowerUp GPU-Z$", "publisher": "^TechPowerUp$" } ]
+      }
+    },
+    {
+      "id": "crystaldiskinfo",
+      "name": "CrystalDiskInfo",
+      "publisher": "Crystal Dew World",
+      "category": "system",
+      "summary": { "tr": "Disk sağlığını (S.M.A.R.T.) ve sıcaklığını gösterir." },
+      "description": { "tr": "HDD ve SSD'lerin S.M.A.R.T. verilerini okuyarak disk sağlığını, sıcaklığını ve çalışma süresini gösteren; arızadan önce uyaran açık kaynak araç." },
+      "homepage": "https://crystalmark.info/en/software/crystaldiskinfo/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://crystalmark.info/en/software/crystaldiskinfo/crystaldiskinfo-license/",
+      "icon": { "monogram": "CDI", "color": "#1D8CD8" },
+      "tags": [ "disk", "ssd", "hdd", "sağlık", "smart", "sıcaklık" ],
+      "elevation": "likely",
+      "winget": { "id": "CrystalDewWorld.CrystalDiskInfo", "publisher": "Crystal Dew World" },
+      "detection": {
+        "registry": [ { "displayName": "^CrystalDiskInfo [\\d.]+", "publisher": "^Crystal Dew World$" } ]
+      }
+    },
+    {
+      "id": "crystaldiskmark",
+      "name": "CrystalDiskMark",
+      "publisher": "Crystal Dew World",
+      "category": "system",
+      "summary": { "tr": "Disk okuma/yazma hız testi." },
+      "description": { "tr": "HDD, SSD ve USB belleklerin sıralı ve rastgele okuma/yazma hızlarını ölçen açık kaynak test aracı." },
+      "homepage": "https://crystalmark.info/en/software/crystaldiskmark/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://crystalmark.info/en/software/crystaldiskmark/crystaldiskmark-license/",
+      "icon": { "monogram": "CDM", "color": "#2E7D32" },
+      "tags": [ "disk", "ssd", "hız testi", "benchmark", "usb" ],
+      "elevation": "likely",
+      "winget": { "id": "CrystalDewWorld.CrystalDiskMark", "publisher": "Crystal Dew World" },
+      "detection": {
+        "registry": [ { "displayName": "^CrystalDiskMark [\\d.]+", "publisher": "^Crystal Dew World$" } ]
+      }
+    },
+    {
+      "id": "mission-center",
+      "name": "Mission Center",
+      "publisher": "Mission Center Developers",
+      "category": "system",
+      "summary": { "tr": "İşlemci, bellek, disk ve GPU kullanımını izleyen görev yöneticisi." },
+      "description": { "tr": "Windows Görev Yöneticisi'ne benzer arayüzle işlemci, bellek, disk, ağ ve ekran kartı kullanımını izleyen, uygulama ve süreçleri yöneten açık kaynak araç." },
+      "homepage": "https://missioncenter.io/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://gitlab.com/mission-center-devs/mission-center/-/blob/main/LICENSE",
+      "icon": { "monogram": "MC", "color": "#3584E4" },
+      "tags": [ "görev yöneticisi", "task manager", "işlemci", "ram", "izleme" ],
+      "linux": {
+        "flatpak": "io.missioncenter.MissionCenter"
+      }
+    },
+    {
+      "id": "htop",
+      "name": "htop",
+      "publisher": "htop dev team",
+      "category": "system",
+      "summary": { "tr": "Terminalde etkileşimli süreç ve kaynak izleyici." },
+      "description": { "tr": "İşlemci, bellek ve süreçleri renkli ve etkileşimli olarak gösteren, süreçleri sıralayıp sonlandırmana olanak tanıyan terminal aracı." },
+      "homepage": "https://htop.dev/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/htop-dev/htop/blob/main/COPYING",
+      "icon": { "monogram": "htop", "color": "#2E7D32" },
+      "tags": [ "terminal", "süreç", "izleme", "cpu", "ram" ],
+      "linux": {
+        "apt": [ "htop" ],
+        "dnf": [ "htop" ],
+        "pacman": [ "htop" ]
+      }
+    },
+    {
+      "id": "fastfetch",
+      "name": "fastfetch",
+      "publisher": "fastfetch-cli",
+      "category": "system",
+      "summary": { "tr": "Sistem bilgilerini terminalde şık biçimde gösterir." },
+      "description": { "tr": "İşletim sistemi, çekirdek, işlemci, ekran kartı, bellek ve masaüstü ortamı bilgilerini logo eşliğinde terminalde hızla gösteren açık kaynak araç." },
+      "homepage": "https://github.com/fastfetch-cli/fastfetch",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/fastfetch-cli/fastfetch/blob/HEAD/LICENSE",
+      "icon": { "monogram": "ff", "color": "#4A4A4A" },
+      "tags": [ "terminal", "sistem bilgisi", "neofetch", "cli" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Taşınabilir paket olarak kurulur; Başlat menüsüne kısayol eklenmez. Win+R ile açılan Çalıştır penceresine veya terminale 'fastfetch' yazarak başlatabilirsin." },
+      "winget": { "id": "Fastfetch-cli.Fastfetch", "publisher": "fastfetch-cli" },
+      "linux": {
+        "apt": [ "fastfetch" ],
+        "dnf": [ "fastfetch" ],
+        "pacman": [ "fastfetch" ]
+      }
+    },
+    {
+      "id": "rufus",
+      "name": "Rufus",
+      "publisher": "pbatard",
+      "category": "system",
+      "summary": { "tr": "ISO dosyasından önyüklenebilir USB bellek oluşturur." },
+      "description": { "tr": "Windows veya Linux kurulum USB'si hazırlamak için ISO dosyalarını USB belleğe yazan, hızlı ve küçük açık kaynak araç." },
+      "homepage": "https://rufus.ie/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/pbatard/rufus/blob/HEAD/LICENSE.txt",
+      "icon": { "monogram": "R", "color": "#4B7A3D" },
+      "tags": [ "usb", "iso", "önyükleme", "boot", "format", "kurulum" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Taşınabilir paket olarak kurulur; Başlat menüsüne kısayol eklenmez. Win+R ile açılan Çalıştır penceresine veya terminale 'rufus' yazarak başlatabilirsin." },
+      "winget": { "id": "Rufus.Rufus", "publisher": "pbatard" }
+    },
+    {
+      "id": "ventoy",
+      "name": "Ventoy",
+      "publisher": "Ventoy",
+      "category": "system",
+      "summary": { "tr": "Birden fazla ISO'yu tek USB bellekten başlatır." },
+      "description": { "tr": "USB belleği bir kez hazırladıktan sonra ISO dosyalarını kopyalamanın yeterli olduğu; birden çok işletim sistemi kurulumunu tek USB'den başlatmanı sağlayan açık kaynak araç." },
+      "homepage": "https://www.ventoy.net/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/ventoy/Ventoy/blob/master/COPYING",
+      "icon": { "monogram": "V", "color": "#1E88E5" },
+      "tags": [ "usb", "iso", "önyükleme", "boot", "multiboot" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Taşınabilir paket olarak kurulur; Başlat menüsüne kısayol eklenmez. Win+R ile açılan Çalıştır penceresine veya terminale 'Ventoy2Disk' yazarak başlatabilirsin." },
+      "winget": { "id": "Ventoy.Ventoy", "publisher": "Ventoy" }
+    },
+    {
+      "id": "gparted",
+      "name": "GParted",
+      "publisher": "GParted Project",
+      "category": "system",
+      "summary": { "tr": "Disk bölümleme düzenleyicisi." },
+      "description": { "tr": "Disk bölümlerini oluşturmak, silmek, yeniden boyutlandırmak, taşımak ve biçimlendirmek için kullanılan açık kaynak grafik araç." },
+      "homepage": "https://gparted.org/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://gitlab.gnome.org/GNOME/gparted/-/blob/master/COPYING",
+      "icon": { "monogram": "GP", "color": "#8E2D23" },
+      "tags": [ "disk", "bölüm", "partition", "format", "biçimlendirme" ],
+      "linux": {
+        "apt": [ "gparted" ],
+        "dnf": [ "gparted" ],
+        "pacman": [ "gparted" ]
+      }
+    },
+    {
+      "id": "timeshift",
+      "name": "Timeshift",
+      "publisher": "Linux Mint",
+      "category": "system",
+      "summary": { "tr": "Sistem anlık görüntüsü ve geri yükleme aracı." },
+      "description": { "tr": "Sistem dosyalarının anlık görüntülerini (rsync veya Btrfs) düzenli olarak alarak bir güncelleme veya hata sonrası sistemi önceki haline döndürmeni sağlayan araç." },
+      "homepage": "https://github.com/linuxmint/timeshift",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/linuxmint/timeshift/blob/master/LICENSE.md",
+      "icon": { "monogram": "TS", "color": "#3A7A3A" },
+      "tags": [ "yedekleme", "backup", "geri yükleme", "snapshot", "sistem" ],
+      "linux": {
+        "apt": [ "timeshift" ],
+        "dnf": [ "timeshift" ],
+        "pacman": [ "timeshift" ]
+      }
+    },
+    {
+      "id": "flatseal",
+      "name": "Flatseal",
+      "publisher": "Martin Abente Lahaye",
+      "category": "system",
+      "summary": { "tr": "Flatpak uygulamalarının izinlerini yönet." },
+      "description": { "tr": "Flatpak ile kurulan uygulamaların dosya, ağ ve cihaz izinlerini görsel olarak inceleyip değiştirmeni sağlayan araç." },
+      "homepage": "https://github.com/tchx84/Flatseal",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/tchx84/Flatseal/blob/master/COPYING",
+      "icon": { "monogram": "FS", "color": "#4A86CF" },
+      "tags": [ "flatpak", "izin", "permission", "güvenlik", "sandbox" ],
+      "linux": {
+        "flatpak": "com.github.tchx84.Flatseal"
+      }
+    },
+    {
+      "id": "bleachbit",
+      "name": "BleachBit",
+      "publisher": "BleachBit",
+      "category": "system",
+      "summary": { "tr": "Gereksiz dosya ve iz temizleyici." },
+      "description": { "tr": "Önbellekleri, geçici dosyaları, tarayıcı geçmişini ve günlükleri temizleyerek disk alanı açan, gizliliği koruyan açık kaynak temizleme aracı." },
+      "homepage": "https://www.bleachbit.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/bleachbit/bleachbit/blob/master/COPYING",
+      "icon": { "monogram": "BB", "color": "#2E4A62" },
+      "tags": [ "temizlik", "cleaner", "önbellek", "gizlilik", "disk" ],
+      "elevation": "unknown",
+      "winget": { "id": "BleachBit.BleachBit", "publisher": "BleachBit" },
+      "detection": {
+        "registry": [ { "displayName": "^BleachBit$", "publisher": "^BleachBit$" } ]
+      },
+      "linux": {
+        "apt": [ "bleachbit" ],
+        "dnf": [ "bleachbit" ],
+        "pacman": [ "bleachbit" ]
+      }
+    },
+    {
+      "id": "revo-uninstaller",
+      "name": "Revo Uninstaller",
+      "publisher": "VS Revo Group, Ltd.",
+      "category": "system",
+      "summary": { "tr": "Programları artıklarıyla birlikte kaldırır." },
+      "description": { "tr": "Programları kaldırdıktan sonra geride kalan dosya, klasör ve kayıt defteri girdilerini de tarayıp temizleyen kaldırma aracı (ücretsiz sürüm)." },
+      "homepage": "https://www.revouninstaller.com/products/revo-uninstaller-free/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "Rv", "color": "#D32F2F" },
+      "tags": [ "kaldırma", "uninstall", "temizlik", "program" ],
+      "elevation": "likely",
+      "winget": { "id": "RevoUninstaller.RevoUninstaller", "publisher": "VS Revo Group, Ltd." },
+      "detection": {
+        "registry": [ { "displayName": "^Revo Uninstaller [\\d.]+$", "publisher": "^VS Revo Group" } ]
+      }
+    },
+    {
+      "id": "bulk-crap-uninstaller",
+      "name": "Bulk Crap Uninstaller",
+      "publisher": "Marcin Szeniak",
+      "category": "system",
+      "summary": { "tr": "Çok sayıda programı toplu ve temiz kaldırma aracı." },
+      "description": { "tr": "Yüklü programları, Microsoft Store uygulamalarını ve artıklarını toplu olarak kaldırmanı sağlayan açık kaynak kaldırma yöneticisi." },
+      "homepage": "https://www.bcuninstaller.com/",
+      "license": { "tr": "Apache-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/BCUninstaller/Bulk-Crap-Uninstaller/blob/HEAD/Licence.txt",
+      "icon": { "monogram": "BCU", "color": "#5A6D2E" },
+      "tags": [ "kaldırma", "uninstall", "toplu", "temizlik", "bloatware" ],
+      "elevation": "likely",
+      "winget": { "id": "Klocman.BulkCrapUninstaller", "publisher": "Marcin Szeniak" },
+      "detection": {
+        "registry": [ { "displayName": "^BCUninstaller( [\\d.]+)?$", "publisher": "^Marcin Szeniak$" } ]
+      }
+    },
+    {
+      "id": "process-explorer",
+      "name": "Process Explorer",
+      "publisher": "Microsoft Sysinternals",
+      "category": "system",
+      "summary": { "tr": "Görev Yöneticisi'nin gelişmiş alternatifi." },
+      "description": { "tr": "Çalışan işlemleri, açık dosya ve DLL'leri, işlemci ve ekran kartı kullanımını ayrıntılı gösteren Microsoft Sysinternals aracı." },
+      "homepage": "https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://learn.microsoft.com/en-us/sysinternals/license-terms",
+      "icon": { "monogram": "PE", "color": "#1E5AA8" },
+      "tags": [ "görev yöneticisi", "task manager", "süreç", "sysinternals" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Taşınabilir paket olarak kurulur; Başlat menüsüne kısayol eklenmez. Win+R ile açılan Çalıştır penceresine veya terminale 'procexp' yazarak başlatabilirsin." },
+      "winget": { "id": "Microsoft.Sysinternals.ProcessExplorer", "publisher": "Sysinternals" }
+    },
+    {
+      "id": "autoruns",
+      "name": "Autoruns",
+      "publisher": "Microsoft Sysinternals",
+      "category": "system",
+      "summary": { "tr": "Başlangıçta çalışan her şeyi gösterir ve yönetir." },
+      "description": { "tr": "Windows açılışında çalışan programları, hizmetleri, sürücüleri ve zamanlanmış görevleri en kapsamlı şekilde listeleyen Microsoft Sysinternals aracı." },
+      "homepage": "https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://learn.microsoft.com/en-us/sysinternals/license-terms",
+      "icon": { "monogram": "AR", "color": "#4A4A4A" },
+      "tags": [ "başlangıç", "startup", "hizmet", "sysinternals", "hızlandırma" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Taşınabilir paket olarak kurulur; Başlat menüsüne kısayol eklenmez. Win+R ile açılan Çalıştır penceresine veya terminale 'Autoruns' yazarak başlatabilirsin." },
+      "winget": { "id": "Microsoft.Sysinternals.Autoruns", "publisher": "Sysinternals" }
+    },
+    {
+      "id": "powertoys",
+      "name": "PowerToys",
+      "publisher": "Microsoft Corporation",
+      "category": "productivity",
+      "summary": { "tr": "Windows için güçlü yardımcı araçlar koleksiyonu." },
+      "description": { "tr": "FancyZones pencere düzeni, Komut Paleti, renk seçici, toplu yeniden adlandırma, metin çıkarıcı ve daha birçok araç içeren Microsoft yardımcı programları." },
+      "homepage": "https://github.com/microsoft/PowerToys",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/microsoft/PowerToys/blob/HEAD/LICENSE",
+      "icon": { "monogram": "PT", "color": "#4C4C4C" },
+      "tags": [ "windows", "araç", "pencere", "kısayol", "microsoft", "verimlilik" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.PowerToys", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^PowerToys \\(Preview\\)( x64| ARM64)?$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "sharex",
+      "name": "ShareX",
+      "publisher": "ShareX Team",
+      "category": "productivity",
+      "summary": { "tr": "Gelişmiş ekran görüntüsü ve ekran kaydı aracı." },
+      "description": { "tr": "Ekran görüntüsü alma, GIF/video kaydı, metin tanıma (OCR), görüntü düzenleme ve otomatik yükleme özellikleri sunan açık kaynak üretkenlik aracı." },
+      "homepage": "https://getsharex.com/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/ShareX/ShareX/blob/HEAD/LICENSE.txt",
+      "icon": { "monogram": "SX", "color": "#2B90E3" },
+      "tags": [ "ekran görüntüsü", "screenshot", "kayıt", "gif", "ocr" ],
+      "elevation": "unknown",
+      "winget": { "id": "ShareX.ShareX", "publisher": "ShareX Team" },
+      "detection": {
+        "registry": [ { "displayName": "^ShareX$", "publisher": "^ShareX Team$" } ]
+      }
+    },
+    {
+      "id": "greenshot",
+      "name": "Greenshot",
+      "publisher": "Greenshot",
+      "category": "productivity",
+      "summary": { "tr": "Hafif ve hızlı ekran görüntüsü aracı." },
+      "description": { "tr": "Ekranın bir bölgesini, pencereyi veya tamamını yakalayıp üzerine ok, metin ve vurgu ekleyebileceğin açık kaynak ekran görüntüsü aracı." },
+      "homepage": "https://getgreenshot.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/greenshot/greenshot/blob/HEAD/LICENSE",
+      "icon": { "monogram": "G", "color": "#5BA829" },
+      "tags": [ "ekran görüntüsü", "screenshot", "yakala" ],
+      "elevation": "unknown",
+      "winget": { "id": "Greenshot.Greenshot", "publisher": "Greenshot" },
+      "detection": {
+        "registry": [ { "displayName": "^Greenshot( [\\d.]+)?$", "publisher": "^Greenshot$" } ]
+      }
+    },
+    {
+      "id": "flameshot",
+      "name": "Flameshot",
+      "publisher": "Flameshot Developers",
+      "category": "productivity",
+      "summary": { "tr": "Açıklama eklenebilen ekran görüntüsü aracı." },
+      "description": { "tr": "Ekran görüntüsü alıp üzerine ok, metin, bulanıklaştırma ve vurgu ekleyebileceğin, hızlı ve açık kaynak ekran görüntüsü aracı." },
+      "homepage": "https://flameshot.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/flameshot-org/flameshot/blob/master/LICENSE",
+      "icon": { "monogram": "Fl", "color": "#E64A19" },
+      "tags": [ "ekran görüntüsü", "screenshot", "yakala" ],
+      "linux": {
+        "flatpak": "org.flameshot.Flameshot",
+        "apt": [ "flameshot" ],
+        "dnf": [ "flameshot" ],
+        "pacman": [ "flameshot" ]
+      }
+    },
+    {
+      "id": "ditto",
+      "name": "Ditto",
+      "publisher": "Scott Brogden",
+      "category": "productivity",
+      "summary": { "tr": "Pano geçmişi yöneticisi." },
+      "description": { "tr": "Kopyaladığın metin, resim ve dosyaların geçmişini saklayan; aranabilir pano geçmişi ve kısayollar sunan açık kaynak pano yöneticisi." },
+      "homepage": "https://sabrogden.github.io/Ditto/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/sabrogden/Ditto/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Di", "color": "#3E7CB1" },
+      "tags": [ "pano", "clipboard", "kopyala", "yapıştır" ],
+      "elevation": "likely",
+      "winget": { "id": "Ditto.Ditto", "publisher": "Scott Brogden" },
+      "detection": {
+        "registry": [ { "displayName": "^Ditto$", "publisher": "^Scott Brogden$" } ]
+      }
+    },
+    {
+      "id": "autohotkey",
+      "name": "AutoHotkey",
+      "publisher": "AutoHotkey Foundation LLC",
+      "category": "productivity",
+      "summary": { "tr": "Klavye kısayolları ve otomasyon betikleri." },
+      "description": { "tr": "Tekrarlayan işleri otomatikleştirmek, kısayol tuşları ve metin genişletmeleri oluşturmak için kullanılan açık kaynak betik dili." },
+      "homepage": "https://www.autohotkey.com/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/AutoHotkey/AutoHotkey/blob/alpha/license.txt",
+      "icon": { "monogram": "AHK", "color": "#334455" },
+      "tags": [ "otomasyon", "kısayol", "makro", "betik", "script" ],
+      "elevation": "unknown",
+      "winget": { "id": "AutoHotkey.AutoHotkey", "publisher": "AutoHotkey Foundation LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^AutoHotkey( [\\d.]+)?$", "publisher": "^AutoHotkey Foundation" } ]
+      }
+    },
+    {
+      "id": "flow-launcher",
+      "name": "Flow Launcher",
+      "publisher": "Flow-Launcher Team",
+      "category": "productivity",
+      "summary": { "tr": "Uygulama ve dosyaları hızla bulan başlatıcı." },
+      "description": { "tr": "Alt+Boşluk ile açılan; uygulamaları, dosyaları ve web aramalarını hızla başlatan, eklentilerle genişletilebilen açık kaynak başlatıcı." },
+      "homepage": "https://github.com/Flow-Launcher/Flow.Launcher",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/Flow-Launcher/Flow.Launcher/blob/HEAD/LICENSE",
+      "icon": { "monogram": "FL", "color": "#5B4BDB" },
+      "tags": [ "başlatıcı", "launcher", "arama", "spotlight", "kısayol" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Flow-Launcher.Flow-Launcher", "publisher": "Flow-Launcher Team" },
+      "detection": {
+        "registry": [ { "displayName": "^Flow Launcher$", "publisher": "^Flow-Launcher Team$" } ]
+      }
+    },
+    {
+      "id": "translucenttb",
+      "name": "TranslucentTB",
+      "publisher": "Charles Milette",
+      "category": "productivity",
+      "summary": { "tr": "Görev çubuğunu saydam veya bulanık yapar." },
+      "description": { "tr": "Windows görev çubuğunu saydam, bulanık veya akrilik görünüme getiren hafif açık kaynak kişiselleştirme aracı." },
+      "homepage": "https://github.com/TranslucentTB/TranslucentTB",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/TranslucentTB/TranslucentTB/blob/HEAD/LICENSE.md",
+      "icon": { "monogram": "TB", "color": "#3C3C3C" },
+      "tags": [ "görev çubuğu", "taskbar", "saydam", "kişiselleştirme", "tema" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "MSIX paketi olduğu için kayıt defterinde görünmez; kurulu olup olmadığı yalnızca winget ile doğrulanabilir." },
+      "winget": { "id": "CharlesMilette.TranslucentTB", "publisher": "Charles Milette" }
+    },
+    {
+      "id": "lively-wallpaper",
+      "name": "Lively Wallpaper",
+      "publisher": "rocksdanister",
+      "category": "productivity",
+      "summary": { "tr": "Hareketli ve etkileşimli masaüstü duvar kâğıtları." },
+      "description": { "tr": "Video, GIF ve web sayfalarını masaüstü duvar kâğıdı olarak kullanmanı sağlayan; tam ekran uygulamalarda otomatik duraklayan açık kaynak uygulama." },
+      "homepage": "https://github.com/rocksdanister/lively",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/rocksdanister/lively/blob/HEAD/LICENSE",
+      "icon": { "monogram": "LW", "color": "#7E57C2" },
+      "tags": [ "duvar kâğıdı", "wallpaper", "hareketli", "kişiselleştirme", "tema" ],
+      "elevation": "likely",
+      "winget": { "id": "rocksdanister.LivelyWallpaper", "publisher": "rocksdanister" },
+      "detection": {
+        "registry": [ { "displayName": "^Lively Wallpaper( version [\\d.]+)?$", "publisher": "^rocksdanister$" } ]
+      }
+    },
+    {
+      "id": "twinkle-tray",
+      "name": "Twinkle Tray",
+      "publisher": "Xander Frangos",
+      "category": "productivity",
+      "summary": { "tr": "Harici monitörlerin parlaklığını görev çubuğundan ayarla." },
+      "description": { "tr": "Birden fazla monitörün parlaklığını görev çubuğu simgesinden kolayca ayarlamanı sağlayan, DDC/CI destekli açık kaynak araç." },
+      "homepage": "https://github.com/xanderfrangos/twinkle-tray",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/xanderfrangos/twinkle-tray/blob/HEAD/LICENSE",
+      "icon": { "monogram": "TT", "color": "#F2A900" },
+      "tags": [ "parlaklık", "monitör", "ekran", "brightness" ],
+      "elevation": "unlikely",
+      "winget": { "id": "xanderfrangos.twinkletray", "publisher": "Xander Frangos" },
+      "detection": {
+        "registry": [ { "displayName": "^Twinkle Tray( [\\d.]+)?$", "publisher": "^Xander Frangos$" } ]
+      }
+    },
+    {
+      "id": "extension-manager",
+      "name": "Extension Manager",
+      "publisher": "Matthew Jakeman",
+      "category": "productivity",
+      "summary": { "tr": "GNOME Shell uzantılarını bul ve yönet." },
+      "description": { "tr": "GNOME masaüstü uzantılarını tarayıcıya gerek kalmadan arayıp kurmanı, ayarlamanı ve güncellemeni sağlayan uygulama." },
+      "homepage": "https://github.com/mjakeman/extension-manager",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/mjakeman/extension-manager/blob/master/COPYING",
+      "icon": { "monogram": "EM", "color": "#3584E4" },
+      "tags": [ "gnome", "uzantı", "extension", "kişiselleştirme" ],
+      "linux": {
+        "flatpak": "com.mattjakeman.ExtensionManager",
+        "notes": { "tr": "Yalnızca GNOME masaüstünde (Ubuntu, Fedora Workstation vb.) çalışır." }
+      }
+    },
+    {
+      "id": "gnome-tweaks",
+      "name": "GNOME İnce Ayarlar (Tweaks)",
+      "publisher": "The GNOME Project",
+      "category": "productivity",
+      "summary": { "tr": "GNOME masaüstü için gelişmiş görünüm ayarları." },
+      "description": { "tr": "Yazı tipleri, temalar, pencere düğmeleri, başlangıç uygulamaları ve klavye/fare gibi GNOME'un gizli ayarlarını değiştirmeni sağlayan araç." },
+      "homepage": "https://gitlab.gnome.org/GNOME/gnome-tweaks",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://gitlab.gnome.org/GNOME/gnome-tweaks/-/blob/master/LICENSES/GPL-3.0",
+      "icon": { "monogram": "Tw", "color": "#4A86CF" },
+      "tags": [ "gnome", "tema", "ayar", "kişiselleştirme", "font" ],
+      "linux": {
+        "apt": [ "gnome-tweaks" ],
+        "dnf": [ "gnome-tweaks" ],
+        "pacman": [ "gnome-tweaks" ],
+        "notes": { "tr": "GNOME masaüstü içindir." }
+      }
+    },
+    {
+      "id": "vcredist-x64",
+      "name": "Visual C++ Redistributable (x64)",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "Program ve oyunların ihtiyaç duyduğu C++ çalışma zamanı (64 bit)." },
+      "description": { "tr": "Visual Studio 2015 ve sonrasıyla derlenmiş 64 bit programların çalışması için gereken Microsoft C++ kütüphaneleri. Format sonrası görülen 'VCRUNTIME140.dll bulunamadı' gibi hataları önler." },
+      "homepage": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.microsoft.com/legal/terms-of-use",
+      "icon": { "monogram": "C++", "color": "#68217A" },
+      "tags": [ "vcredist", "visual c++", "runtime", "çalışma zamanı", "dll", "oyun" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.VCRedist.2015+.x64", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft Visual C\\+\\+ (2015-20\\d\\d|v14) Redistributable \\(x64\\)", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "vcredist-x86",
+      "name": "Visual C++ Redistributable (x86)",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "32 bit program ve oyunlar için C++ çalışma zamanı." },
+      "description": { "tr": "Visual Studio 2015 ve sonrasıyla derlenmiş 32 bit programların çalışması için gereken Microsoft C++ kütüphaneleri. 64 bit Windows'ta da birçok program ve oyun için gereklidir." },
+      "homepage": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.microsoft.com/legal/terms-of-use",
+      "icon": { "monogram": "C++", "color": "#68217A" },
+      "tags": [ "vcredist", "visual c++", "runtime", "çalışma zamanı", "dll", "oyun", "32 bit" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.VCRedist.2015+.x86", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft Visual C\\+\\+ (2015-20\\d\\d|v14) Redistributable \\(x86\\)", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "dotnet-desktop-runtime-8",
+      "name": ".NET Desktop Runtime 8",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "WPF ve Windows Forms uygulamaları için .NET 8 çalışma zamanı." },
+      "description": { "tr": ".NET 8 (LTS) ile geliştirilmiş masaüstü uygulamalarını çalıştırmak için gereken Microsoft çalışma zamanı. Birçok güncel Windows programı bunu ister." },
+      "homepage": "https://dotnet.microsoft.com/download/dotnet/8.0",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+      "icon": { "monogram": ".NET", "color": "#512BD4" },
+      "tags": [ "dotnet", ".net", "runtime", "çalışma zamanı", "microsoft" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.DotNet.DesktopRuntime.8", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft Windows Desktop Runtime - 8\\.\\d+\\.\\d+ \\((x64|x86|arm64)\\)$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "dotnet-desktop-runtime-10",
+      "name": ".NET Desktop Runtime 10",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "WPF ve Windows Forms uygulamaları için .NET 10 çalışma zamanı." },
+      "description": { "tr": ".NET 10 (LTS) ile geliştirilmiş masaüstü uygulamalarını çalıştırmak için gereken Microsoft çalışma zamanı." },
+      "homepage": "https://dotnet.microsoft.com/download/dotnet/10.0",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/dotnet/runtime/blob/main/LICENSE.TXT",
+      "icon": { "monogram": ".NET", "color": "#512BD4" },
+      "tags": [ "dotnet", ".net", "runtime", "çalışma zamanı", "microsoft" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.DotNet.DesktopRuntime.10", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft Windows Desktop Runtime( -)? 10\\.\\d+\\.\\d+ \\((x64|x86|arm64)\\)$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "directx",
+      "name": "DirectX End-User Runtime",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "Eski oyunlar için DirectX 9/10/11 bileşenleri." },
+      "description": { "tr": "Windows'ta yerleşik gelmeyen eski DirectX bileşenlerini (D3DX9, XAudio2, XInput vb.) kuran Microsoft çalışma zamanı. 'd3dx9_43.dll bulunamadı' gibi oyun hatalarını giderir." },
+      "homepage": "https://www.microsoft.com/download/details.aspx?id=35",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "DX", "color": "#107C10" },
+      "tags": [ "directx", "oyun", "game", "dll", "çalışma zamanı", "d3dx9" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.DirectX", "publisher": "Microsoft Corporation" }
+    },
+    {
+      "id": "java-runtime",
+      "name": "Java (Eclipse Temurin JRE 25)",
+      "publisher": "Eclipse Adoptium",
+      "category": "runtimes",
+      "summary": { "tr": "Java programlarını çalıştırmak için açık kaynak Java (LTS)." },
+      "description": { "tr": "Eclipse Adoptium'un OpenJDK tabanlı, ücretsiz ve uzun süreli destekli (LTS) Java 25 çalışma ortamı. .jar uzantılı programları çalıştırmak için gerekir." },
+      "homepage": "https://adoptium.net/",
+      "license": { "tr": "GPL-2.0 + Classpath istisnası (açık kaynak)" },
+      "licenseUrl": "https://github.com/adoptium/jdk/blob/HEAD/LICENSE",
+      "icon": { "monogram": "J", "color": "#FF1464" },
+      "tags": [ "java", "jre", "jar", "openjdk", "çalışma zamanı" ],
+      "elevation": "likely",
+      "winget": { "id": "EclipseAdoptium.Temurin.25.JRE", "publisher": "Eclipse Adoptium" },
+      "detection": {
+        "registry": [ { "displayName": "^Eclipse Temurin JRE with Hotspot 25", "publisher": "^Eclipse Adoptium$" } ]
+      }
+    },
+    {
+      "id": "webview2",
+      "name": "Microsoft Edge WebView2 Runtime",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "Web teknolojisiyle yapılmış uygulamaların ihtiyaç duyduğu bileşen." },
+      "description": { "tr": "Birçok modern Windows uygulamasının içerik göstermek için kullandığı Edge tabanlı bileşen. Windows 11'de genellikle önceden yüklüdür ve kendi kendini günceller." },
+      "homepage": "https://developer.microsoft.com/microsoft-edge/webview2/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.microsoft.com/legal/terms-of-use",
+      "icon": { "monogram": "WV2", "color": "#0C7C9C" },
+      "tags": [ "webview2", "edge", "runtime", "çalışma zamanı", "microsoft" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.EdgeWebView2Runtime", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft Edge WebView2 Runtime$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "xna-framework",
+      "name": "Microsoft XNA Framework 4.0",
+      "publisher": "Microsoft Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "XNA ile geliştirilmiş eski oyunlar için çalışma zamanı." },
+      "description": { "tr": "XNA Framework ile geliştirilmiş eski oyunların ve uygulamaların çalışması için gereken Microsoft çalışma zamanı." },
+      "homepage": "https://www.microsoft.com/download/details.aspx?id=20914",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "XNA", "color": "#107C10" },
+      "tags": [ "xna", "oyun", "game", "çalışma zamanı" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.XNARedist", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Microsoft XNA Framework Redistributable 4\\.0", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "nvidia-physx",
+      "name": "NVIDIA PhysX System Software",
+      "publisher": "NVIDIA Corporation",
+      "category": "runtimes",
+      "summary": { "tr": "PhysX kullanan oyunlar için fizik motoru bileşeni." },
+      "description": { "tr": "Bazı oyunların fizik efektleri için ihtiyaç duyduğu NVIDIA PhysX çalışma zamanı. 'PhysXLoader.dll bulunamadı' hatasını giderir." },
+      "homepage": "https://www.nvidia.com/en-us/drivers/physx/physx-9-26-0703-driver/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "PX", "color": "#76B900" },
+      "tags": [ "nvidia", "physx", "oyun", "game", "çalışma zamanı" ],
+      "elevation": "likely",
+      "winget": { "id": "Nvidia.PhysX", "publisher": "NVIDIA Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^NVIDIA PhysX System Software", "publisher": "^NVIDIA Corporation$" } ]
+      }
+    },
+    {
+      "id": "intel-dsa",
+      "name": "Intel Driver & Support Assistant",
+      "publisher": "Intel",
+      "category": "runtimes",
+      "summary": { "tr": "Intel donanımı için sürücü güncelleme aracı." },
+      "description": { "tr": "Bilgisayarındaki Intel işlemci, grafik, Wi-Fi ve Bluetooth bileşenleri için güncel sürücüleri bulup kurmanı sağlayan resmi Intel aracı." },
+      "homepage": "https://www.intel.com/content/www/us/en/support/detect.html",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "DSA", "color": "#0071C5" },
+      "tags": [ "sürücü", "driver", "intel", "güncelleme", "wifi", "bluetooth" ],
+      "elevation": "likely",
+      "winget": { "id": "Intel.IntelDriverAndSupportAssistant", "publisher": "Intel" },
+      "detection": {
+        "registry": [ { "displayName": "^Intel(®|\\(R\\))? Driver (&|and) Support Assistant$", "publisher": "^Intel" } ]
+      }
+    },
+    {
+      "id": "ddu",
+      "name": "Display Driver Uninstaller (DDU)",
+      "publisher": "Wagnardsoft",
+      "category": "runtimes",
+      "summary": { "tr": "Ekran kartı sürücülerini tamamen kaldırır." },
+      "description": { "tr": "NVIDIA, AMD ve Intel ekran kartı sürücülerini tüm kalıntılarıyla kaldıran araç. Sürücü sorunlarını çözmek veya ekran kartı değiştirmek için kullanılır; Güvenli Mod'da çalıştırılması önerilir." },
+      "homepage": "https://www.wagnardsoft.com/display-driver-uninstaller-ddu",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/Wagnard/display-drivers-uninstaller/blob/WPF/LICENSE",
+      "icon": { "monogram": "DDU", "color": "#C62828" },
+      "tags": [ "sürücü", "driver", "ekran kartı", "nvidia", "amd", "kaldırma" ],
+      "elevation": "likely",
+      "winget": { "id": "Wagnardsoft.DisplayDriverUninstaller", "publisher": "Wagnardsoft" },
+      "detection": {
+        "registry": [ { "displayName": "^Display Driver Uninstaller$", "publisher": "^Wagnardsoft$" } ]
       }
     },
     {
@@ -259,6 +2507,9 @@
       "winget": { "id": "Valve.Steam", "publisher": "Valve Corporation" },
       "detection": {
         "registry": [ { "displayName": "^Steam$", "publisher": "^Valve Corporation$" } ]
+      },
+      "linux": {
+        "flatpak": "com.valvesoftware.Steam"
       }
     },
     {
@@ -297,6 +2548,268 @@
       }
     },
     {
+      "id": "ea-app",
+      "name": "EA app",
+      "publisher": "Electronic Arts",
+      "category": "gaming",
+      "summary": { "tr": "EA oyunlarının resmi başlatıcısı." },
+      "description": { "tr": "EA SPORTS FC, Battlefield ve The Sims gibi Electronic Arts oyunlarını indirmek, güncellemek ve oynamak için resmi PC uygulaması (eski adıyla Origin). EA hesabı gerekir." },
+      "homepage": "https://www.ea.com/ea-app",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://tos.ea.com/legalapp/WEBTERMS/US/en/PC/",
+      "icon": { "monogram": "EA", "color": "#FF4747" },
+      "tags": [ "oyun", "game", "ea", "origin", "fifa", "mağaza" ],
+      "elevation": "likely",
+      "winget": { "id": "ElectronicArts.EADesktop", "publisher": "Electronic Arts" },
+      "detection": {
+        "registry": [ { "displayName": "^EA app$", "publisher": "^Electronic Arts$" } ]
+      }
+    },
+    {
+      "id": "ubisoft-connect",
+      "name": "Ubisoft Connect",
+      "publisher": "Ubisoft",
+      "category": "gaming",
+      "summary": { "tr": "Ubisoft oyunlarının başlatıcısı." },
+      "description": { "tr": "Assassin's Creed, Far Cry ve Rainbow Six gibi Ubisoft oyunlarını indirmek ve oynamak için resmi PC başlatıcısı. Ubisoft hesabı gerekir." },
+      "homepage": "https://ubisoftconnect.com/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://legal.ubi.com/LegalInfoUbisoftEMEA",
+      "icon": { "monogram": "U", "color": "#0070FF" },
+      "tags": [ "oyun", "game", "ubisoft", "uplay", "mağaza" ],
+      "elevation": "likely",
+      "winget": { "id": "Ubisoft.Connect", "publisher": "Ubisoft" },
+      "detection": {
+        "registry": [ { "displayName": "^Ubisoft Connect$", "publisher": "^Ubisoft$" } ]
+      }
+    },
+    {
+      "id": "battle-net",
+      "name": "Battle.net",
+      "publisher": "Blizzard Entertainment",
+      "category": "gaming",
+      "summary": { "tr": "Blizzard ve Activision oyunlarının başlatıcısı." },
+      "description": { "tr": "World of Warcraft, Overwatch 2, Diablo IV ve Call of Duty gibi oyunları indirmek ve oynamak için Blizzard'ın resmi uygulaması." },
+      "homepage": "https://download.battle.net/en-us/desktop",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.blizzard.com/legal/fba4d00f-c7e4-4883-b8b9-1b4500a402ea/blizzard-end-user-license-agreement",
+      "icon": { "monogram": "BN", "color": "#148EFF" },
+      "tags": [ "oyun", "game", "blizzard", "call of duty", "mağaza" ],
+      "elevation": "likely",
+      "winget": { "id": "Blizzard.BattleNet", "publisher": "Blizzard Entertainment" },
+      "detection": {
+        "registry": [ { "displayName": "^Battle\\.net$", "publisher": "^Blizzard Entertainment$" } ]
+      }
+    },
+    {
+      "id": "playnite",
+      "name": "Playnite",
+      "publisher": "Josef Nemec",
+      "category": "gaming",
+      "summary": { "tr": "Tüm oyun kütüphanelerini tek yerde toplayan başlatıcı." },
+      "description": { "tr": "Steam, Epic, GOG, EA, Ubisoft ve diğer platformlardaki oyunlarını tek bir kütüphanede birleştiren açık kaynak oyun başlatıcısı." },
+      "homepage": "https://playnite.link/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/JosefNemec/Playnite/blob/HEAD/LICENSE.md",
+      "icon": { "monogram": "Pn", "color": "#5D3FD3" },
+      "tags": [ "oyun", "game", "kütüphane", "başlatıcı", "launcher" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Playnite.Playnite", "publisher": "Josef Nemec" },
+      "detection": {
+        "registry": [ { "displayName": "^Playnite$", "publisher": "^Josef Nemec$" } ]
+      }
+    },
+    {
+      "id": "heroic",
+      "name": "Heroic Games Launcher",
+      "publisher": "Heroic Games Launcher",
+      "category": "gaming",
+      "summary": { "tr": "Epic, GOG ve Amazon oyunları için açık kaynak başlatıcı." },
+      "description": { "tr": "Epic Games, GOG ve Amazon Prime Gaming kütüphanelerindeki oyunları indirip oynamanı sağlayan açık kaynak başlatıcı. Linux'ta Wine/Proton ile Windows oyunlarını da çalıştırır." },
+      "homepage": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/main/COPYING",
+      "icon": { "monogram": "H", "color": "#0BD58C" },
+      "tags": [ "oyun", "game", "epic", "gog", "amazon", "launcher" ],
+      "elevation": "unlikely",
+      "winget": { "id": "HeroicGamesLauncher.HeroicGamesLauncher", "publisher": "Heroic Games Launcher" },
+      "detection": {
+        "registry": [ { "displayName": "^Heroic( [\\d.]+)?$", "publisher": "^Heroic Games Launcher$" } ]
+      },
+      "linux": {
+        "flatpak": "com.heroicgameslauncher.hgl"
+      }
+    },
+    {
+      "id": "lutris",
+      "name": "Lutris",
+      "publisher": "Lutris Team",
+      "category": "gaming",
+      "summary": { "tr": "Linux için açık oyun platformu." },
+      "description": { "tr": "Windows oyunlarını Wine/Proton ile, emülatörleri ve yerel Linux oyunlarını hazır kurulum betikleriyle tek yerden kurup yöneten açık kaynak oyun platformu." },
+      "homepage": "https://lutris.net/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/lutris/lutris/blob/master/LICENSE",
+      "icon": { "monogram": "Lu", "color": "#FF9900" },
+      "tags": [ "oyun", "game", "wine", "proton", "emülatör" ],
+      "linux": {
+        "flatpak": "net.lutris.Lutris",
+        "apt": [ "lutris" ],
+        "dnf": [ "lutris" ],
+        "pacman": [ "lutris" ]
+      }
+    },
+    {
+      "id": "bottles",
+      "name": "Bottles",
+      "publisher": "The Bottles Contributors",
+      "category": "gaming",
+      "summary": { "tr": "Windows programlarını Linux'ta çalıştırmak için Wine yöneticisi." },
+      "description": { "tr": "Windows yazılım ve oyunlarını ayrı 'şişeler' (Wine önekleri) içinde, hazır ortamlar ve bağımlılık yöneticisiyle kolayca çalıştırmanı sağlayan uygulama." },
+      "homepage": "https://usebottles.com/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/bottlesdevs/Bottles/blob/main/COPYING.md",
+      "icon": { "monogram": "Bt", "color": "#3584E4" },
+      "tags": [ "wine", "windows", "oyun", "game", "uyumluluk" ],
+      "linux": {
+        "flatpak": "com.usebottles.bottles"
+      }
+    },
+    {
+      "id": "protonup-qt",
+      "name": "ProtonUp-Qt",
+      "publisher": "DavidoTek",
+      "category": "gaming",
+      "summary": { "tr": "Steam ve Lutris için Proton-GE/Wine-GE yöneticisi." },
+      "description": { "tr": "Steam, Lutris ve Heroic için GE-Proton gibi topluluk uyumluluk katmanlarını tek tıkla indirip kurmanı ve güncellemeni sağlayan araç." },
+      "homepage": "https://davidotek.github.io/protonup-qt/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/DavidoTek/ProtonUp-Qt/blob/main/LICENSE",
+      "icon": { "monogram": "PU", "color": "#E04E39" },
+      "tags": [ "proton", "steam", "wine", "oyun", "game" ],
+      "linux": {
+        "flatpak": "net.davidotek.pupgui2"
+      }
+    },
+    {
+      "id": "prism-launcher",
+      "name": "Prism Launcher",
+      "publisher": "Prism Launcher Contributors",
+      "category": "gaming",
+      "summary": { "tr": "Minecraft için çoklu profil ve mod başlatıcısı." },
+      "description": { "tr": "Birden çok Minecraft kurulumunu ayrı ayrı yönetmeni ve mod paketlerini kolayca kurmanı sağlayan açık kaynak başlatıcı. Oyunun sahibi olan bir Microsoft hesabı gerekir." },
+      "homepage": "https://github.com/PrismLauncher/PrismLauncher",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/PrismLauncher/PrismLauncher/blob/HEAD/LICENSE",
+      "icon": { "monogram": "PL", "color": "#DF6F6F" },
+      "tags": [ "minecraft", "mod", "oyun", "game", "launcher" ],
+      "elevation": "unlikely",
+      "winget": { "id": "PrismLauncher.PrismLauncher", "publisher": "Prism Launcher Contributors" },
+      "detection": {
+        "registry": [ { "displayName": "^Prism Launcher$", "publisher": "^Prism Launcher Contributors$" } ]
+      },
+      "linux": {
+        "flatpak": "org.prismlauncher.PrismLauncher"
+      }
+    },
+    {
+      "id": "minecraft-launcher",
+      "name": "Minecraft Launcher",
+      "publisher": "Mojang",
+      "category": "gaming",
+      "summary": { "tr": "Minecraft'ın resmi başlatıcısı." },
+      "description": { "tr": "Minecraft'ın resmi başlatıcısı; Java Edition'ı indirmek, güncellemek ve oynamak için. Microsoft hesabı ve oyun satın alımı gerekir." },
+      "homepage": "https://www.minecraft.net/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "MC", "color": "#62B47A" },
+      "tags": [ "minecraft", "oyun", "game", "mojang" ],
+      "elevation": "likely",
+      "winget": { "id": "Mojang.MinecraftLauncher", "publisher": "Mojang" },
+      "detection": {
+        "registry": [ { "displayName": "^Minecraft Launcher$", "publisher": "^Mojang" } ]
+      },
+      "linux": {
+        "flatpak": "com.mojang.Minecraft"
+      }
+    },
+    {
+      "id": "msi-afterburner",
+      "name": "MSI Afterburner",
+      "publisher": "MSI Co., LTD",
+      "category": "gaming",
+      "summary": { "tr": "Ekran kartı hız aşırtma ve oyun içi FPS göstergesi." },
+      "description": { "tr": "Ekran kartının saat hızlarını, fan eğrisini ve güç sınırını ayarlamanı; RivaTuner ile oyun içinde FPS, sıcaklık ve kullanım değerlerini görmeni sağlayan araç." },
+      "homepage": "https://www.msi.com/Landing/afterburner/graphics-cards",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "AB", "color": "#C8102E" },
+      "tags": [ "fps", "overclock", "hız aşırtma", "ekran kartı", "oyun", "gpu" ],
+      "elevation": "likely",
+      "winget": { "id": "Guru3D.Afterburner", "publisher": "MSI Co., LTD" },
+      "detection": {
+        "registry": [ { "displayName": "^MSI Afterburner( [\\d.]+)?$", "publisher": "^MSI Co\\., LTD$" } ]
+      }
+    },
+    {
+      "id": "parsec",
+      "name": "Parsec",
+      "publisher": "Parsec Cloud Inc.",
+      "category": "gaming",
+      "summary": { "tr": "Düşük gecikmeli uzaktan oyun ve masaüstü paylaşımı." },
+      "description": { "tr": "Bilgisayarına başka bir cihazdan çok düşük gecikmeyle bağlanmanı ve arkadaşlarınla yerel çok oyunculu oyunları uzaktan oynamanı sağlayan uygulama. Parsec hesabı gerekir." },
+      "homepage": "https://parsec.app/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://parsec.app/terms",
+      "icon": { "monogram": "P", "color": "#202020" },
+      "tags": [ "uzaktan", "oyun", "game", "yayın", "remote" ],
+      "elevation": "likely",
+      "winget": { "id": "Parsec.Parsec", "publisher": "Parsec Cloud Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Parsec$", "publisher": "^Parsec Cloud" } ]
+      },
+      "linux": {
+        "flatpak": "com.parsecgaming.parsec"
+      }
+    },
+    {
+      "id": "moonlight",
+      "name": "Moonlight",
+      "publisher": "Moonlight Game Streaming Project",
+      "category": "gaming",
+      "summary": { "tr": "Açık kaynak oyun yayını istemcisi." },
+      "description": { "tr": "Oyun bilgisayarındaki oyunları (Sunshine veya NVIDIA GameStream ile) başka bir bilgisayara, TV'ye ya da tablete yayınlayan açık kaynak istemci." },
+      "homepage": "https://moonlight-stream.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/moonlight-stream/moonlight-qt/blob/HEAD/LICENSE",
+      "icon": { "monogram": "ML", "color": "#5D2E91" },
+      "tags": [ "oyun", "yayın", "stream", "sunshine", "uzaktan" ],
+      "elevation": "unlikely",
+      "winget": { "id": "MoonlightGameStreamingProject.Moonlight", "publisher": "Moonlight Game Streaming Project" },
+      "detection": {
+        "registry": [ { "displayName": "^Moonlight Game Streaming Client$", "publisher": "^Moonlight Game Streaming Project$" } ]
+      },
+      "linux": {
+        "flatpak": "com.moonlight_stream.Moonlight"
+      }
+    },
+    {
+      "id": "geforce-now",
+      "name": "NVIDIA GeForce NOW",
+      "publisher": "NVIDIA Corporation",
+      "category": "gaming",
+      "summary": { "tr": "NVIDIA'nın bulut oyun hizmeti." },
+      "description": { "tr": "Sahip olduğun oyunları NVIDIA sunucularında çalıştırıp güçlü bir ekran kartı olmadan yüksek grafiklerle oynamanı sağlayan bulut oyun uygulaması. Hesap gerekir." },
+      "homepage": "https://www.nvidia.com/en-us/geforce-now",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.nvidia.com/en-us/geforce-now/terms-of-use",
+      "icon": { "monogram": "GFN", "color": "#76B900" },
+      "tags": [ "bulut oyun", "cloud gaming", "nvidia", "oyun", "game" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Nvidia.GeForceNow", "publisher": "NVIDIA Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^NVIDIA GeForce NOW$", "publisher": "^NVIDIA Corporation$" } ]
+      }
+    },
+    {
       "id": "vscode",
       "name": "Visual Studio Code",
       "publisher": "Microsoft Corporation",
@@ -312,6 +2825,9 @@
       "winget": { "id": "Microsoft.VisualStudioCode", "publisher": "Microsoft Corporation" },
       "detection": {
         "registry": [ { "displayName": "^Microsoft Visual Studio Code( \\(User\\))?$", "publisher": "^Microsoft Corporation$" } ]
+      },
+      "linux": {
+        "flatpak": "com.visualstudio.code"
       }
     },
     {
@@ -330,6 +2846,11 @@
       "winget": { "id": "Git.Git", "publisher": "The Git Development Community" },
       "detection": {
         "registry": [ { "displayName": "^Git( version [\\d.]+)?$", "publisher": "^The Git Development Community$" } ]
+      },
+      "linux": {
+        "apt": [ "git" ],
+        "dnf": [ "git" ],
+        "pacman": [ "git" ]
       }
     },
     {
@@ -366,6 +2887,12 @@
       "winget": { "id": "Python.Python.3.14", "publisher": "Python Software Foundation" },
       "detection": {
         "registry": [ { "displayName": "^Python 3\\.14\\.\\d+ \\((64|32)-bit\\)$", "publisher": "^Python Software Foundation$" } ]
+      },
+      "linux": {
+        "apt": [ "python3", "python3-pip", "python3-venv" ],
+        "dnf": [ "python3", "python3-pip" ],
+        "pacman": [ "python", "python-pip" ],
+        "notes": { "tr": "Linux'ta dağıtımın sunduğu Python 3 sürümü (pip ile birlikte) kurulur; 3.14 olmayabilir." }
       }
     },
     {
@@ -392,6 +2919,12 @@
       },
       "detection": {
         "registry": [ { "displayName": "^Node\\.js$", "publisher": "^Node\\.js Foundation$" } ]
+      },
+      "linux": {
+        "apt": [ "nodejs", "npm" ],
+        "dnf": [ "nodejs24", "nodejs24-npm" ],
+        "pacman": [ "nodejs", "npm" ],
+        "notes": { "tr": "Linux'ta dağıtımın paket deposundaki Node.js sürümü kurulur; LTS olmayabilir." }
       }
     },
     {
@@ -410,69 +2943,698 @@
       "winget": { "id": "Microsoft.DotNet.SDK.10", "publisher": "Microsoft Corporation" },
       "detection": {
         "registry": [ { "displayName": "^Microsoft \\.NET SDK 10\\.\\d+\\.\\d+ \\(x64\\)", "publisher": "^Microsoft Corporation$" } ]
-      }
-    },
-    {
-      "id": "libreoffice",
-      "name": "LibreOffice",
-      "publisher": "The Document Foundation",
-      "category": "everyday",
-      "summary": { "tr": "Ücretsiz ve açık kaynak ofis paketi." },
-      "description": { "tr": "Kelime işlemci (Writer), hesap tablosu (Calc), sunum (Impress) ve daha fazlasını içeren ofis paketi. Microsoft Office belgelerini açıp düzenleyebilir." },
-      "homepage": "https://www.libreoffice.org/",
-      "license": { "tr": "MPL-2.0 (açık kaynak)" },
-      "licenseUrl": "https://www.libreoffice.org/licenses/",
-      "icon": { "monogram": "LO", "color": "#18A303" },
-      "tags": [ "ofis", "office", "word", "excel", "belge", "sunum" ],
-      "elevation": "likely",
-      "notes": { "tr": "winget, LibreOffice'in ihtiyaç duyduğu Microsoft Visual C++ çalışma zamanını bağımlılık olarak ayrıca kurabilir. İndirme boyutu büyüktür (yaklaşık 350 MB ve üzeri)." },
-      "winget": { "id": "TheDocumentFoundation.LibreOffice", "publisher": "The Document Foundation" },
-      "detection": {
-        "registry": [ { "displayName": "^LibreOffice \\d", "publisher": "^The Document Foundation$" } ]
-      }
-    },
-    {
-      "id": "sumatrapdf",
-      "name": "SumatraPDF",
-      "publisher": "Krzysztof Kowalczyk",
-      "category": "everyday",
-      "summary": { "tr": "Hafif ve hızlı PDF, EPUB ve çizgi roman okuyucu." },
-      "description": { "tr": "PDF, EPUB, MOBI, XPS, DjVu ve CBZ/CBR dosyalarını açabilen, çok hafif açık kaynak belge okuyucu." },
-      "homepage": "https://www.sumatrapdfreader.org/",
-      "license": { "tr": "GPL-3.0 (açık kaynak)" },
-      "licenseUrl": "https://github.com/sumatrapdfreader/sumatrapdf/blob/master/COPYING",
-      "icon": { "monogram": "S", "color": "#B8860B" },
-      "tags": [ "pdf", "okuyucu", "reader", "epub", "belge", "e-kitap" ],
-      "elevation": "unknown",
-      "winget": { "id": "SumatraPDF.SumatraPDF", "publisher": "Krzysztof Kowalczyk" },
-      "detection": {
-        "registry": [ { "displayName": "^SumatraPDF$", "publisher": "^Krzysztof Kowalczyk$" } ]
-      }
-    },
-    {
-      "id": "everything",
-      "name": "Everything",
-      "publisher": "voidtools",
-      "category": "everyday",
-      "summary": { "tr": "Dosyaları anında bulan arama aracı." },
-      "description": { "tr": "Dosya ve klasörleri ada göre anında bulan, çok hafif masaüstü arama aracı. NTFS dizinini kullanarak saniyeler içinde indeksler." },
-      "homepage": "https://www.voidtools.com/",
-      "license": { "tr": "MIT (açık kaynak)" },
-      "licenseUrl": "https://www.voidtools.com/License.txt",
-      "icon": { "monogram": "E", "color": "#D9731A" },
-      "tags": [ "arama", "search", "dosya", "bul", "file" ],
-      "elevation": "likely",
-      "winget": { "id": "voidtools.Everything", "publisher": "voidtools" },
-      "direct": {
-        "url": "https://www.voidtools.com/Everything-1.4.1.1032.x64.msi",
-        "allowedHosts": [ "www.voidtools.com" ],
-        "installerType": "msi",
-        "version": "1.4.1.1032",
-        "sha256": "4e7a80885aab8566b750c56a2a2b3e7c3c1f4920bcc53777e07f5eeb9e1f7485",
-        "sizeBytes": 2351104
       },
+      "linux": {
+        "apt": [ "dotnet-sdk-10.0" ],
+        "dnf": [ "dotnet-sdk-10.0" ],
+        "pacman": [ "dotnet-sdk" ],
+        "notes": { "tr": "Ubuntu ve Fedora'nın resmi depolarındaki .NET 10 SDK kurulur. Debian'da paket bulunmayabilir." }
+      }
+    },
+    {
+      "id": "build-tools",
+      "name": "Derleme araçları (GCC, make)",
+      "publisher": "GNU Project",
+      "category": "developer",
+      "summary": { "tr": "Kaynak koddan program derlemek için temel araçlar." },
+      "description": { "tr": "GCC C/C++ derleyicisi, make ve ilgili temel geliştirme araçlarını kuran paket grubu (Debian/Ubuntu'da build-essential, Arch'ta base-devel)." },
+      "homepage": "https://gcc.gnu.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "icon": { "monogram": "gcc", "color": "#5A6D2E" },
+      "tags": [ "gcc", "make", "derleyici", "compiler", "c", "c++", "build-essential" ],
+      "linux": {
+        "apt": [ "build-essential" ],
+        "dnf": [ "gcc", "gcc-c++", "make" ],
+        "pacman": [ "base-devel" ]
+      }
+    },
+    {
+      "id": "github-cli",
+      "name": "GitHub CLI",
+      "publisher": "GitHub, Inc.",
+      "category": "developer",
+      "summary": { "tr": "GitHub'ı komut satırından kullan (gh)." },
+      "description": { "tr": "Pull request, issue, depo ve GitHub Actions işlemlerini terminalden yapmanı sağlayan resmi gh komut satırı aracı." },
+      "homepage": "https://cli.github.com/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/cli/cli/blob/HEAD/LICENSE",
+      "icon": { "monogram": "gh", "color": "#24292F" },
+      "tags": [ "github", "git", "cli", "terminal", "geliştirici" ],
+      "elevation": "likely",
+      "winget": { "id": "GitHub.cli", "publisher": "GitHub, Inc." },
       "detection": {
-        "registry": [ { "displayName": "^Everything [\\d.]+ \\((x64|x86)\\)$", "publisher": "^voidtools$" } ]
+        "registry": [ { "displayName": "^GitHub CLI$", "publisher": "^GitHub, Inc\\.$" } ]
+      },
+      "linux": {
+        "apt": [ "gh" ],
+        "dnf": [ "gh" ],
+        "pacman": [ "github-cli" ]
+      }
+    },
+    {
+      "id": "visual-studio-community",
+      "name": "Visual Studio Community 2026",
+      "publisher": "Microsoft Corporation",
+      "category": "developer",
+      "summary": { "tr": "C#, C++ ve .NET için Microsoft'un tam özellikli IDE'si." },
+      "description": { "tr": "Bireysel geliştiriciler, öğrenciler ve açık kaynak projeler için ücretsiz Visual Studio sürümü. Geliştirme iş yüklerini (C++, .NET, oyun geliştirme vb.) Visual Studio Installer üzerinden seçebilirsin." },
+      "homepage": "https://visualstudio.microsoft.com/",
+      "license": { "tr": "Ücretsiz (bireysel ve küçük ekipler, tescilli)" },
+      "licenseUrl": "https://visualstudio.microsoft.com/license-terms/",
+      "icon": { "monogram": "VS", "color": "#5C2D91" },
+      "tags": [ "ide", "c#", "c++", ".net", "microsoft", "geliştirici" ],
+      "elevation": "likely",
+      "notes": { "tr": "Yalnızca Visual Studio'nun çekirdeği kurulur; C++ veya .NET gibi iş yüklerini kurulumdan sonra Visual Studio Installer'dan seçmen gerekir." },
+      "winget": { "id": "Microsoft.VisualStudio.Community", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^Visual Studio Community 2026$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "jetbrains-toolbox",
+      "name": "JetBrains Toolbox",
+      "publisher": "JetBrains",
+      "category": "developer",
+      "summary": { "tr": "IntelliJ IDEA, PyCharm, Rider gibi IDE'leri yönetir." },
+      "description": { "tr": "JetBrains IDE'lerini (IntelliJ IDEA, PyCharm, WebStorm, Rider, CLion vb.) tek yerden kurup güncellemeni sağlayan uygulama. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.jetbrains.com/toolbox-app/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.jetbrains.com/legal/docs/toolbox/user/",
+      "icon": { "monogram": "JB", "color": "#1E1E1E" },
+      "tags": [ "ide", "intellij", "pycharm", "jetbrains", "geliştirici" ],
+      "elevation": "unlikely",
+      "winget": { "id": "JetBrains.Toolbox", "publisher": "JetBrains" },
+      "detection": {
+        "registry": [ { "displayName": "^JetBrains Toolbox$", "publisher": "^JetBrains" } ]
+      }
+    },
+    {
+      "id": "notepad-plus-plus",
+      "name": "Notepad++",
+      "publisher": "Notepad++ Team",
+      "category": "developer",
+      "summary": { "tr": "Sözdizimi renklendirmeli hızlı metin düzenleyici." },
+      "description": { "tr": "Onlarca programlama dili için sözdizimi renklendirme, sekmeli düzenleme, gelişmiş bul/değiştir ve eklenti desteği sunan; Not Defteri'nin güçlü ve ücretsiz alternatifi." },
+      "homepage": "https://notepad-plus-plus.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/notepad-plus-plus/notepad-plus-plus/blob/HEAD/LICENSE",
+      "icon": { "monogram": "N++", "color": "#7CC242" },
+      "tags": [ "metin", "editör", "editor", "not defteri", "notepad", "kod" ],
+      "elevation": "likely",
+      "winget": { "id": "Notepad++.Notepad++", "publisher": "Notepad++ Team" },
+      "detection": {
+        "registry": [ { "displayName": "^Notepad\\+\\+( \\(.*\\))?$", "publisher": "^Notepad\\+\\+ Team$" } ]
+      }
+    },
+    {
+      "id": "sublime-text",
+      "name": "Sublime Text",
+      "publisher": "Sublime HQ Pty Ltd",
+      "category": "developer",
+      "summary": { "tr": "Hızlı ve şık kod/metin düzenleyici." },
+      "description": { "tr": "Çoklu imleç, komut paleti ve paket ekosistemiyle bilinen hızlı metin düzenleyici. Deneme süresi sınırsızdır; sürekli kullanım için lisans satın alınması önerilir." },
+      "homepage": "https://www.sublimetext.com/",
+      "license": { "tr": "Ücretli (sınırsız deneme)" },
+      "licenseUrl": "https://www.sublimetext.com/eula",
+      "icon": { "monogram": "ST", "color": "#FF9800" },
+      "tags": [ "editör", "editor", "kod", "metin" ],
+      "elevation": "likely",
+      "winget": { "id": "SublimeHQ.SublimeText.4", "publisher": "Sublime HQ Pty Ltd" },
+      "detection": {
+        "registry": [ { "displayName": "^Sublime Text( 4| Build \\d+)?$", "publisher": "^Sublime HQ Pty Ltd$" } ]
+      },
+      "linux": {
+        "flatpak": "com.sublimehq.SublimeText"
+      }
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "publisher": "Anysphere",
+      "category": "developer",
+      "summary": { "tr": "Yapay zekâ destekli kod düzenleyici." },
+      "description": { "tr": "VS Code tabanlı; yapay zekâ ile kod yazma, düzenleme ve proje genelinde soru-cevap özellikleri sunan kod düzenleyici. Ücretsiz ve ücretli planları vardır." },
+      "homepage": "https://www.cursor.com/",
+      "license": { "tr": "Ücretsiz / ücretli plan (tescilli)" },
+      "licenseUrl": "https://www.cursor.com/terms-of-service",
+      "icon": { "monogram": "Cu", "color": "#111111" },
+      "tags": [ "editör", "kod", "yapay zeka", "ai", "ide" ],
+      "elevation": "unknown",
+      "winget": { "id": "Anysphere.Cursor", "publisher": "Anysphere" },
+      "detection": {
+        "registry": [ { "displayName": "^Cursor( \\(User\\))?$", "publisher": "^Anysphere" } ]
+      }
+    },
+    {
+      "id": "windows-terminal",
+      "name": "Windows Terminal",
+      "publisher": "Microsoft Corporation",
+      "category": "developer",
+      "summary": { "tr": "Sekmeli, modern terminal uygulaması." },
+      "description": { "tr": "PowerShell, Komut İstemi ve WSL'yi sekmelerde ve bölmelerde çalıştıran, GPU hızlandırmalı açık kaynak terminal. Windows 11'de önceden yüklüdür." },
+      "homepage": "https://docs.microsoft.com/windows/terminal",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/microsoft/terminal/blob/main/LICENSE",
+      "icon": { "monogram": ">_", "color": "#2D2D2D" },
+      "tags": [ "terminal", "konsol", "powershell", "cmd", "wsl" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "MSIX paketi olduğu için kayıt defterinde görünmez; kurulu olup olmadığı yalnızca winget ile doğrulanabilir." },
+      "winget": { "id": "Microsoft.WindowsTerminal", "publisher": "Microsoft Corporation" }
+    },
+    {
+      "id": "powershell",
+      "name": "PowerShell 7",
+      "publisher": "Microsoft Corporation",
+      "category": "developer",
+      "summary": { "tr": "Modern, platformlar arası PowerShell." },
+      "description": { "tr": "Windows PowerShell 5.1'in yerini alan; .NET tabanlı, açık kaynak ve platformlar arası komut kabuğu ve betik dili." },
+      "homepage": "https://microsoft.com/PowerShell",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/PowerShell/PowerShell/blob/master/LICENSE.txt",
+      "icon": { "monogram": "PS", "color": "#012456" },
+      "tags": [ "powershell", "terminal", "betik", "script", "otomasyon" ],
+      "elevation": "likely",
+      "winget": { "id": "Microsoft.PowerShell", "publisher": "Microsoft Corporation" },
+      "detection": {
+        "registry": [ { "displayName": "^PowerShell 7(\\.\\d+)*-(x64|x86|arm64)$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "wsl",
+      "name": "Windows Subsystem for Linux (WSL)",
+      "publisher": "Microsoft Corp.",
+      "category": "developer",
+      "summary": { "tr": "Windows'ta Linux dağıtımları çalıştır." },
+      "description": { "tr": "Windows içinde Ubuntu, Debian gibi Linux dağıtımlarını sanal makine kurmadan çalıştırmanı sağlayan Microsoft bileşeni. Kurulumdan sonra 'wsl --install -d Ubuntu' komutuyla bir dağıtım ekleyebilirsin." },
+      "homepage": "https://learn.microsoft.com/windows/wsl/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/microsoft/WSL/blob/master/LICENSE",
+      "icon": { "monogram": "WSL", "color": "#E95420" },
+      "tags": [ "linux", "wsl", "ubuntu", "terminal", "geliştirici" ],
+      "elevation": "likely",
+      "notes": { "tr": "Sanallaştırma özelliklerini etkinleştirdiği için bilgisayarın yeniden başlatılması gerekebilir." },
+      "winget": { "id": "Microsoft.WSL", "publisher": "Microsoft Corp." },
+      "detection": {
+        "registry": [ { "displayName": "^Windows Subsystem for Linux$", "publisher": "^Microsoft Corporation$" } ]
+      }
+    },
+    {
+      "id": "docker-desktop",
+      "name": "Docker Desktop",
+      "publisher": "Docker Inc.",
+      "category": "developer",
+      "summary": { "tr": "Konteyner tabanlı geliştirme ortamı." },
+      "description": { "tr": "Docker konteynerlerini, imajlarını ve Kubernetes'i grafik arayüzle yönetmeni sağlayan masaüstü uygulaması. Büyük şirketlerde ticari kullanım için abonelik gerekir." },
+      "homepage": "https://www.docker.com/products/docker-desktop",
+      "license": { "tr": "Ücretsiz (kişisel ve küçük işletme, tescilli)" },
+      "licenseUrl": "https://www.docker.com/legal/docker-subscription-service-agreement",
+      "icon": { "monogram": "D", "color": "#1D63ED" },
+      "tags": [ "docker", "konteyner", "container", "kubernetes", "geliştirici" ],
+      "elevation": "likely",
+      "notes": { "tr": "WSL 2 ve donanım sanallaştırması gerektirir; kurulumdan sonra yeniden başlatma gerekebilir." },
+      "winget": { "id": "Docker.DockerDesktop", "publisher": "Docker Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Docker Desktop$", "publisher": "^Docker Inc\\.$" } ]
+      }
+    },
+    {
+      "id": "postman",
+      "name": "Postman",
+      "publisher": "Postman",
+      "category": "developer",
+      "summary": { "tr": "API geliştirme ve test platformu." },
+      "description": { "tr": "REST, GraphQL ve gRPC API'lerini test etmek, koleksiyonlar oluşturmak ve ekiple paylaşmak için popüler API platformu. Kullanıcı hesabına kurulur." },
+      "homepage": "https://www.postman.com/downloads/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.postman.com/legal/terms/",
+      "icon": { "monogram": "PM", "color": "#FF6C37" },
+      "tags": [ "api", "rest", "http", "test", "geliştirici" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Postman.Postman", "publisher": "Postman" },
+      "detection": {
+        "registry": [ { "displayName": "^Postman( x64| x86)?( [\\d.]+)?$", "publisher": "^Postman$" } ]
+      },
+      "linux": {
+        "flatpak": "com.getpostman.Postman"
+      }
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno",
+      "publisher": "Anoop M D",
+      "category": "developer",
+      "summary": { "tr": "Açık kaynak ve çevrimdışı API istemcisi." },
+      "description": { "tr": "API koleksiyonlarını düz metin dosyaları olarak doğrudan proje klasöründe saklayan, Git dostu ve bulut gerektirmeyen açık kaynak API test aracı." },
+      "homepage": "https://www.usebruno.com/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/usebruno/bruno/blob/HEAD/license.md",
+      "icon": { "monogram": "Br", "color": "#F4AA41" },
+      "tags": [ "api", "rest", "http", "test", "postman" ],
+      "elevation": "likely",
+      "winget": { "id": "Bruno.Bruno", "publisher": "Anoop M D" },
+      "detection": {
+        "registry": [ { "displayName": "^Bruno( [\\d.]+)?$", "publisher": "^Anoop M D$" } ]
+      },
+      "linux": {
+        "flatpak": "com.usebruno.Bruno"
+      }
+    },
+    {
+      "id": "dbeaver",
+      "name": "DBeaver Community",
+      "publisher": "DBeaver Corp",
+      "category": "developer",
+      "summary": { "tr": "Çok sayıda veritabanı için evrensel SQL istemcisi." },
+      "description": { "tr": "MySQL, PostgreSQL, SQLite, SQL Server, Oracle ve daha birçok veritabanına bağlanan; SQL düzenleyici ve veri görüntüleyici sunan açık kaynak araç." },
+      "homepage": "https://dbeaver.io/download/",
+      "license": { "tr": "Apache-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/dbeaver/dbeaver/blob/HEAD/LICENSE.md",
+      "icon": { "monogram": "DB", "color": "#382923" },
+      "tags": [ "veritabanı", "database", "sql", "mysql", "postgresql" ],
+      "elevation": "unknown",
+      "winget": { "id": "DBeaver.DBeaver.Community", "publisher": "DBeaver Corp" },
+      "detection": {
+        "registry": [ { "displayName": "^DBeaver [\\d.]+", "publisher": "^DBeaver Corp$" } ]
+      },
+      "linux": {
+        "flatpak": "io.dbeaver.DBeaverCommunity"
+      }
+    },
+    {
+      "id": "heidisql",
+      "name": "HeidiSQL",
+      "publisher": "Ansgar Becker",
+      "category": "developer",
+      "summary": { "tr": "MySQL, MariaDB ve SQL Server için hafif istemci." },
+      "description": { "tr": "MariaDB, MySQL, SQL Server, PostgreSQL ve SQLite veritabanlarını yönetmek için hafif, ücretsiz ve açık kaynak araç." },
+      "homepage": "https://www.heidisql.com/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/HeidiSQL/HeidiSQL/blob/HEAD/LICENSE",
+      "icon": { "monogram": "HS", "color": "#4E8A2C" },
+      "tags": [ "veritabanı", "database", "sql", "mysql", "mariadb" ],
+      "elevation": "likely",
+      "winget": { "id": "HeidiSQL.HeidiSQL", "publisher": "Ansgar Becker" },
+      "detection": {
+        "registry": [ { "displayName": "^HeidiSQL [\\d.]+$", "publisher": "^Ansgar Becker$" } ]
+      }
+    },
+    {
+      "id": "winscp",
+      "name": "WinSCP",
+      "publisher": "Martin Prikryl",
+      "category": "developer",
+      "summary": { "tr": "SFTP, FTP ve SCP dosya aktarım istemcisi." },
+      "description": { "tr": "Sunucularla SFTP, FTP, WebDAV, S3 ve SCP üzerinden dosya aktarmanı sağlayan, iki panelli açık kaynak dosya yöneticisi." },
+      "homepage": "https://winscp.net/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/winscp/winscp/blob/HEAD/license.txt",
+      "icon": { "monogram": "WS", "color": "#2B6CB0" },
+      "tags": [ "ftp", "sftp", "scp", "sunucu", "dosya aktarımı" ],
+      "elevation": "likely",
+      "winget": { "id": "WinSCP.WinSCP", "publisher": "Martin Prikryl" },
+      "detection": {
+        "registry": [ { "displayName": "^WinSCP [\\d.]+$", "publisher": "^Martin Prikryl$" } ]
+      }
+    },
+    {
+      "id": "putty",
+      "name": "PuTTY",
+      "publisher": "Simon Tatham",
+      "category": "developer",
+      "summary": { "tr": "SSH ve Telnet istemcisi." },
+      "description": { "tr": "Uzak sunuculara SSH, Telnet ve seri bağlantı kurmak için klasik, hafif ve açık kaynak terminal istemcisi." },
+      "homepage": "https://www.chiark.greenend.org.uk/~sgtatham/putty/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://www.chiark.greenend.org.uk/~sgtatham/putty/licence.html",
+      "icon": { "monogram": "PT", "color": "#3B5998" },
+      "tags": [ "ssh", "telnet", "terminal", "sunucu", "uzak" ],
+      "elevation": "likely",
+      "winget": { "id": "PuTTY.PuTTY", "publisher": "Simon Tatham" },
+      "detection": {
+        "registry": [ { "displayName": "^PuTTY release [\\d.]+ \\((64|32)-bit( Arm)?\\)$", "publisher": "^Simon Tatham$" } ]
+      },
+      "linux": {
+        "apt": [ "putty" ],
+        "dnf": [ "putty" ],
+        "pacman": [ "putty" ]
+      }
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "publisher": "The Go Authors",
+      "category": "developer",
+      "summary": { "tr": "Google'ın hızlı ve basit programlama dili." },
+      "description": { "tr": "Go programlama dilinin resmi dağıtımı; derleyici, standart kütüphane ve go komut satırı aracını içerir." },
+      "homepage": "https://go.dev/dl/",
+      "license": { "tr": "BSD-3-Clause (açık kaynak)" },
+      "licenseUrl": "https://github.com/golang/go/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Go", "color": "#00ADD8" },
+      "tags": [ "go", "golang", "programlama", "geliştirici" ],
+      "elevation": "likely",
+      "winget": { "id": "GoLang.Go", "publisher": "https://go.dev" },
+      "detection": {
+        "registry": [ { "displayName": "^Go Programming Language (amd64|arm64|386) go[\\d.]+$", "publisher": "^https://go\\.dev" } ]
+      },
+      "linux": {
+        "apt": [ "golang" ],
+        "dnf": [ "golang" ],
+        "pacman": [ "go" ],
+        "notes": { "tr": "Linux'ta dağıtımın paket deposundaki Go sürümü kurulur." }
+      }
+    },
+    {
+      "id": "rustup",
+      "name": "Rust (rustup)",
+      "publisher": "The Rust Programming Language",
+      "category": "developer",
+      "summary": { "tr": "Rust programlama dili ve araç zinciri yöneticisi." },
+      "description": { "tr": "Rust derleyicisini (rustc), Cargo paket yöneticisini ve araç zincirlerini kurup güncelleyen resmi rustup aracı." },
+      "homepage": "https://rust-lang.org/",
+      "license": { "tr": "Apache-2.0 / MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/rust-lang/rustup/blob/master/LICENSE-MIT",
+      "icon": { "monogram": "Rs", "color": "#000000" },
+      "tags": [ "rust", "cargo", "programlama", "geliştirici" ],
+      "elevation": "unlikely",
+      "notes": { "tr": "Rust, Windows'ta Visual Studio C++ derleme araçlarına ihtiyaç duyar; gerekirse Visual Studio Community'ye 'C++ ile masaüstü geliştirme' iş yükünü ekle." },
+      "winget": { "id": "Rustlang.Rustup", "publisher": "The Rust Programming Language" },
+      "linux": {
+        "apt": [ "rustup" ],
+        "dnf": [ "rustup" ],
+        "pacman": [ "rustup" ],
+        "notes": { "tr": "Kurulumdan sonra terminalde 'rustup default stable' komutuyla kararlı Rust araç zincirini indir." }
+      }
+    },
+    {
+      "id": "java-jdk",
+      "name": "Java JDK (Eclipse Temurin 25)",
+      "publisher": "Eclipse Adoptium",
+      "category": "developer",
+      "summary": { "tr": "Java geliştirme kiti (OpenJDK, LTS)." },
+      "description": { "tr": "Eclipse Adoptium'un OpenJDK tabanlı, ücretsiz ve uzun süreli destekli Java 25 geliştirme kiti; javac derleyicisini ve geliştirme araçlarını içerir." },
+      "homepage": "https://adoptium.net/",
+      "license": { "tr": "GPL-2.0 + Classpath istisnası (açık kaynak)" },
+      "licenseUrl": "https://github.com/adoptium/jdk/blob/HEAD/LICENSE",
+      "icon": { "monogram": "JDK", "color": "#FF1464" },
+      "tags": [ "java", "jdk", "openjdk", "programlama", "geliştirici" ],
+      "elevation": "likely",
+      "winget": { "id": "EclipseAdoptium.Temurin.25.JDK", "publisher": "Eclipse Adoptium" },
+      "detection": {
+        "registry": [ { "displayName": "^Eclipse Temurin JDK with Hotspot 25", "publisher": "^Eclipse Adoptium$" } ]
+      }
+    },
+    {
+      "id": "android-studio",
+      "name": "Android Studio",
+      "publisher": "Google LLC",
+      "category": "developer",
+      "summary": { "tr": "Android uygulama geliştirme ortamı." },
+      "description": { "tr": "Android uygulamaları geliştirmek için Google'ın resmi IDE'si; kod düzenleyici, emülatör ve SDK yöneticisi içerir. İndirme boyutu büyüktür." },
+      "homepage": "https://developer.android.com/studio",
+      "license": { "tr": "Ücretsiz (Android SDK lisansı)" },
+      "licenseUrl": "https://developer.android.com/studio/terms",
+      "icon": { "monogram": "AS", "color": "#3DDC84" },
+      "tags": [ "android", "mobil", "kotlin", "java", "ide", "geliştirici" ],
+      "elevation": "likely",
+      "winget": { "id": "Google.AndroidStudio", "publisher": "Google LLC" },
+      "detection": {
+        "registry": [ { "displayName": "^Android Studio$", "publisher": "^Google LLC$" } ]
+      },
+      "linux": {
+        "flatpak": "com.google.AndroidStudio"
+      }
+    },
+    {
+      "id": "cmake",
+      "name": "CMake",
+      "publisher": "Kitware",
+      "category": "developer",
+      "summary": { "tr": "C/C++ projeleri için derleme sistemi oluşturucu." },
+      "description": { "tr": "C ve C++ projeleri için platformlar arası derleme yapılandırma aracı; Visual Studio, Ninja ve Makefile projeleri üretir." },
+      "homepage": "https://cmake.org/",
+      "license": { "tr": "BSD-3-Clause (açık kaynak)" },
+      "licenseUrl": "https://github.com/Kitware/CMake/blob/HEAD/LICENSE.rst",
+      "icon": { "monogram": "CM", "color": "#064F8C" },
+      "tags": [ "cmake", "c++", "derleme", "build", "geliştirici" ],
+      "elevation": "likely",
+      "winget": { "id": "Kitware.CMake", "publisher": "Kitware" },
+      "detection": {
+        "registry": [ { "displayName": "^CMake$", "publisher": "^Kitware$" } ]
+      },
+      "linux": {
+        "apt": [ "cmake" ],
+        "dnf": [ "cmake" ],
+        "pacman": [ "cmake" ]
+      }
+    },
+    {
+      "id": "neovim",
+      "name": "Neovim",
+      "publisher": "neovim.io",
+      "category": "developer",
+      "summary": { "tr": "Vim tabanlı, genişletilebilir terminal metin düzenleyici." },
+      "description": { "tr": "Vim'in modern devamı; Lua ile yapılandırma, yerleşik LSP istemcisi ve zengin eklenti ekosistemi sunan terminal tabanlı metin düzenleyici." },
+      "homepage": "https://neovim.io/",
+      "license": { "tr": "Apache-2.0 / Vim (açık kaynak)" },
+      "licenseUrl": "https://github.com/neovim/neovim/blob/HEAD/LICENSE.txt",
+      "icon": { "monogram": "nv", "color": "#57A143" },
+      "tags": [ "vim", "editör", "editor", "terminal", "kod" ],
+      "elevation": "likely",
+      "winget": { "id": "Neovim.Neovim", "publisher": "neovim.io" },
+      "linux": {
+        "flatpak": "io.neovim.nvim",
+        "apt": [ "neovim" ],
+        "dnf": [ "neovim" ],
+        "pacman": [ "neovim" ]
+      }
+    },
+    {
+      "id": "wireshark",
+      "name": "Wireshark",
+      "publisher": "Wireshark Foundation",
+      "category": "developer",
+      "summary": { "tr": "Ağ trafiği yakalama ve çözümleme aracı." },
+      "description": { "tr": "Ağ paketlerini gerçek zamanlı yakalayıp yüzlerce protokolü ayrıntılı çözümleyen; ağ sorunlarını gidermek ve öğrenmek için standart açık kaynak araç." },
+      "homepage": "https://www.wireshark.org/",
+      "license": { "tr": "GPL-2.0 (açık kaynak)" },
+      "licenseUrl": "https://gitlab.com/wireshark/wireshark/-/blob/HEAD/COPYING",
+      "icon": { "monogram": "WS", "color": "#1679A7" },
+      "tags": [ "ağ", "network", "paket", "protokol", "güvenlik" ],
+      "elevation": "likely",
+      "notes": { "tr": "Windows'ta canlı paket yakalama için Npcap sürücüsünün ayrıca kurulması gerekebilir (npcap.com)." },
+      "winget": { "id": "WiresharkFoundation.Wireshark", "publisher": "The Wireshark developer community, https://www.wireshark.org" },
+      "detection": {
+        "registry": [ { "displayName": "^Wireshark [\\d.]+ (x64|arm64)$", "publisher": "^The Wireshark developer community" } ]
+      },
+      "linux": {
+        "flatpak": "org.wireshark.Wireshark",
+        "apt": [ "wireshark" ],
+        "dnf": [ "wireshark" ],
+        "pacman": [ "wireshark-qt" ]
+      }
+    },
+    {
+      "id": "virtualbox",
+      "name": "VirtualBox",
+      "publisher": "Oracle",
+      "category": "developer",
+      "summary": { "tr": "Ücretsiz ve açık kaynak sanal makine yazılımı." },
+      "description": { "tr": "Windows, Linux ve diğer işletim sistemlerini sanal makinelerde çalıştırmanı sağlayan Oracle'ın açık kaynak sanallaştırma yazılımı." },
+      "homepage": "https://www.virtualbox.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://www.virtualbox.org/wiki/Licensing_FAQ",
+      "icon": { "monogram": "VB", "color": "#183A61" },
+      "tags": [ "sanal makine", "virtual machine", "vm", "sanallaştırma" ],
+      "elevation": "likely",
+      "notes": { "tr": "Kurulum sırasında sanal ağ bağdaştırıcıları eklendiği için internet bağlantın kısa süre kesilebilir." },
+      "winget": { "id": "Oracle.VirtualBox", "publisher": "Oracle and/or its affiliates" },
+      "detection": {
+        "registry": [ { "displayName": "^Oracle (VM )?VirtualBox [\\d.]+$", "publisher": "^Oracle" } ]
+      },
+      "linux": {
+        "pacman": [ "virtualbox" ]
+      }
+    },
+    {
+      "id": "qbittorrent",
+      "name": "qBittorrent",
+      "publisher": "The qBittorrent project",
+      "category": "downloads",
+      "summary": { "tr": "Reklamsız, açık kaynak torrent istemcisi." },
+      "description": { "tr": "Reklam içermeyen; arama motoru, RSS ve sıralı indirme desteği sunan hafif ve açık kaynak BitTorrent istemcisi." },
+      "homepage": "https://www.qbittorrent.org/",
+      "license": { "tr": "GPL-3.0 (açık kaynak)" },
+      "licenseUrl": "https://github.com/qbittorrent/qBittorrent/blob/master/COPYING",
+      "icon": { "monogram": "qB", "color": "#2F67BA" },
+      "tags": [ "torrent", "indirme", "download", "p2p" ],
+      "elevation": "likely",
+      "winget": { "id": "qBittorrent.qBittorrent", "publisher": "The qBittorrent project" },
+      "detection": {
+        "registry": [ { "displayName": "^qBittorrent$", "publisher": "^The qBittorrent project$" } ]
+      },
+      "linux": {
+        "flatpak": "org.qbittorrent.qBittorrent",
+        "apt": [ "qbittorrent" ],
+        "dnf": [ "qbittorrent" ],
+        "pacman": [ "qbittorrent" ]
+      }
+    },
+    {
+      "id": "free-download-manager",
+      "name": "Free Download Manager",
+      "publisher": "Softdeluxe",
+      "category": "downloads",
+      "summary": { "tr": "Hızlı ve ücretsiz indirme yöneticisi." },
+      "description": { "tr": "İndirmeleri parçalara bölerek hızlandıran, duraklatıp devam ettirebilen, tarayıcı entegrasyonu ve torrent desteği sunan ücretsiz indirme yöneticisi." },
+      "homepage": "https://www.freedownloadmanager.org/download.htm",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://www.freedownloadmanager.org/privacy.htm",
+      "icon": { "monogram": "FDM", "color": "#3A9E3A" },
+      "tags": [ "indirme", "download", "hızlandırıcı", "idm", "torrent" ],
+      "elevation": "unknown",
+      "winget": { "id": "SoftDeluxe.FreeDownloadManager", "publisher": "Softdeluxe" },
+      "detection": {
+        "registry": [ { "displayName": "^Free Download Manager$", "publisher": "^Softdeluxe$" } ]
+      },
+      "linux": {
+        "flatpak": "org.freedownloadmanager.Manager"
+      }
+    },
+    {
+      "id": "jdownloader",
+      "name": "JDownloader 2",
+      "publisher": "AppWork GmbH",
+      "category": "downloads",
+      "summary": { "tr": "Dosya barındırma sitelerinden toplu indirme aracı." },
+      "description": { "tr": "Bağlantıları otomatik yakalayan; dosya barındırma sitelerinden ve video platformlarından toplu indirme yapan Java tabanlı indirme yöneticisi." },
+      "homepage": "https://jdownloader.org/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "icon": { "monogram": "JD", "color": "#F5A623" },
+      "tags": [ "indirme", "download", "toplu", "video" ],
+      "elevation": "unlikely",
+      "winget": { "id": "AppWork.JDownloader", "publisher": "AppWork GmbH" },
+      "detection": {
+        "registry": [ { "displayName": "^JDownloader 2$", "publisher": "^AppWork GmbH$" } ]
+      },
+      "linux": {
+        "flatpak": "org.jdownloader.JDownloader"
+      }
+    },
+    {
+      "id": "anydesk",
+      "name": "AnyDesk",
+      "publisher": "AnyDesk Software GmbH",
+      "category": "downloads",
+      "summary": { "tr": "Hızlı uzak masaüstü bağlantısı." },
+      "description": { "tr": "Başka bir bilgisayara uzaktan bağlanıp destek vermeni veya almanı sağlayan hızlı uzak masaüstü uygulaması. Kişisel kullanım için ücretsizdir." },
+      "homepage": "https://anydesk.com/",
+      "license": { "tr": "Ücretsiz (kişisel kullanım)" },
+      "icon": { "monogram": "AD", "color": "#EF443B" },
+      "tags": [ "uzak masaüstü", "remote", "destek", "bağlantı" ],
+      "elevation": "likely",
+      "winget": { "id": "AnyDesk.AnyDesk", "publisher": "AnyDesk Software GmbH" },
+      "detection": {
+        "registry": [ { "displayName": "^AnyDesk$", "publisher": "^AnyDesk Software GmbH$" } ]
+      },
+      "linux": {
+        "flatpak": "com.anydesk.Anydesk"
+      }
+    },
+    {
+      "id": "teamviewer",
+      "name": "TeamViewer",
+      "publisher": "TeamViewer",
+      "category": "downloads",
+      "summary": { "tr": "Uzaktan destek ve uzak masaüstü erişimi." },
+      "description": { "tr": "Bilgisayarlara uzaktan bağlanma, dosya aktarma ve uzaktan destek için yaygın kullanılan uygulama. Kişisel kullanım için ücretsizdir." },
+      "homepage": "https://www.teamviewer.com/en/download/windows/",
+      "license": { "tr": "Ücretsiz (kişisel kullanım)" },
+      "licenseUrl": "https://www.teamviewer.com/en/legal/eula/",
+      "icon": { "monogram": "TV", "color": "#0E8EE9" },
+      "tags": [ "uzak masaüstü", "remote", "destek", "bağlantı" ],
+      "elevation": "likely",
+      "winget": { "id": "TeamViewer.TeamViewer", "publisher": "TeamViewer" },
+      "detection": {
+        "registry": [ { "displayName": "^TeamViewer( \\d+)?$", "publisher": "^TeamViewer$" } ]
+      }
+    },
+    {
+      "id": "tailscale",
+      "name": "Tailscale",
+      "publisher": "Tailscale Inc.",
+      "category": "downloads",
+      "summary": { "tr": "Cihazlarını güvenli özel ağda birleştiren kolay VPN." },
+      "description": { "tr": "WireGuard tabanlı; cihazlarını karmaşık ayar gerektirmeden güvenli bir özel ağda (tailnet) birleştiren mesh VPN. Kişisel kullanım için ücretsiz plan sunar." },
+      "homepage": "https://tailscale.com/download",
+      "license": { "tr": "BSD-3-Clause (açık kaynak)" },
+      "licenseUrl": "https://github.com/tailscale/tailscale/blob/HEAD/LICENSE",
+      "icon": { "monogram": "TS", "color": "#242424" },
+      "tags": [ "vpn", "ağ", "wireguard", "uzaktan", "network" ],
+      "elevation": "likely",
+      "winget": { "id": "Tailscale.Tailscale", "publisher": "Tailscale Inc." },
+      "detection": {
+        "registry": [ { "displayName": "^Tailscale$", "publisher": "^Tailscale Inc\\.$" } ]
+      },
+      "linux": {
+        "dnf": [ "tailscale" ],
+        "pacman": [ "tailscale" ]
+      }
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "publisher": "Anthropic, PBC",
+      "category": "ai",
+      "summary": { "tr": "Anthropic'in yapay zekâ asistanının masaüstü uygulaması." },
+      "description": { "tr": "Claude ile sohbet etmek, belge ve kod üzerinde çalışmak için Anthropic'in resmi masaüstü uygulaması. Claude hesabı gerekir; kullanıcı hesabına kurulur." },
+      "homepage": "https://claude.ai/download",
+      "license": { "tr": "Ücretsiz / ücretli plan (tescilli)" },
+      "icon": { "monogram": "C", "color": "#D97757" },
+      "tags": [ "yapay zeka", "ai", "asistan", "sohbet", "claude" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Anthropic.Claude", "publisher": "Anthropic, PBC" },
+      "detection": {
+        "registry": [ { "displayName": "^Claude$", "publisher": "^Anthropic" } ]
+      }
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama",
+      "publisher": "Ollama",
+      "category": "ai",
+      "summary": { "tr": "Büyük dil modellerini bilgisayarında yerel çalıştır." },
+      "description": { "tr": "Llama, Gemma, Qwen ve Mistral gibi açık yapay zekâ modellerini tek komutla indirip bilgisayarında çevrimdışı çalıştırmanı sağlayan açık kaynak araç." },
+      "homepage": "https://ollama.com/",
+      "license": { "tr": "MIT (açık kaynak)" },
+      "licenseUrl": "https://github.com/ollama/ollama/blob/HEAD/LICENSE",
+      "icon": { "monogram": "Ol", "color": "#000000" },
+      "tags": [ "yapay zeka", "ai", "llm", "yerel", "model" ],
+      "elevation": "unlikely",
+      "winget": { "id": "Ollama.Ollama", "publisher": "Ollama" },
+      "detection": {
+        "registry": [ { "displayName": "^Ollama( version [\\d.]+)?$", "publisher": "^Ollama$" } ]
+      },
+      "linux": {
+        "pacman": [ "ollama" ]
+      }
+    },
+    {
+      "id": "lm-studio",
+      "name": "LM Studio",
+      "publisher": "LM Studio",
+      "category": "ai",
+      "summary": { "tr": "Yerel yapay zekâ modellerini arayüzle keşfet ve çalıştır." },
+      "description": { "tr": "Açık yapay zekâ modellerini arayüz üzerinden arayıp indirmeni, bilgisayarında çevrimdışı sohbet etmeni ve yerel API sunucusu başlatmanı sağlayan uygulama." },
+      "homepage": "https://lmstudio.ai/",
+      "license": { "tr": "Ücretsiz (tescilli)" },
+      "licenseUrl": "https://lmstudio.ai/terms",
+      "icon": { "monogram": "LM", "color": "#4F46E5" },
+      "tags": [ "yapay zeka", "ai", "llm", "yerel", "model" ],
+      "elevation": "unknown",
+      "winget": { "id": "ElementLabs.LMStudio", "publisher": "LM Studio" },
+      "detection": {
+        "registry": [ { "displayName": "^LM Studio( [\\d.]+)?$", "publisher": "^(LM Studio|Element Labs)" } ]
       }
     }
   ],
@@ -480,30 +3642,73 @@
     {
       "id": "popular",
       "name": { "tr": "Popüler Programlar" },
-      "description": { "tr": "En çok tercih edilen tarayıcı, arşiv, medya ve iletişim araçları." },
+      "description": { "tr": "En çok tercih edilen tarayıcı, arşiv, medya, müzik, iletişim ve oyun uygulamaları." },
       "icon": "E734",
-      "software": [ "google-chrome", "7zip", "vlc", "discord", "telegram", "steam" ]
+      "software": [ "google-chrome", "mozilla-firefox", "7zip", "vlc", "spotify", "discord", "telegram", "steam" ]
     },
     {
       "id": "new-pc",
       "name": { "tr": "Yeni Bilgisayar İçin Önerilenler" },
-      "description": { "tr": "Format sonrası ilk kurulması gereken temel programlar." },
+      "description": { "tr": "Format sonrası ilk kurulması gereken temel programlar ve çalışma zamanları." },
       "icon": "E977",
-      "software": [ "mozilla-firefox", "7zip", "vlc", "libreoffice", "sumatrapdf", "everything" ]
+      "software": [ "mozilla-firefox", "7zip", "vlc", "libreoffice", "sumatrapdf", "everything", "vcredist-x64", "vcredist-x86", "mpv", "multimedia-codecs", "flatseal" ]
+    },
+    {
+      "id": "runtimes",
+      "name": { "tr": "Temel Çalışma Zamanları" },
+      "description": { "tr": "Program ve oyunların “DLL bulunamadı” hatası vermemesi için gereken Microsoft ve Java bileşenleri." },
+      "icon": "E8F1",
+      "software": [ "vcredist-x64", "vcredist-x86", "dotnet-desktop-runtime-8", "dotnet-desktop-runtime-10", "directx", "java-runtime", "webview2", "xna-framework" ]
     },
     {
       "id": "developer",
       "name": { "tr": "Geliştirici Paketi" },
-      "description": { "tr": "Kod düzenleyici, sürüm kontrolü ve dil çalışma ortamları." },
+      "description": { "tr": "Kod düzenleyici, sürüm kontrolü, terminal ve dil çalışma ortamları." },
       "icon": "E943",
-      "software": [ "vscode", "git", "github-desktop", "python", "nodejs", "dotnet-sdk" ]
+      "software": [ "vscode", "git", "github-desktop", "github-cli", "python", "nodejs", "dotnet-sdk", "windows-terminal", "notepad-plus-plus", "build-tools" ]
     },
     {
       "id": "gaming",
       "name": { "tr": "Oyuncu Paketi" },
-      "description": { "tr": "Oyun platformları, sesli sohbet ve yayın araçları." },
+      "description": { "tr": "Oyun platformları, sesli sohbet, yayın araçları ve oyunların ihtiyaç duyduğu bileşenler." },
       "icon": "E7FC",
-      "software": [ "steam", "epic-games", "gog-galaxy", "discord", "obs-studio" ]
+      "software": [ "steam", "epic-games", "ea-app", "ubisoft-connect", "discord", "obs-studio", "msi-afterburner", "vcredist-x64", "vcredist-x86", "directx", "heroic", "lutris", "protonup-qt" ]
+    },
+    {
+      "id": "office",
+      "name": { "tr": "Öğrenci ve Ofis Paketi" },
+      "description": { "tr": "Ofis paketi, PDF araçları, not alma, kaynakça ve çevrim içi ders uygulamaları." },
+      "icon": "E8A5",
+      "software": [ "libreoffice", "adobe-acrobat-reader", "pdf24-creator", "obsidian", "zotero", "anki", "zoom", "microsoft-teams", "google-drive" ]
+    },
+    {
+      "id": "creator",
+      "name": { "tr": "İçerik Üreticisi Paketi" },
+      "description": { "tr": "Ekran kaydı, ses ve video kurgu, fotoğraf düzenleme ve tasarım araçları." },
+      "icon": "E790",
+      "software": [ "obs-studio", "audacity", "kdenlive", "handbrake", "gimp", "inkscape", "blender", "sharex", "flameshot" ]
+    },
+    {
+      "id": "security",
+      "name": { "tr": "Güvenlik ve Gizlilik" },
+      "description": { "tr": "Şifre yöneticisi, kötü amaçlı yazılım tarayıcı, VPN ve şifreleme araçları." },
+      "icon": "E72E",
+      "software": [ "bitwarden", "keepassxc", "malwarebytes", "proton-vpn", "cloudflare-warp", "veracrypt", "librewolf", "gufw" ]
+    },
+    {
+      "id": "maintenance",
+      "name": { "tr": "Sistem Bakım Araçları" },
+      "description": { "tr": "Donanım bilgisi, disk sağlığı, disk alanı, temizlik ve kaldırma araçları." },
+      "icon": "E770",
+      "software": [ "cpu-z", "hwinfo", "crystaldiskinfo", "crystaldiskmark", "wiztree", "bleachbit", "revo-uninstaller", "rufus", "timeshift", "gparted", "mission-center", "htop" ]
+    },
+    {
+      "id": "linux-essentials",
+      "name": { "tr": "Linux Temel Paketi" },
+      "description": { "tr": "Linux kurulumundan sonra işini kolaylaştıracak araçlar: Flatpak izinleri, yedekleme, codec'ler ve derleme araçları." },
+      "icon": "E756",
+      "platforms": [ "linux" ],
+      "software": [ "flatseal", "timeshift", "gparted", "htop", "fastfetch", "build-tools", "multimedia-codecs", "mpv", "flameshot", "extension-manager" ]
     }
   ]
 }

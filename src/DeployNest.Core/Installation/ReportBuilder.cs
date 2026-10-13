@@ -4,9 +4,9 @@ using DeployNest.Core.Localization;
 namespace DeployNest.Core.Installation;
 
 /// <summary>Builds the plain-text report shown after a session and offered for export.</summary>
-public sealed class ReportBuilder(ILocalizer localizer)
+public sealed class ReportBuilder(ILocalizer localizer, string? platform = null)
 {
-    private readonly FailureDescriber _describer = new(localizer);
+    private readonly FailureDescriber _describer = new(localizer, platform);
 
     public string Build(SessionResult session, string appVersion, string? logDirectory)
     {
@@ -54,6 +54,8 @@ public sealed class ReportBuilder(ILocalizer localizer)
             {
                 InstallMethod.Winget => $"winget: {item.Software.Winget?.PackageId}",
                 InstallMethod.Direct => localizer["Method.Direct"],
+                InstallMethod.Flatpak => $"Flatpak: {item.Software.Linux?.FlatpakId}",
+                InstallMethod.NativePackage => localizer["Method.NativePackage"],
                 _ => localizer["Method.None"],
             };
             var duration = item.Duration > TimeSpan.Zero ? $" — {FormatDuration(item.Duration)}" : string.Empty;
