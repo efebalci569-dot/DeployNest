@@ -57,7 +57,7 @@ Priority: optional
 Architecture: $debarch
 Maintainer: DeployNest contributors <https://github.com/efebalci569-dot/DeployNest>
 Installed-Size: $installed_kb
-Depends: libc6, libstdc++6, libfontconfig1
+Depends: libc6, libstdc++6, libfontconfig1, libicu78 | libicu77 | libicu76 | libicu74 | libicu72 | libicu70 | libicu67 | libicu66
 Recommends: flatpak, pkexec | policykit-1
 Homepage: https://deploynest.vercel.app
 Description: Yeni bilgisayar için toplu program kurulumu
@@ -68,11 +68,16 @@ CONTROL
   dpkg-deb --root-owner-group --build "$deb" "$out/deploynest_${version}_${debarch}.deb" >/dev/null
 fi
 
+# Replace earlier sums of the same files so re-running the script does not duplicate lines.
+sums="$out/SHA256SUMS-linux.txt"
+touch "$sums"
+grep -v -F -e "  $name.tar.gz" -e "  deploynest_${version}_${debarch}.deb" "$sums" > "$sums.tmp" || true
 (
   cd "$out"
   for file in "$name.tar.gz" "deploynest_${version}_${debarch}.deb"; do
-    [[ -f "$file" ]] && sha256sum "$file"
+    if [[ -f "$file" ]]; then sha256sum "$file"; fi
   done
-) >> "$out/SHA256SUMS-linux.txt"
+) >> "$sums.tmp"
+mv "$sums.tmp" "$sums"
 
 ls -la "$out"

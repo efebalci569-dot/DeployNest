@@ -90,6 +90,7 @@ p { margin: 0; }
 .container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 @media (max-width: 640px) { .container { padding: 0 16px; } }
 
+[hidden] { display: none !important; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .skip-link { position: absolute; left: -999px; top: 8px; z-index: 100; background: var(--surface); padding: 8px 14px; border-radius: 8px; }
 .skip-link:focus { left: 12px; }
@@ -222,6 +223,11 @@ svg.icon-fill { fill: currentColor; stroke: none; }
 @media (max-width: 560px) { .feature-grid { grid-template-columns: 1fr; } }
 
 /* Catalog */
+.platform-filter {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; width: fit-content; max-width: 100%;
+  margin: -16px auto 24px; padding: 4px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border);
+}
+.platform-filter .chip { border-color: transparent; padding: 7px 18px; font-weight: 600; }
 .catalog-toolbar { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 28px; }
 .search {
   flex: 1 1 320px; display: flex; align-items: center; gap: 10px; padding: 0 14px; height: 46px;
@@ -328,19 +334,47 @@ svg.icon-fill { fill: currentColor; stroke: none; }
 .faq details[open] summary::after { transform: rotate(-135deg); margin-top: -2px; }
 .faq details p { padding: 0 0 18px; color: var(--text-2); }
 
+/* Linux */
+.linux-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: 48px; align-items: center; }
+.linux-shots { display: grid; gap: 16px; }
+.linux-shots-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 960px) { .linux-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+code {
+  font-family: ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "DejaVu Sans Mono", monospace; font-size: .9em;
+  padding: 1px 6px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border);
+}
+pre.code {
+  margin: 18px 0 0; padding: 14px 16px; text-align: left; overflow-x: auto; border-radius: var(--radius-sm);
+  background: var(--surface-2); border: 1px solid var(--border); font-size: 14px; line-height: 1.55;
+}
+pre.code code { padding: 0; border: 0; background: none; font-size: inherit; }
+
 /* Download */
 .download-section { padding-top: 64px; }
+.download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
 .download-card {
-  text-align: center; padding: 56px 32px; border-radius: 22px; border: 1px solid var(--border);
+  display: flex; flex-direction: column; min-width: 0;
+  text-align: center; padding: 40px 32px; border-radius: 22px; border: 1px solid var(--border);
   background:
     radial-gradient(600px 300px at 50% -20%, color-mix(in srgb, var(--brand-2) 20%, transparent), transparent 70%),
     var(--surface);
   box-shadow: var(--shadow);
 }
-.download-card img { margin: 0 auto 18px; }
-.download-card h2 { font-size: clamp(28px, 3.6vw, 38px); }
-.download-card > p { color: var(--text-2); margin-top: 12px; }
-@media (max-width: 560px) { .download-card { padding: 40px 18px; } .hero-actions .button { width: 100%; } }
+.download-card h3 { font-size: clamp(24px, 3vw, 30px); }
+.download-card > p:not(.release-meta):not(.fine-print) { color: var(--text-2); margin-top: 12px; }
+.download-card .hero-actions { margin-top: 24px; }
+.download-card .fine-print { margin-top: auto; padding-top: 18px; }
+.platform-icon {
+  width: 60px; height: 60px; margin: 0 auto 16px; border-radius: 16px; display: grid; place-items: center;
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.platform-icon svg { width: 30px; height: 30px; }
+@media (max-width: 860px) { .download-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .download-card { padding: 32px 18px; }
+  .hero-actions .button { width: 100%; white-space: normal; }
+}
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--border); padding: 40px 0; margin-top: 40px; }

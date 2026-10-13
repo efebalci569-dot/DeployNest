@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DeployNest — Toplu program kurulumu</title>
-  <meta name="description" content="DeployNest; yeni bilgisayarında veya format sonrasında ihtiyaç duyduğun programları seçip tek seferde, resmi kaynaklardan ve doğrulayarak kurmanı sağlayan açık kaynak Windows uygulaması.">
+  <title>DeployNest — Windows ve Linux için toplu program kurulumu</title>
+  <meta name="description" content="DeployNest; yeni bilgisayarında veya format sonrasında ihtiyaç duyduğun 180'den fazla programı seçip tek seferde, resmi kaynaklardan ve doğrulayarak kurmanı sağlayan açık kaynak Windows ve Linux uygulaması.">
   <meta name="theme-color" content="#2F6FED">
-  <meta property="og:title" content="DeployNest — Toplu program kurulumu">
+  <meta property="og:title" content="DeployNest — Windows ve Linux için toplu program kurulumu">
   <meta property="og:description" content="Programlarını seç, kurulumu başlat ve bilgisayarını kullanıma hazır hale getir.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/screenshots/programs-light.png">
@@ -27,6 +27,7 @@
       <nav class="site-nav" id="site-nav" aria-label="Ana menü">
         <a href="#ozellikler">Özellikler</a>
         <a href="#programlar">Programlar</a>
+        <a href="#linux">Linux</a>
         <a href="#nasil-calisir">Nasıl çalışır?</a>
         <a href="#guvenlik">Güvenlik</a>
         <a href="#sss">SSS</a>
@@ -52,17 +53,20 @@
     <section class="hero" id="top">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">Windows 10 ve 11 için · Açık kaynak · Ücretsiz</p>
+          <p class="eyebrow">Windows 10/11 ve Linux için · Açık kaynak · Ücretsiz</p>
           <h1>Yeni bilgisayarın için ihtiyacın olan her şey, <span class="gradient-text">tek yerde.</span></h1>
-          <p class="lead">Programlarını seç, kurulumu başlat ve bilgisayarını kullanıma hazır hale getir. DeployNest, programları tek tek aramak yerine resmi kaynaklardan, doğrulayarak ve sırayla kurar.</p>
+          <p class="lead">Programlarını seç, kurulumu başlat ve bilgisayarını kullanıma hazır hale getir. DeployNest; tarayıcılardan oyun platformlarına, ofis araçlarından sürücü ve çalışma zamanlarına kadar 180'den fazla programı tek tek aramana gerek kalmadan resmi kaynaklardan, doğrulayarak ve sırayla kurar.</p>
           <div class="hero-actions">
-            <a class="button button-primary button-large" data-download href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11.2M7.2 10l4.8 4.8 4.8-4.8M4.5 19.5h15"/></svg>
-              <span data-download-label>Sürümler denetleniyor…</span>
+            <a class="button button-primary button-large" data-download="windows" href="#indir">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon-fill"><path d="M3 5.5l7.5-1v7H3zM11.5 4.4L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.4z"/></svg>
+              <span data-download-label="windows">Windows için indir</span>
             </a>
-            <a class="button button-secondary button-large" href="https://github.com/efebalci569-dot/DeployNest" rel="noopener">Kaynak kodunu incele</a>
+            <a class="button button-secondary button-large" href="#indir">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-2 0-3.2 1.7-3.2 4 0 1.2.2 2-.6 3.3-.9 1.4-2.6 3.6-2.6 6.1 0 .6.1 1.1.4 1.6M12 3.2c2 0 3.2 1.7 3.2 4 0 1.2-.2 2 .6 3.3.9 1.4 2.6 3.6 2.6 6.1 0 .6-.1 1.1-.4 1.6"/><path d="M5.6 18.3c-1 .3-1.6 1-1.1 1.7.6.8 2.6.6 3.9 1.3 1.1.6 2 .1 2-1.1M18.4 18.3c1 .3 1.6 1 1.1 1.7-.6.8-2.6.6-3.9 1.3-1.1.6-2 .1-2-1.1M10.5 20.2h3M10.3 8.2h.01M13.7 8.2h.01M10.8 10.4c.7.5 1.7.5 2.4 0"/></svg>
+              <span>Linux için indir</span>
+            </a>
           </div>
-          <p class="release-meta" data-release-meta>Windows 10 / Windows 11 · 64 bit (x64)</p>
+          <p class="release-meta">Windows 10 / 11 (x64) · Ubuntu, Debian, Mint, Fedora, Arch ve türevleri (x64, ARM64) · <a href="https://github.com/efebalci569-dot/DeployNest" rel="noopener">Kaynak kodu</a></p>
         </div>
         <div class="hero-visual">
           <div class="window-frame">
@@ -71,10 +75,10 @@
         </div>
       </div>
       <div class="container stats">
-        <div><strong data-count-programs>24</strong><span>doğrulanmış program</span></div>
-        <div><strong data-count-categories>7</strong><span>kategori</span></div>
-        <div><strong>winget</strong><span>resmi paket kaynağı</span></div>
-        <div><strong>MIT</strong><span>açık kaynak lisansı</span></div>
+        <div><strong data-count-programs>183</strong><span>doğrulanmış program</span></div>
+        <div><strong data-count-windows>166</strong><span>Windows programı (winget)</span></div>
+        <div><strong data-count-linux>96</strong><span>Linux programı (Flathub, apt, dnf, pacman)</span></div>
+        <div><strong data-count-categories>15</strong><span>kategori</span></div>
       </div>
     </section>
 
@@ -95,7 +99,7 @@
           <article class="feature">
             <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.4-3.1 8.4-7.5 9.5-4.4-1.1-7.5-5.1-7.5-9.5V6L12 3z"/><path d="M9 12l2 2 4-4"/></svg></div>
             <h3>Doğrulanmış kaynaklar</h3>
-            <p>Paketler resmi winget kaynağında kimlik ve yayıncı eşleşmesiyle doğrulanır. Kurulum dosyası hash değeriyle denetlenir.</p>
+            <p>Windows'ta paketler resmi winget kaynağında kimlik ve yayıncı eşleşmesiyle; Linux'ta Flathub'da ve dağıtımın resmi deposunda doğrulanır.</p>
           </article>
           <article class="feature">
             <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg></div>
@@ -124,8 +128,8 @@
           </article>
           <article class="feature">
             <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3z"/><circle cx="12" cy="12" r="9"/></svg></div>
-            <h3>Modern Windows 11 tasarımı</h3>
-            <p>Açık ve koyu tema, okunaklı tipografi, yuvarlatılmış kartlar ve tamamen Türkçe arayüz.</p>
+            <h3>Windows ve Linux</h3>
+            <p>Windows 11 Fluent tasarımlı Windows uygulaması ve aynı kataloğu kullanan Linux sürümü. Açık/koyu tema, tamamen Türkçe arayüz.</p>
           </article>
         </div>
       </div>
@@ -137,13 +141,18 @@
         <div class="section-head">
           <p class="eyebrow">Program kataloğu</p>
           <h2>Desteklenen programlar</h2>
-          <p>Katalogdaki her programın winget paket kimliği, yayıncısı ve kurulu algılama kuralları doğrulanmıştır. Liste, uygulamanın kullandığı katalog dosyasından otomatik oluşturulur.</p>
+          <p>Tarayıcılar, iletişim, müzik ve video, tasarım, ofis, bulut, güvenlik, sistem araçları, çalışma zamanları, oyun, geliştirici araçları ve yapay zekâ. Her programın winget kimliği, Flathub kimliği ve paket adları resmi kaynaklarda doğrulanmıştır; liste, uygulamanın kullandığı katalog dosyasından otomatik oluşturulur.</p>
+        </div>
+        <div class="platform-filter" id="catalog-platforms" role="group" aria-label="Platforma göre filtrele">
+          <button type="button" class="chip" data-platform="" aria-pressed="true">Tüm programlar</button>
+          <button type="button" class="chip" data-platform="windows" aria-pressed="false">Windows</button>
+          <button type="button" class="chip" data-platform="linux" aria-pressed="false">Linux</button>
         </div>
         <div class="catalog-toolbar">
           <label class="search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg>
             <span class="visually-hidden">Program ara</span>
-            <input type="search" id="catalog-search" placeholder="Program ara (örneğin Chrome, VLC, Python)" autocomplete="off">
+            <input type="search" id="catalog-search" placeholder="Program ara (örneğin Chrome, Steam, Python, codec)" autocomplete="off">
           </label>
           <div class="chips" id="catalog-categories" role="group" aria-label="Kategoriye göre filtrele"></div>
         </div>
@@ -152,6 +161,32 @@
         </div>
         <p class="catalog-empty" id="catalog-empty" hidden>Aramanla eşleşen program bulunamadı.</p>
         <p class="fine-print">Program adları ve logoları sahiplerine aittir; yalnızca programları tanıtmak için gösterilir. DeployNest bu yayıncılarla bağlantılı değildir.</p>
+      </div>
+    </section>
+
+    <!-- Linux -->
+    <section class="section" id="linux">
+      <div class="container linux-grid">
+        <div>
+          <div class="section-head section-head-left">
+            <p class="eyebrow">Linux sürümü</p>
+            <h2>Linux'ta da tek tıkla hazır bir sistem</h2>
+            <p>Temiz kurulumdan sonra ihtiyaç duyduğun programları aynı katalogdan seç; DeployNest dağıtımını ve paket yöneticini algılar, her program için en uygun resmi kaynağı kullanır.</p>
+          </div>
+          <ul class="check-list">
+            <li><strong>Flathub, yönetici izni olmadan.</strong> Masaüstü uygulamaları Flatpak ile kullanıcı hesabına, yalıtılmış olarak kurulur. Flatpak yoksa DeployNest onu tek tıkla kurar.</li>
+            <li><strong>apt, dnf ve pacman.</strong> Git, Python, derleme araçları, codec'ler ve sistem araçları dağıtımının resmi deposundan kurulur; yönetici parolan oturum başına yalnızca bir kez sorulur.</li>
+            <li><strong>Geniş dağıtım desteği.</strong> Ubuntu, Debian, Linux Mint, Pop!_OS, Fedora, Arch, Manjaro, EndeavourOS ve türevleri; x64 ve ARM64.</li>
+            <li><strong>Linux'a özel araçlar.</strong> Flatseal, Timeshift, GParted, Extension Manager, Lutris, Bottles, ProtonUp-Qt, multimedya codec'leri ve dahası.</li>
+          </ul>
+        </div>
+        <div class="linux-shots">
+          <button type="button" class="gallery-item" data-full="assets/screenshots/linux-home-light.png" aria-label="Linux sürümü ana sayfa ekran görüntüsünü büyüt"><img class="screenshot-themed" src="assets/screenshots/linux-home-light.png" data-light="assets/screenshots/linux-home-light.png" data-dark="assets/screenshots/linux-home-dark.png" alt="DeployNest Linux sürümü: algılanan dağıtım, paket yöneticisi ve Flatpak durumu ile hazır seçimler" loading="lazy" width="1280" height="840"></button>
+          <div class="linux-shots-row">
+            <button type="button" class="gallery-item" data-full="assets/screenshots/linux-programs-light.png" aria-label="Linux program listesi ekran görüntüsünü büyüt"><img class="screenshot-themed" src="assets/screenshots/linux-programs-light.png" data-light="assets/screenshots/linux-programs-light.png" data-dark="assets/screenshots/linux-programs-dark.png" alt="Linux sürümünde program kartları, Flatpak ve apt kaynak etiketleri" loading="lazy" width="1280" height="840"></button>
+            <button type="button" class="gallery-item" data-full="assets/screenshots/linux-queue-light.png" aria-label="Linux kurulum kuyruğu ekran görüntüsünü büyüt"><img src="assets/screenshots/linux-queue-light.png" alt="Linux kurulum kuyruğu: Flathub'da doğrulanmış paketler ve indirme boyutları" loading="lazy" width="1280" height="840"></button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -232,7 +267,7 @@
           <li><strong>Bütünlük doğrulaması.</strong> winget kurulum dosyasını manifestteki SHA-256 ile doğrular. Yedek doğrudan indirme yönteminde dosya, katalogdaki SHA-256 ve/veya Authenticode imzası doğrulanmadan çalıştırılmaz.</li>
           <li><strong>Yalnızca HTTPS ve izinli sunucular.</strong> Doğrudan indirmelerde her yönlendirme denetlenir; beklenmeyen sunucuya gidilirse indirme durdurulur.</li>
           <li><strong>Komut enjeksiyonuna kapalı.</strong> Komutlar kabukta birleştirilmiş metin olarak değil, ayrı parametrelerle çalıştırılır; paket kimlikleri biçim denetiminden geçer.</li>
-          <li><strong>Yönetici olarak çalışmaz.</strong> İzin gereken kurulumlar Windows'un kendi UAC penceresiyle ayrı ayrı sorulur.</li>
+          <li><strong>Yönetici olarak çalışmaz.</strong> Windows'ta izin gereken kurulumlar UAC penceresiyle ayrı ayrı sorulur. Linux'ta yetkili yardımcı pkexec ile bir kez başlatılır ve yalnızca doğrulanmış paket adlarını sistemin paket yöneticisine iletir.</li>
           <li><strong>Lisanslar gizlenmez.</strong> Kurulumdan önce her paketin lisansı gösterilir; senin onayın olmadan kurulum başlamaz.</li>
           <li><strong>Veri toplamaz.</strong> Hesap, analitik veya reklam yoktur. Günlük dosyalarında kullanıcı adın ve profil yolun maskelenir.</li>
         </ul>
@@ -253,7 +288,19 @@
           </details>
           <details>
             <summary>Programları nereden indiriyor?</summary>
-            <p>Öncelikle Windows Paket Yöneticisi'nin (winget) resmi topluluk kaynağından. winget kullanılamıyorsa, katalogda doğrudan indirme tanımı olan programlar (şu an Google Chrome, 7-Zip, Node.js LTS ve Everything) yayıncının resmi adresinden indirilip doğrulanarak kurulabilir.</p>
+            <p>Windows'ta öncelikle Windows Paket Yöneticisi'nin (winget) resmi topluluk kaynağından; winget kullanılamıyorsa doğrudan indirme tanımı olan programlar (Google Chrome, 7-Zip, Node.js LTS ve Everything) yayıncının resmi adresinden indirilip doğrulanarak kurulur. Linux'ta Flathub'dan ve dağıtımının resmi paket deposundan (apt, dnf, pacman).</p>
+          </details>
+          <details>
+            <summary>Linux sürümü hangi dağıtımlarda çalışır?</summary>
+            <p>64 bit (x64 veya ARM64) Ubuntu, Debian, Linux Mint, Pop!_OS, elementary OS, Zorin, Fedora, RHEL türevleri, Arch, Manjaro ve EndeavourOS gibi apt, dnf veya pacman kullanan dağıtımlarda. Diğer dağıtımlarda Flathub'daki programlar yine kurulabilir.</p>
+          </details>
+          <details>
+            <summary>Linux'ta yönetici parolası gerekiyor mu?</summary>
+            <p>Flathub'dan kurulan uygulamalar kullanıcı hesabına kurulduğu için parola istemez. Dağıtım deposundan kurulan paketler (ör. git, codec'ler, derleme araçları) için yönetici parolan kurulum oturumu başına yalnızca bir kez, sistemin kendi parola penceresiyle sorulur. Ayarlar'dan Flathub yerine dağıtım deposunu tercih edebilirsin.</p>
+          </details>
+          <details>
+            <summary>Linux sürümünü nasıl kurarım?</summary>
+            <p>.tar.gz arşivini açıp klasördeki <code>install.sh</code> betiğini çalıştır; DeployNest yönetici izni olmadan kullanıcı hesabına kurulur ve uygulama menüsüne eklenir. Ubuntu, Debian ve Mint için .deb paketi de vardır. Kurmadan denemek için arşivdeki <code>DeployNest</code> dosyasını doğrudan çalıştırabilirsin.</p>
           </details>
           <details>
             <summary>winget nedir, bende yoksa ne yapmalıyım?</summary>
@@ -285,7 +332,7 @@
           </details>
           <details>
             <summary>Kataloğa yeni program eklenebilir mi?</summary>
-            <p>Evet. Program kataloğu tek bir JSON dosyasıdır. Doğrulanmış winget kimliği ve yayıncı bilgisiyle yeni kayıt ekleyip GitHub'da katkıda bulunabilirsin; katalog kayıtları otomatik testlerle denetlenir.</p>
+            <p>Evet. Windows ve Linux sürümleri aynı program kataloğunu (tek bir JSON dosyası) kullanır. Doğrulanmış winget kimliği, Flathub kimliği veya dağıtım paket adlarıyla ve programın logosuyla yeni kayıt ekleyip GitHub'da katkıda bulunabilirsin; katalog kayıtları otomatik testlerle denetlenir.</p>
           </details>
         </div>
       </div>
@@ -294,20 +341,45 @@
     <!-- Download -->
     <section class="section download-section" id="indir">
       <div class="container">
-        <div class="download-card">
-          <img src="assets/logo.svg" alt="" width="72" height="72">
+        <div class="section-head">
+          <p class="eyebrow">İndir</p>
           <h2>DeployNest'i indir</h2>
-          <p>Windows 10 ve Windows 11 · 64 bit (x64) · Kurulum gerektirmeyen tek dosya. .NET yüklemene gerek yok.</p>
-          <div class="hero-actions centered">
-            <a class="button button-primary button-large" data-download href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11.2M7.2 10l4.8 4.8 4.8-4.8M4.5 19.5h15"/></svg>
-              <span data-download-label>Sürümler denetleniyor…</span>
-            </a>
-            <a class="button button-secondary button-large" href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">Tüm sürümler</a>
-          </div>
-          <p class="release-meta" data-release-meta>Sürüm bilgisi GitHub Releases'tan alınır.</p>
-          <p class="fine-print">Önerilen: Windows Paket Yöneticisi (winget) — Windows 11'de hazır gelir.</p>
+          <p>Ücretsiz ve açık kaynak. Hesap, reklam veya analitik yok.</p>
         </div>
+        <div class="download-grid">
+          <article class="download-card">
+            <div class="platform-icon"><svg viewBox="0 0 24 24" aria-hidden="true" class="icon-fill"><path d="M3 5.5l7.5-1v7H3zM11.5 4.4L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.4z"/></svg></div>
+            <h3>Windows</h3>
+            <p>Windows 10 ve Windows 11 · 64 bit (x64). Kurulum gerektirmeyen tek dosya; .NET yüklemene gerek yok. 166 program, winget ile.</p>
+            <div class="hero-actions centered">
+              <a class="button button-primary button-large" data-download="windows" href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11.2M7.2 10l4.8 4.8 4.8-4.8M4.5 19.5h15"/></svg>
+                <span data-download-label="windows">Sürümler denetleniyor…</span>
+              </a>
+            </div>
+            <p class="release-meta" data-release-meta="windows">Sürüm bilgisi GitHub Releases'tan alınır.</p>
+            <p class="fine-print">Önerilen: Windows Paket Yöneticisi (winget) — Windows 11'de hazır gelir.</p>
+          </article>
+          <article class="download-card">
+            <div class="platform-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-2 0-3.2 1.7-3.2 4 0 1.2.2 2-.6 3.3-.9 1.4-2.6 3.6-2.6 6.1 0 .6.1 1.1.4 1.6M12 3.2c2 0 3.2 1.7 3.2 4 0 1.2-.2 2 .6 3.3.9 1.4 2.6 3.6 2.6 6.1 0 .6-.1 1.1-.4 1.6"/><path d="M5.6 18.3c-1 .3-1.6 1-1.1 1.7.6.8 2.6.6 3.9 1.3 1.1.6 2 .1 2-1.1M18.4 18.3c1 .3 1.6 1 1.1 1.7-.6.8-2.6.6-3.9 1.3-1.1.6-2 .1-2-1.1M10.5 20.2h3M10.3 8.2h.01M13.7 8.2h.01M10.8 10.4c.7.5 1.7.5 2.4 0"/></svg></div>
+            <h3>Linux</h3>
+            <p>Ubuntu, Debian, Mint, Fedora, Arch ve türevleri · x64 ve ARM64. 96 program; Flathub ve apt, dnf, pacman.</p>
+            <div class="hero-actions centered">
+              <a class="button button-primary button-large" data-download="linux" href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11.2M7.2 10l4.8 4.8 4.8-4.8M4.5 19.5h15"/></svg>
+                <span data-download-label="linux">Sürümler denetleniyor…</span>
+              </a>
+              <a class="button button-secondary button-large" data-download="deb" href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">
+                <span data-download-label="deb">.deb paketi</span>
+              </a>
+            </div>
+            <p class="release-meta" data-release-meta="linux">Sürüm bilgisi GitHub Releases'tan alınır.</p>
+            <pre class="code"><code>tar -xzf DeployNest-*-linux-x64.tar.gz
+cd DeployNest-*-linux-x64 &amp;&amp; ./install.sh</code></pre>
+            <p class="fine-print">Kurulum yönetici izni gerektirmez; uygulama menüsüne eklenir. ARM64 için <code>linux-arm64</code> arşivini seç.</p>
+          </article>
+        </div>
+        <p class="fine-print"><a href="https://github.com/efebalci569-dot/DeployNest/releases" rel="noopener">Tüm sürümler ve SHA-256 özetleri</a></p>
       </div>
     </section>
   </main>

@@ -21,7 +21,8 @@ DeployNest bilgisayarlara yazılım indirip kurduğu için güvenlik raporların
 - Katalog verisi veya ağ yanıtları üzerinden **komut/argüman enjeksiyonu**
 - Doğrulama atlatma: SHA-256, Authenticode imzası, yayıncı eşleşmesi veya izinli sunucu listesi kontrollerinin aşılması
 - Bir dosyanın doğrulanmadan çalıştırılması, indirme klasörü dışına yazma (path traversal)
-- Yetki yükseltme veya istem dışı yönetici işlemi
+- Yetki yükseltme veya istem dışı yönetici işlemi; Linux'ta yetkili yardımcının (`--root-helper`) beklenmeyen bir komut
+  veya paket kurdurmak için kötüye kullanılması
 - Günlüklere hassas bilgi sızması
 
 ## Güvenlik tasarımı (özet)
@@ -31,6 +32,11 @@ DeployNest bilgisayarlara yazılım indirip kurduğu için güvenlik raporların
   Dosyalar SHA-256 ve/veya Authenticode (WinVerifyTrust + beklenen yayıncı) doğrulanmadan çalıştırılmaz.
 - Süreçler kabuk kullanılmadan, ayrı argümanlarla başlatılır; paket kimlikleri ve argümanlar biçim denetiminden geçer.
 - Uygulama yönetici olarak çalışmaz (`asInvoker`); yönetici izni gerekiyorsa yalnızca ilgili kurulum programı UAC ile ister.
+- Linux'ta uygulama root olarak çalışmaz. Flathub kurulumları kullanıcı hesabına yapılır. Dağıtım paketleri için pkexec
+  ile oturum başına bir kez başlatılan yardımcı yalnızca sabit komutları (`apt-get install`, `dnf install`,
+  `pacman -S`) çalıştırır; paket adları biçim denetiminden geçer, kabuk ve rastgele argüman kullanılmaz.
+- Linux'ta paketler yalnızca Flathub'dan ve dağıtımın yapılandırılmış resmi depolarından kurulur; bütünlük ve imza
+  doğrulamasını Flatpak (OSTree/GPG) ve paket yöneticisi yapar.
 - Kullanıcı verisi toplanmaz; günlüklerde kullanıcı adı ve profil yolu maskelenir.
 
 Ayrıntılar: [README → Güvenlik yaklaşımı](README.md#güvenlik-yaklaşımı)
@@ -38,5 +44,6 @@ Ayrıntılar: [README → Güvenlik yaklaşımı](README.md#güvenlik-yaklaşım
 ## Kapsam dışı
 
 - Kurulan üçüncü taraf programların kendi güvenlik açıkları (lütfen ilgili yayıncıya bildir).
-- winget'in veya Windows'un kendi açıkları (Microsoft'a bildir).
+- winget'in veya Windows'un kendi açıkları (Microsoft'a bildir); Flatpak, Flathub paketleri ve dağıtım paket
+  yöneticilerinin kendi açıkları (ilgili projeye bildir).
 - Kod imzası olmayan EXE için SmartScreen uyarısı (bilinen sınırlama).
