@@ -6,6 +6,10 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 
 ## [Yayımlanmamış]
 
+## [0.2.0] - 2026-10-13
+
+Linux sürümü ve 183 programlık katalog.
+
 ### Eklenenler
 
 - **Linux sürümü** (Avalonia, .NET 10): Ana Sayfa, Tüm Programlar, Kurulum Kuyruğu, İlerleme, Sonuçlar, Geçmiş ve
@@ -58,5 +62,6 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 - Self-contained tek dosyalık x64 EXE ve taşınabilir ZIP.
 - Vercel'e uygun tanıtım ve indirme sitesi (`website/`).
 
-[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/compare/v0.1.0...HEAD
+[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/efebalci569-dot/DeployNest/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/efebalci569-dot/DeployNest/releases/tag/v0.1.0

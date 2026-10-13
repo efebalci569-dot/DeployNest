@@ -6,7 +6,7 @@
     <Deterministic>true</Deterministic>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Product>DeployNest</Product>
     <Company>DeployNest contributors</Company>
     <Authors>DeployNest contributors</Authors>
