@@ -1,13 +1,23 @@
 name: Release
 
-# Publishes a GitHub Release when a version tag such as v0.1.0 is pushed:
-# the Windows EXE/ZIP and the Linux tar.gz/.deb packages (x64 and ARM64).
+# Publishes a GitHub Release with the Windows EXE/ZIP and the Linux tar.gz/.deb packages (x64 and ARM64)
+# when a version tag such as v0.1.0 is pushed, or when started by hand from main with a version number
+# (the release job then creates the tag on the built commit).
 on:
   push:
     tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Sürüm (ör. 0.2.0); v<sürüm> etiketi main üzerinde oluşturulur'
+        required: true
+        type: string
 
 permissions:
   contents: read
+
+env:
+  TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', inputs.version) || github.ref_name }}
 
 jobs:
   windows:
@@ -24,9 +34,9 @@ jobs:
         id: version
         shell: pwsh
         run: |
-          $version = '${{ github.ref_name }}'.TrimStart('v')
-          if ($version -notmatch '^\d+\.\d+\.\d+$') { throw "Unexpected tag: ${{ github.ref_name }}" }
-          "value=$version" >> $env:GITHUB_OUTPUT
+          if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch' -and $env:GITHUB_REF -ne 'refs/heads/main') { throw "Manual releases run from main only." }
+          if ($env:TAG -notmatch '^v\d+\.\d+\.\d+$') { throw "Unexpected tag: $env:TAG" }
+          "value=$($env:TAG.Substring(1))" >> $env:GITHUB_OUTPUT
 
       - name: Test
         run: dotnet test tests/DeployNest.Tests/DeployNest.Tests.csproj -c Release
@@ -54,9 +64,9 @@ jobs:
       - name: Read version from tag
         id: version
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Unexpected tag: $GITHUB_REF_NAME" >&2; exit 1; }
-          echo "value=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$GITHUB_EVENT_NAME" == workflow_dispatch && "$GITHUB_REF" != refs/heads/main ]]; then echo "Manual releases run from main only." >&2; exit 1; fi
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Unexpected tag: $TAG" >&2; exit 1; }
+          echo "value=${TAG#v}" >> "$GITHUB_OUTPUT"
 
       - name: Test
         run: dotnet test tests/DeployNest.Tests/DeployNest.Tests.csproj -c Release -p:EnableWindowsTargeting=true
@@ -88,7 +98,6 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
         run: |
           version="${TAG#v}"
           cat > notes.md <<NOTES
@@ -108,4 +117,5 @@ jobs:
 
           Değişiklikler için CHANGELOG.md dosyasına bakın.
           NOTES
-          gh release create "$TAG" release/* --repo "$GITHUB_REPOSITORY" --title "DeployNest $TAG" --notes-file notes.md
+          # --target only matters for manual runs, where the tag does not exist yet.
+          gh release create "$TAG" release/* --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "DeployNest $TAG" --notes-file notes.md
