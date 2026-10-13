@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>DeployNest.Linux</RootNamespace>
+    <AssemblyName>DeployNest</AssemblyName>
+    <ApplicationIcon>..\..\assets\icons\deploynest.ico</ApplicationIcon>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+  </PropertyGroup>
+
+  <!-- Publishing: self-contained single-file build for linux-x64 / linux-arm64 (see scripts/publish-linux.sh).
+       Native Skia/HarfBuzz libraries stay next to the executable so the root helper never has to extract them. -->
+  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeployNest.Core\DeployNest.Core.csproj" />
+    <ProjectReference Include="..\DeployNest.Infrastructure\DeployNest.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.22" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="..\..\assets\icons\apps\*.png" Link="Assets\Apps\%(Filename)%(Extension)" />
+    <AvaloniaResource Include="..\..\assets\icons\deploynest-512.png" Link="Assets\deploynest-512.png" />
+  </ItemGroup>
+
+</Project>

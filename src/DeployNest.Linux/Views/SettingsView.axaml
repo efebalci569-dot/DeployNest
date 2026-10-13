@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,28,32,32" Spacing="18" MaxWidth="900" HorizontalAlignment="Left">
+            <TextBlock Text="{l:Loc Settings.Title}" Classes="h1" />
+
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{l:Loc Settings.Section.Appearance}" Classes="h2" />
+                    <TextBlock Text="{l:Loc Settings.Theme}" FontWeight="SemiBold" />
+                    <TextBlock Text="{l:Loc Linux.Settings.Theme.Hint}" Classes="caption" />
+                    <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}" MinWidth="260">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="vm:ThemeOption">
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="{l:Loc Linux.Settings.Section.Sources}" Classes="h2" />
+                    <ToggleSwitch IsChecked="{Binding PreferNative}" OnContent="" OffContent="">
+                        <ToggleSwitch.Content>
+                            <TextBlock Text="{l:Loc Linux.Settings.PreferNative}" FontWeight="SemiBold" />
+                        </ToggleSwitch.Content>
+                    </ToggleSwitch>
+                    <TextBlock Text="{l:Loc Linux.Settings.PreferNative.Hint}" Classes="caption" />
+                    <ToggleSwitch IsChecked="{Binding SkipInstalled}" OnContent="" OffContent="">
+                        <ToggleSwitch.Content>
+                            <TextBlock Text="{l:Loc Settings.SkipInstalled}" FontWeight="SemiBold" />
+                        </ToggleSwitch.Content>
+                    </ToggleSwitch>
+                    <TextBlock Text="{l:Loc Settings.SkipInstalled.Hint}" Classes="caption" />
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{l:Loc Settings.Section.Diagnostics}" Classes="h2" />
+                    <TextBlock Text="{Binding VersionText}" FontWeight="SemiBold" />
+                    <TextBlock Text="{l:Loc Linux.Settings.System}" Classes="caption" />
+                    <SelectableTextBlock Text="{Binding SystemLine}" TextWrapping="Wrap" Foreground="{DynamicResource Dn.Text2}" />
+                    <WrapPanel>
+                        <Button Command="{Binding CheckUpdatesCommand}" Margin="0,0,8,8" Content="{l:Loc Settings.Update.Check}" />
+                        <Button Command="{Binding OpenUpdatePageCommand}" IsVisible="{Binding UpdatePageAvailable}" Margin="0,0,8,8" Content="{l:Loc Settings.Update.OpenPage}" />
+                        <Button Command="{Binding OpenLogsCommand}" Margin="0,0,8,8" Content="{l:Loc Settings.Logs.Open}" />
+                        <Button Command="{Binding OpenDataCommand}" Margin="0,0,8,8" Content="{l:Loc Settings.Data.Open}" />
+                    </WrapPanel>
+                    <TextBlock Text="{Binding UpdateText}" Classes="body" IsVisible="{Binding UpdateText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{l:Loc Settings.Section.Privacy}" Classes="h2" />
+                    <TextBlock Text="{l:Loc Linux.Privacy.Data}" Classes="body" />
+                    <TextBlock Text="{l:Loc Linux.Privacy.Security}" Classes="body" />
+                </StackPanel>
+            </Border>
+
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{l:Loc Nav.About}" Classes="h2" />
+                    <TextBlock Text="{l:Loc Linux.About.Description}" Classes="body" />
+                    <TextBlock Text="{l:Loc About.License.Body}" Classes="body" />
+                    <TextBlock Text="{l:Loc About.Disclaimer.Body}" Classes="caption" />
+                    <WrapPanel>
+                        <Button Classes="link" Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/efebalci569-dot/DeployNest" Content="{l:Loc About.Source}" />
+                        <Button Classes="link" Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/efebalci569-dot/DeployNest/releases" Content="{l:Loc About.Releases}" />
+                        <Button Classes="link" Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/efebalci569-dot/DeployNest/issues" Content="{l:Loc About.Issues}" />
+                        <Button Classes="link" Command="{Binding OpenUrlCommand}" CommandParameter="https://deploynest.vercel.app" Content="deploynest.vercel.app" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

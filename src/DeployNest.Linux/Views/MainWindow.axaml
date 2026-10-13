@@ -1,0 +1,73 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:DeployNest.Linux.ViewModels"
+        xmlns:v="using:DeployNest.Linux.Views"
+        xmlns:c="using:DeployNest.Linux.Controls"
+        xmlns:l="using:DeployNest.Linux.Services"
+        x:Class="DeployNest.Linux.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="DeployNest"
+        Icon="avares://DeployNest/Assets/deploynest-512.png"
+        Width="1280" Height="840" MinWidth="980" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Dn.WindowBg}">
+    <Window.DataTemplates>
+        <DataTemplate DataType="vm:HomeViewModel"><v:HomeView /></DataTemplate>
+        <DataTemplate DataType="vm:ProgramsViewModel"><v:ProgramsView /></DataTemplate>
+        <DataTemplate DataType="vm:QueueViewModel"><v:QueueView /></DataTemplate>
+        <DataTemplate DataType="vm:ProgressViewModel"><v:ProgressView /></DataTemplate>
+        <DataTemplate DataType="vm:ResultsViewModel"><v:ResultsView /></DataTemplate>
+        <DataTemplate DataType="vm:HistoryViewModel"><v:HistoryView /></DataTemplate>
+        <DataTemplate DataType="vm:SettingsViewModel"><v:SettingsView /></DataTemplate>
+    </Window.DataTemplates>
+
+    <Grid ColumnDefinitions="252,*">
+        <!-- Sidebar -->
+        <Border Background="{DynamicResource Dn.SidebarBg}" BorderBrush="{DynamicResource Dn.Border}" BorderThickness="0,0,1,0">
+            <DockPanel Margin="14,18,14,14">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="12" Margin="6,0,6,22">
+                    <Image Source="avares://DeployNest/Assets/deploynest-512.png" Width="40" Height="40" />
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="DeployNest" FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock Text="{l:Loc App.Tagline}" Classes="caption" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Selection footer -->
+                <Border DockPanel.Dock="Bottom" Classes="card" Padding="14">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <PathIcon Margin="0,0,8,0" Data="{StaticResource Icon.CheckmarkCircle}" Foreground="{DynamicResource Dn.Accent}" />
+                            <TextBlock Grid.Column="1" Text="{Binding State.SelectionText}" FontWeight="SemiBold" VerticalAlignment="Center" TextWrapping="Wrap" />
+                        </Grid>
+                        <Button Classes="accent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Command="{Binding ReviewCommand}" IsEnabled="{Binding CanReview}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <PathIcon Data="{StaticResource Icon.Install}" Width="16" Height="16" />
+                                <TextBlock Text="{l:Loc Common.StartInstall}" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+
+                <ListBox Classes="nav" ItemsSource="{Binding NavItems}" SelectedItem="{Binding SelectedNav}" Margin="0,0,0,12">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:NavItem">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{Binding IconKey, Converter={x:Static c:Converters.IconKey}}" />
+                                <TextBlock Classes="navText" Text="{Binding Title}" FontSize="14.5" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <!-- Page -->
+        <TransitioningContentControl Grid.Column="1" Content="{Binding CurrentPage}">
+            <TransitioningContentControl.PageTransition>
+                <CrossFade Duration="0:0:0.12" />
+            </TransitioningContentControl.PageTransition>
+        </TransitioningContentControl>
+    </Grid>
+</Window>

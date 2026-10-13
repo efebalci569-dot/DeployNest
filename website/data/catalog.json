@@ -623,18 +623,18 @@
     },
     {
       "id": "multimedia-codecs",
-      "name": "Ubuntu Kısıtlı Ekstralar",
+      "name": "Ubuntu Multimedya Codec'leri",
       "publisher": "Canonical",
       "category": "media",
-      "summary": { "tr": "MP3, H.264 codec'leri ve Microsoft yazı tipleri (Ubuntu)." },
-      "description": { "tr": "Ubuntu'da yasal kısıtlar nedeniyle varsayılan gelmeyen MP3/AAC/H.264 gibi codec'leri, Microsoft temel yazı tiplerini ve unrar aracını kuran meta paket." },
-      "homepage": "https://packages.ubuntu.com/ubuntu-restricted-extras",
-      "license": { "tr": "Çeşitli (bazıları tescilli)" },
+      "summary": { "tr": "MP3, AAC, H.264 gibi biçimler için ek codec'ler (Ubuntu)." },
+      "description": { "tr": "Ubuntu'da yasal kısıtlar nedeniyle varsayılan gelmeyen MP3, AAC ve H.264 gibi biçimler için GStreamer eklentilerini ve ek codec kütüphanelerini kuran meta paket (ubuntu-restricted-addons)." },
+      "homepage": "https://packages.ubuntu.com/ubuntu-restricted-addons",
+      "license": { "tr": "Çeşitli (açık kaynak)" },
       "icon": { "monogram": "MM", "color": "#E95420" },
-      "tags": [ "codec", "kodek", "mp3", "font", "yazı tipi", "ubuntu" ],
+      "tags": [ "codec", "kodek", "mp3", "h264", "video", "ses", "ubuntu" ],
       "linux": {
-        "apt": [ "ubuntu-restricted-extras" ],
-        "notes": { "tr": "Yalnızca Ubuntu ve türevlerinde (Linux Mint, Pop!_OS vb.) bulunur. Microsoft yazı tiplerinin lisansını onaylaman istenebilir." }
+        "apt": [ "ubuntu-restricted-addons" ],
+        "notes": { "tr": "Yalnızca Ubuntu ve türevlerinde (Linux Mint, Pop!_OS vb.) bulunur." }
       }
     },
     {

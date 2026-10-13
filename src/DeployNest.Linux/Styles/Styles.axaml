@@ -1,0 +1,225 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Typography -->
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Text}" />
+    </Style>
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="TextBlock.h3">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="TextBlock.body">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Text2}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.caption">
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Text3}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.accent">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+
+    <!-- Surfaces -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource Dn.CardBg}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+    <Style Selector="Border.logo">
+        <Setter Property="Background" Value="{DynamicResource Dn.LogoTile}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Width" Value="44" />
+        <Setter Property="Height" Value="44" />
+        <Setter Property="Padding" Value="6" />
+    </Style>
+    <Style Selector="Border.banner">
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="14,12" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource Dn.WarningSoft}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Warning}" />
+    </Style>
+    <Style Selector="Border.banner.info">
+        <Setter Property="Background" Value="{DynamicResource Dn.AccentSoft}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+
+    <!-- Status pills -->
+    <Style Selector="Border.pill">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="8,2" />
+        <Setter Property="Background" Value="{DynamicResource Dn.SubtleBg}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.pill > TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Text2}" />
+    </Style>
+    <Style Selector="Border.pill.success">
+        <Setter Property="Background" Value="{DynamicResource Dn.SuccessSoft}" />
+    </Style>
+    <Style Selector="Border.pill.success > TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Success}" />
+    </Style>
+    <Style Selector="Border.pill.warning">
+        <Setter Property="Background" Value="{DynamicResource Dn.WarningSoft}" />
+    </Style>
+    <Style Selector="Border.pill.warning > TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Warning}" />
+    </Style>
+    <Style Selector="Border.pill.danger">
+        <Setter Property="Background" Value="{DynamicResource Dn.DangerSoft}" />
+    </Style>
+    <Style Selector="Border.pill.danger > TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Danger}" />
+    </Style>
+    <Style Selector="Border.pill.accent">
+        <Setter Property="Background" Value="{DynamicResource Dn.AccentSoft}" />
+    </Style>
+    <Style Selector="Border.pill.accent > TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+
+    <!-- Sidebar navigation -->
+    <Style Selector="ListBox.nav">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem">
+        <Setter Property="Padding" Value="12,9" />
+        <Setter Property="Margin" Value="0,2" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource Dn.NavSelected}" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource Dn.NavSelected}" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem:selected PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem:selected TextBlock.navText">
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <!-- Filter chips (single choice) -->
+    <Style Selector="ListBox.chips">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="ListBox.chips > ListBoxItem">
+        <Setter Property="Padding" Value="12,5" />
+        <Setter Property="Margin" Value="0,0,8,8" />
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Border}" />
+        <Setter Property="Background" Value="{DynamicResource Dn.CardBg}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="ListBox.chips > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource Dn.Accent}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+    <Style Selector="ListBox.chips > ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+    <Style Selector="ListBox.chips > ListBoxItem:selected TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.AccentText}" />
+    </Style>
+    <Style Selector="ListBox.chips > ListBoxItem:selected PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.AccentText}" />
+    </Style>
+
+    <!-- Plain list (no selection visuals) -->
+    <Style Selector="ListBox.plain">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="ListBox.plain > ListBoxItem">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+    </Style>
+    <Style Selector="ListBox.plain > ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="ListBox.plain > ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <!-- Clickable cards -->
+    <Style Selector="Button.cardButton">
+        <Setter Property="Background" Value="{DynamicResource Dn.CardBg}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.cardButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource Dn.CardHoverBg}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+    <Style Selector="Button.cardButton.selected /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{DynamicResource Dn.Accent}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+
+    <Style Selector="Button.link">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Accent}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.link:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="Button.link TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.Accent}" />
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="Button.accent TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.AccentText}" />
+    </Style>
+    <Style Selector="Button.accent PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource Dn.AccentText}" />
+    </Style>
+    <Style Selector="TextBox">
+        <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="PathIcon">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Height" Value="18" />
+    </Style>
+</Styles>

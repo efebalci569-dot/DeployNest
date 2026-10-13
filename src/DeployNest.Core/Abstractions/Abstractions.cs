@@ -17,6 +17,9 @@ public sealed record ProcessRequest(string FileName, IReadOnlyList<string> Argum
     public bool UseShellExecute { get; init; }
 
     public Action<string>? OnOutputLine { get; init; }
+
+    /// <summary>Extra environment variables for the process (e.g. LC_ALL=C for parseable output).</summary>
+    public IReadOnlyDictionary<string, string>? Environment { get; init; }
 }
 
 public sealed record ProcessResult(int ExitCode, string StandardOutput, string StandardError);

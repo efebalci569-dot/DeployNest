@@ -1,0 +1,57 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="Dn.WindowBg" Color="#F4F6FA" />
+            <SolidColorBrush x:Key="Dn.SidebarBg" Color="#EBEEF4" />
+            <SolidColorBrush x:Key="Dn.CardBg" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="Dn.CardHoverBg" Color="#F8FAFD" />
+            <SolidColorBrush x:Key="Dn.SubtleBg" Color="#EEF2F8" />
+            <SolidColorBrush x:Key="Dn.Border" Color="#E1E6EE" />
+            <SolidColorBrush x:Key="Dn.Text" Color="#0F172A" />
+            <SolidColorBrush x:Key="Dn.Text2" Color="#4A5568" />
+            <SolidColorBrush x:Key="Dn.Text3" Color="#6B7686" />
+            <SolidColorBrush x:Key="Dn.Accent" Color="#1D5FD6" />
+            <SolidColorBrush x:Key="Dn.AccentText" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="Dn.AccentSoft" Color="#1F1D5FD6" />
+            <SolidColorBrush x:Key="Dn.NavSelected" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="Dn.Success" Color="#12823B" />
+            <SolidColorBrush x:Key="Dn.SuccessSoft" Color="#1F12823B" />
+            <SolidColorBrush x:Key="Dn.Warning" Color="#9A5B00" />
+            <SolidColorBrush x:Key="Dn.WarningSoft" Color="#26D98E04" />
+            <SolidColorBrush x:Key="Dn.Danger" Color="#C42B1C" />
+            <SolidColorBrush x:Key="Dn.DangerSoft" Color="#1FC42B1C" />
+            <SolidColorBrush x:Key="Dn.LogoTile" Color="#FFFFFF" />
+            <LinearGradientBrush x:Key="Dn.HeroBg" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#E8F0FF" />
+                <GradientStop Offset="1" Color="#E0F7FB" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="Dn.WindowBg" Color="#0F141C" />
+            <SolidColorBrush x:Key="Dn.SidebarBg" Color="#141A24" />
+            <SolidColorBrush x:Key="Dn.CardBg" Color="#18202C" />
+            <SolidColorBrush x:Key="Dn.CardHoverBg" Color="#1D2633" />
+            <SolidColorBrush x:Key="Dn.SubtleBg" Color="#1B2230" />
+            <SolidColorBrush x:Key="Dn.Border" Color="#273042" />
+            <SolidColorBrush x:Key="Dn.Text" Color="#E8EDF4" />
+            <SolidColorBrush x:Key="Dn.Text2" Color="#AAB4C3" />
+            <SolidColorBrush x:Key="Dn.Text3" Color="#8A95A6" />
+            <SolidColorBrush x:Key="Dn.Accent" Color="#5CB6FF" />
+            <SolidColorBrush x:Key="Dn.AccentText" Color="#06213D" />
+            <SolidColorBrush x:Key="Dn.AccentSoft" Color="#265CB6FF" />
+            <SolidColorBrush x:Key="Dn.NavSelected" Color="#1F2836" />
+            <SolidColorBrush x:Key="Dn.Success" Color="#6AD18A" />
+            <SolidColorBrush x:Key="Dn.SuccessSoft" Color="#266AD18A" />
+            <SolidColorBrush x:Key="Dn.Warning" Color="#F5C451" />
+            <SolidColorBrush x:Key="Dn.WarningSoft" Color="#26F5C451" />
+            <SolidColorBrush x:Key="Dn.Danger" Color="#FF8A80" />
+            <SolidColorBrush x:Key="Dn.DangerSoft" Color="#26FF8A80" />
+            <SolidColorBrush x:Key="Dn.LogoTile" Color="#F3F5F8" />
+            <LinearGradientBrush x:Key="Dn.HeroBg" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0" Color="#16233A" />
+                <GradientStop Offset="1" Color="#112A33" />
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

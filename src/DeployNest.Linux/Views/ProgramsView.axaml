@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:c="using:DeployNest.Linux.Controls"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.ProgramsView"
+             x:DataType="vm:ProgramsViewModel">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Margin="32,28,20,0">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,12,16">
+            <StackPanel>
+                <TextBlock Text="{l:Loc Programs.Title}" Classes="h1" />
+                <TextBlock Text="{Binding ResultSummary}" Classes="caption" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
+                <Button Command="{Binding ClearFiltersCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Dismiss}" Width="14" Height="14" />
+                        <TextBlock Text="{l:Loc Programs.ClearFilters}" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding SelectAllVisibleCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.SelectAll}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Programs.SelectVisible}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Margin="0,0,12,12">
+            <TextBox Text="{Binding SearchText}" Watermark="{l:Loc Programs.Search.Placeholder}" MaxWidth="480" HorizontalAlignment="Stretch" Height="38" VerticalContentAlignment="Center">
+                <TextBox.InnerLeftContent>
+                    <PathIcon Data="{StaticResource Icon.Search}" Margin="10,0,4,0" Width="16" Height="16" Foreground="{DynamicResource Dn.Text3}" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
+            <ListBox Grid.Column="1" Classes="chips" ItemsSource="{Binding StateFilters}" SelectedItem="{Binding SelectedStateFilter}" Margin="16,8,0,-8">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="vm:StateFilterOption">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <ListBox Grid.Row="2" Classes="chips" ItemsSource="{Binding CategoryChips}" SelectedItem="{Binding SelectedCategory}" Margin="0,0,12,8">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="vm:CategoryViewModel">
+                    <StackPanel Orientation="Horizontal" Spacing="7">
+                        <PathIcon Data="{Binding IconKey, Converter={x:Static c:Converters.IconKey}}" Width="14" Height="14" />
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" Padding="0,0,12,0">
+            <Panel>
+                <ItemsControl ItemsSource="{Binding Results}" Margin="0,4,0,32">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <c:UniformWrapPanel MinItemWidth="300" Spacing="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:SoftwareItemViewModel">
+                            <Button Classes="cardButton" Classes.selected="{Binding IsSelected}" Padding="14"
+                                    Command="{Binding $parent[ItemsControl].((vm:ProgramsViewModel)DataContext).ToggleCommand}" CommandParameter="{Binding}"
+                                    ToolTip.Tip="{Binding Details}" ToolTip.ShowDelay="600">
+                                <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*,Auto">
+                                    <Border Classes="logo">
+                                        <Panel>
+                                            <Image Source="{Binding Logo}" Stretch="Uniform" IsVisible="{Binding Logo, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                            <TextBlock Text="{Binding Monogram}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       IsVisible="{Binding Logo, Converter={x:Static ObjectConverters.IsNull}}" />
+                                        </Panel>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Margin="12,0,8,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="15" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding Publisher}" Classes="caption" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected}" IsEnabled="{Binding IsAvailable}" VerticalAlignment="Top" MinWidth="0" Padding="0"
+                                              ToolTip.Tip="{l:Loc Card.Select}" />
+                                    <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Summary}" Classes="body" FontSize="13.5" Margin="0,10,0,10" MaxLines="2" TextTrimming="CharacterEllipsis" />
+                                    <WrapPanel Grid.Row="2" Grid.ColumnSpan="3">
+                                        <Border Classes="pill" Classes.success="{Binding StatePill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Success}"
+                                                Classes.warning="{Binding StatePill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Warning}" Margin="0,0,6,0">
+                                            <TextBlock Text="{Binding StateText}" />
+                                        </Border>
+                                        <Border Classes="pill accent" Classes.danger="{Binding IsUnavailable}" Margin="0,0,6,0">
+                                            <TextBlock Text="{Binding SourceText}" />
+                                        </Border>
+                                        <TextBlock Text="{Binding CategoryName}" Classes="caption" VerticalAlignment="Center" Margin="2,0,0,0" />
+                                    </WrapPanel>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel IsVisible="{Binding IsEmpty}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0" Spacing="8" MaxWidth="460">
+                    <PathIcon Data="{StaticResource Icon.Search}" Width="36" Height="36" Foreground="{DynamicResource Dn.Text3}" />
+                    <TextBlock Text="{l:Loc Programs.Empty.Title}" Classes="h3" HorizontalAlignment="Center" />
+                    <TextBlock Text="{l:Loc Programs.Empty.Body}" Classes="body" TextAlignment="Center" />
+                </StackPanel>
+            </Panel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

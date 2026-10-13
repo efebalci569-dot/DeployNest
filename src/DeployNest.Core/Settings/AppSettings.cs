@@ -25,6 +25,9 @@ public sealed record AppSettings
     /// <summary>When true, programs detected as installed are skipped unless the user opts in.</summary>
     public bool SkipInstalledByDefault { get; init; } = true;
 
+    /// <summary>Linux: install from the distribution repositories instead of Flathub when both are possible.</summary>
+    public bool PreferNativePackages { get; init; }
+
     public AppSettings Normalize() => this with
     {
         MaxParallelDownloads = Math.Clamp(MaxParallelDownloads, MinParallelDownloads, MaxParallelDownloadsLimit),

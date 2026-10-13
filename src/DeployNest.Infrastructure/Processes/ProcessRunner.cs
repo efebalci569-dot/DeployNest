@@ -23,6 +23,11 @@ public sealed class ProcessRunner(ILogger<ProcessRunner> logger) : IProcessRunne
         };
         foreach (var argument in request.Arguments)
             startInfo.ArgumentList.Add(argument);
+        if (request.Environment is not null && !request.UseShellExecute)
+        {
+            foreach (var (name, value) in request.Environment)
+                startInfo.Environment[name] = value;
+        }
 
         var redirect = !request.UseShellExecute;
         if (redirect)
