@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:c="using:DeployNest.Linux.Controls"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.ResultsView"
+             x:DataType="vm:ResultsViewModel">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="32,28,32,24">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding Headline}" Classes="h1" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Subline}" Classes="body" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
+                <Button Command="{Binding OpenReportCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Document}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Results.OpenReport}" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding OpenLogsCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.FolderOpen}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Results.OpenLogs}" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding RetryFailedCommand}" IsVisible="{Binding HasFailures}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Retry}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Results.Retry}" />
+                    </StackPanel>
+                </Button>
+                <Button Classes="accent" Command="{Binding DoneCommand}" Content="{l:Loc Results.Done}" />
+            </StackPanel>
+        </Grid>
+
+        <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,16">
+            <Border Classes="card" Margin="0,0,6,0">
+                <StackPanel><TextBlock Text="{Binding SucceededCount}" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource Dn.Success}" /><TextBlock Text="{l:Loc Results.Stat.Succeeded}" Classes="caption" /></StackPanel>
+            </Border>
+            <Border Classes="card" Margin="6,0">
+                <StackPanel><TextBlock Text="{Binding FailedCount}" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource Dn.Danger}" /><TextBlock Text="{l:Loc Results.Stat.Failed}" Classes="caption" /></StackPanel>
+            </Border>
+            <Border Classes="card" Margin="6,0">
+                <StackPanel><TextBlock Text="{Binding SkippedCount}" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource Dn.Warning}" /><TextBlock Text="{l:Loc Results.Stat.Skipped}" Classes="caption" /></StackPanel>
+            </Border>
+            <Border Classes="card" Margin="6,0,0,0">
+                <StackPanel><TextBlock Text="{Binding CanceledCount}" FontSize="26" FontWeight="Bold" /><TextBlock Text="{l:Loc Results.Stat.Canceled}" Classes="caption" /></StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Controller.Items}" Margin="0,0,8,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:ProgressItemViewModel">
+                        <Border Classes="card" Padding="14,12" Margin="0,0,0,8">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Classes="logo" Width="40" Height="40" Padding="5" VerticalAlignment="Top">
+                                    <Image Source="{Binding Software.Logo}" Stretch="Uniform" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="12,0" Spacing="3">
+                                    <TextBlock Text="{Binding Software.Name}" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding MethodText}" Classes="caption" />
+                                    <TextBlock Text="{Binding ResultText}" Classes="body" FontSize="13" />
+                                    <TextBlock IsVisible="{Binding Advice, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Classes="body" FontSize="13">
+                                        <Run Text="{l:Loc Results.Advice}" FontWeight="SemiBold" />
+                                        <Run Text="{Binding Advice}" />
+                                    </TextBlock>
+                                    <StackPanel IsVisible="{Binding ManualCommand, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Spacing="4" Margin="0,4,0,0">
+                                        <TextBlock Text="{l:Loc Linux.Results.Manual}" Classes="caption" />
+                                        <SelectableTextBlock Text="{Binding ManualCommand}" FontFamily="monospace" FontSize="12.5" Padding="8,6"
+                                                             Background="{DynamicResource Dn.SubtleBg}" Foreground="{DynamicResource Dn.Text}" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border Grid.Column="2" Classes="pill" VerticalAlignment="Top"
+                                        Classes.success="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Success}"
+                                        Classes.warning="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Warning}"
+                                        Classes.danger="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Danger}">
+                                    <TextBlock Text="{Binding PhaseText}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

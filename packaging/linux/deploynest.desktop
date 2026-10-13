@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=DeployNest
+GenericName=Toplu program kurulumu
+GenericName[en]=Bulk app installer
+Comment=Programlarını seç, Flathub'dan ve dağıtımının deposundan tek seferde kur
+Comment[en]=Pick your apps and install them from Flathub and your distribution in one go
+Exec=deploynest
+Icon=deploynest
+Terminal=false
+Categories=System;PackageManager;Utility;
+Keywords=install;installer;flatpak;flathub;apt;dnf;pacman;kurulum;program;format;
+StartupWMClass=DeployNest

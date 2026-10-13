@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:c="using:DeployNest.Linux.Controls"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.ProgressView"
+             x:DataType="vm:ProgressViewModel">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="32,28,32,24">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,14">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{l:Loc Progress.Title}" Classes="h1" />
+                <TextBlock Text="{Binding Controller.StatusText}" Classes="body" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
+                <Button Command="{Binding AskCancelCommand}" IsVisible="{Binding Controller.IsRunning}" IsEnabled="{Binding !Controller.StopRequested}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Stop}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Progress.Cancel}" />
+                    </StackPanel>
+                </Button>
+                <Button Classes="accent" Command="{Binding ViewResultsCommand}" IsVisible="{Binding Controller.IsCompleted}" Content="{l:Loc Progress.ViewResults}" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Spacing="10" Margin="0,0,0,14">
+            <ProgressBar Value="{Binding Controller.OverallPercent}" Height="6" />
+            <Border Classes="banner info">
+                <Grid ColumnDefinitions="Auto,*">
+                    <PathIcon Margin="0,0,10,0" Data="{StaticResource Icon.Lock}" Foreground="{DynamicResource Dn.Accent}" VerticalAlignment="Top" />
+                    <TextBlock Grid.Column="1" Text="{l:Loc Linux.Progress.Hint}" TextWrapping="Wrap" />
+                </Grid>
+            </Border>
+            <Border Classes="banner" IsVisible="{Binding ConfirmCancel}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{l:Loc Cancel.Title}" Classes="h3" />
+                    <TextBlock Text="{l:Loc Cancel.Message}" Classes="body" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Classes="accent" Command="{Binding StopCommand}" Content="{l:Loc Cancel.Stop}" />
+                        <Button Command="{Binding AbortCommand}" Content="{l:Loc Cancel.Abort}" />
+                        <Button Command="{Binding KeepRunningCommand}" Content="{l:Loc Cancel.Continue}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding Controller.Items}" Margin="0,0,8,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="vm:ProgressItemViewModel">
+                        <Border Classes="card" Padding="14,12" Margin="0,0,0,8">
+                            <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto">
+                                <Border Classes="logo" Width="40" Height="40" Padding="5" Grid.RowSpan="2">
+                                    <Image Source="{Binding Software.Logo}" Stretch="Uniform" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="12,0" Spacing="2">
+                                    <TextBlock Text="{Binding Software.Name}" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding MethodText}" Classes="caption" />
+                                </StackPanel>
+                                <Border Grid.Column="2" Classes="pill"
+                                        Classes.accent="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Accent}"
+                                        Classes.success="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Success}"
+                                        Classes.warning="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Warning}"
+                                        Classes.danger="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Danger}">
+                                    <TextBlock Text="{Binding PhaseText}" />
+                                </Border>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="12,8,0,0" Spacing="4">
+                                    <ProgressBar IsVisible="{Binding IsActive}" IsIndeterminate="{Binding IsIndeterminate}" Value="{Binding Percent}" Height="4" />
+                                    <TextBlock Text="{Binding ResultText}" Classes="body" FontSize="13" IsVisible="{Binding ResultText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

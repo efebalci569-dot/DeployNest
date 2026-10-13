@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using DeployNest.Core.Abstractions;
@@ -10,6 +11,7 @@ namespace DeployNest.Infrastructure.Security;
 /// Verifies Authenticode signatures with the Windows WinVerifyTrust API (the same check Windows
 /// performs for "verified publisher" prompts) and reads the signer certificate subject.
 /// </summary>
+[SupportedOSPlatform("windows")]
 public sealed partial class AuthenticodeVerifier(ILogger<AuthenticodeVerifier> logger) : ISignatureVerifier
 {
     private static readonly Guid GenericVerifyV2 = new("00AAC56B-CD44-11d0-8CC2-00C04FC295EE");

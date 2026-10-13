@@ -1,3 +1,4 @@
+using System.Runtime.Versioning;
 using DeployNest.Core.Detection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
@@ -5,6 +6,7 @@ using Microsoft.Win32;
 namespace DeployNest.Infrastructure.Detection;
 
 /// <summary>Reads the standard "Uninstall" keys (64-bit, 32-bit and per-user).</summary>
+[SupportedOSPlatform("windows")]
 public sealed class RegistryInstalledProgramSource(ILogger<RegistryInstalledProgramSource> logger) : IInstalledProgramSource
 {
     private const string UninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";

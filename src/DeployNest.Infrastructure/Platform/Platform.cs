@@ -4,13 +4,15 @@ using DeployNest.Core.Abstractions;
 
 namespace DeployNest.Infrastructure.Platform;
 
-/// <summary>Per-user data locations under %LOCALAPPDATA%\DeployNest.</summary>
+/// <summary>
+/// Per-user data locations: %LOCALAPPDATA%\DeployNest on Windows, ~/.local/share/DeployNest
+/// (XDG_DATA_HOME) on Linux.
+/// </summary>
 public sealed class AppPaths : IAppPaths
 {
     public AppPaths(string? root = null)
     {
-        DataDirectory = root ?? Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DeployNest");
+        DataDirectory = root ?? Path.Combine(DefaultBase(), "DeployNest");
         LogDirectory = Path.Combine(DataDirectory, "logs");
         ReportDirectory = Path.Combine(DataDirectory, "reports");
         CacheDirectory = Path.Combine(DataDirectory, "cache");
@@ -26,6 +28,13 @@ public sealed class AppPaths : IAppPaths
     public string SettingsFile { get; }
     public string HistoryFile { get; }
     public string DefaultDownloadDirectory { get; }
+
+    // On a fresh Linux account ~/.local/share may not exist yet; GetFolderPath then returns "".
+    private static string DefaultBase()
+    {
+        var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create);
+        return string.IsNullOrEmpty(folder) ? Path.GetTempPath() : folder;
+    }
 
     public void EnsureCreated()
     {

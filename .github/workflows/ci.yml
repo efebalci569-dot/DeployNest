@@ -37,7 +37,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: test-results
+          name: test-results-windows
           path: TestResults
 
       - name: Publish single-file EXE
@@ -48,4 +48,44 @@ jobs:
         with:
           name: DeployNest-win-x64
           path: artifacts/publish/DeployNest.exe
+          if-no-files-found: error
+
+  linux:
+    name: Build, test and package (linux-x64)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
+      # The test project targets net10.0-windows only for Windows-specific annotations; its code runs on Linux.
+      - name: Build
+        run: |
+          dotnet build src/DeployNest.Linux/DeployNest.Linux.csproj -c Release
+          dotnet build tests/DeployNest.Tests/DeployNest.Tests.csproj -c Release -p:EnableWindowsTargeting=true
+
+      - name: Test
+        run: dotnet test tests/DeployNest.Tests/DeployNest.Tests.csproj -c Release --no-build -p:EnableWindowsTargeting=true --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-results-linux
+          path: TestResults
+
+      - name: Build packages (tar.gz and .deb)
+        run: |
+          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' Directory.Build.props)
+          ./scripts/publish-linux.sh "$version" linux-x64
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v6
+        with:
+          name: DeployNest-linux-x64
+          path: |
+            artifacts/release/*.tar.gz
+            artifacts/release/*.deb
           if-no-files-found: error

@@ -1,0 +1,123 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:c="using:DeployNest.Linux.Controls"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.QueueView"
+             x:DataType="vm:QueueViewModel">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="32,28,32,24">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{l:Loc Queue.Title}" Classes="h1" />
+                <TextBlock Text="{l:Loc Queue.Subtitle}" Classes="body" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Bottom">
+                <Button Command="{Binding AddMoreCommand}" Content="{l:Loc Selection.AddMore}" />
+                <Button Command="{Binding RecheckCommand}" IsEnabled="{Binding !IsChecking}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Refresh}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Queue.Recheck}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Empty -->
+        <StackPanel Grid.Row="1" IsVisible="{Binding IsEmpty}" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" MaxWidth="460">
+            <PathIcon Data="{StaticResource Icon.Install}" Width="40" Height="40" Foreground="{DynamicResource Dn.Text3}" />
+            <TextBlock Text="{l:Loc Queue.Empty}" Classes="h2" HorizontalAlignment="Center" />
+            <TextBlock Text="{l:Loc Queue.Empty.Body}" Classes="body" TextAlignment="Center" />
+            <Button Classes="accent" HorizontalAlignment="Center" Command="{Binding AddMoreCommand}" Content="{l:Loc Selection.AddMore}" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" IsVisible="{Binding !IsEmpty}" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Spacing="12" Margin="0,0,8,0">
+                <Border Classes="banner" IsVisible="{Binding State.FlatpakMissing}">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <PathIcon Data="{StaticResource Icon.Warning}" Foreground="{DynamicResource Dn.Warning}" VerticalAlignment="Top" Margin="0,2,12,0" />
+                        <StackPanel Grid.Column="1" Spacing="4">
+                            <TextBlock Text="{l:Loc Linux.Flatpak.Title}" Classes="h3" />
+                            <TextBlock Text="{l:Loc Linux.Flatpak.Body}" Classes="body" />
+                            <TextBlock Text="{Binding State.FlatpakMessage}" Classes="caption" IsVisible="{Binding State.FlatpakMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Classes="accent" VerticalAlignment="Center" Margin="16,0,0,0" Command="{Binding InstallFlatpakCommand}"
+                                IsEnabled="{Binding !State.IsInstallingFlatpak}" Content="{l:Loc Linux.Flatpak.Install}" />
+                    </Grid>
+                </Border>
+
+                <Border Classes="banner info" IsVisible="{Binding IsChecking}">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ProgressBar IsIndeterminate="True" Width="80" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding CheckingText}" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:QueueItemViewModel">
+                            <Border Classes="card" Padding="14,12" Margin="0,0,0,8">
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                                    <Border Classes="logo" Width="40" Height="40" Padding="5">
+                                        <Image Source="{Binding Software.Logo}" Stretch="Uniform" />
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center" Spacing="2">
+                                        <TextBlock Text="{Binding Software.Name}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding SourceText}" Classes="caption" />
+                                        <TextBlock Text="{Binding DetailText}" Classes="caption" IsVisible="{Binding DetailText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                        <CheckBox IsVisible="{Binding CanReinstall}" IsChecked="{Binding Reinstall}" Margin="0,4,0,0">
+                                            <TextBlock Text="{l:Loc Queue.Item.ReinstallOption}" FontSize="13" />
+                                        </CheckBox>
+                                    </StackPanel>
+                                    <Border Grid.Column="2" Classes="pill"
+                                            Classes.accent="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Accent}"
+                                            Classes.warning="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Warning}"
+                                            Classes.danger="{Binding StatusPill, Converter={x:Static c:Converters.EnumIs}, ConverterParameter=Danger}" MaxWidth="260">
+                                        <TextBlock Text="{Binding StatusText}" TextWrapping="Wrap" />
+                                    </Border>
+                                    <Button Grid.Column="3" Margin="8,0,0,0" Padding="8" Background="Transparent" VerticalAlignment="Center"
+                                            Command="{Binding $parent[ItemsControl].((vm:QueueViewModel)DataContext).RemoveCommand}" CommandParameter="{Binding}"
+                                            ToolTip.Tip="{l:Loc Selection.Remove}">
+                                        <PathIcon Data="{StaticResource Icon.Dismiss}" Width="14" Height="14" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Border Classes="card" Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{l:Loc Queue.Warnings}" Classes="h3" />
+                        <Grid ColumnDefinitions="Auto,*">
+                            <PathIcon Margin="0,0,10,0" Data="{StaticResource Icon.Lock}" Foreground="{DynamicResource Dn.Accent}" VerticalAlignment="Top" />
+                            <TextBlock Grid.Column="1" Text="{Binding ElevationText}" Classes="body" />
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto,*">
+                            <PathIcon Margin="0,0,10,0" Data="{StaticResource Icon.Info}" Foreground="{DynamicResource Dn.Accent}" VerticalAlignment="Top" />
+                            <TextBlock Grid.Column="1" Text="{l:Loc Linux.Queue.General}" Classes="body" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Classes="card" Margin="0,12,0,0" IsVisible="{Binding !IsEmpty}">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{Binding SummaryText}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                    <CheckBox IsChecked="{Binding ConsentAccepted}">
+                        <TextBlock Text="{l:Loc Linux.Queue.Consent}" TextWrapping="Wrap" />
+                    </CheckBox>
+                </StackPanel>
+                <Button Grid.Column="1" Classes="accent" Padding="22,10" VerticalAlignment="Center" Margin="16,0,0,0"
+                        Command="{Binding StartCommand}" IsEnabled="{Binding CanStart}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource Icon.Install}" Width="16" Height="16" />
+                        <TextBlock Text="{l:Loc Common.StartInstall}" FontWeight="SemiBold" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

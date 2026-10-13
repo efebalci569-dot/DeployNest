@@ -172,8 +172,9 @@ public static partial class CatalogParser
 
         var winget = ParseWinget(dto.Winget, errors);
         var direct = ParseDirect(dto.Direct, errors);
-        if (dto.Winget is null && dto.Direct is null)
-            errors.Add("En az bir kurulum yöntemi ('winget' veya 'direct') tanımlanmalıdır.");
+        var linux = ParseLinux(dto.Linux, errors);
+        if (dto.Winget is null && dto.Direct is null && dto.Linux is null)
+            errors.Add("En az bir kurulum yöntemi ('winget', 'direct' veya 'linux') tanımlanmalıdır.");
 
         var detection = ParseDetection(dto.Detection, errors);
 
@@ -197,7 +198,8 @@ public static partial class CatalogParser
             winget,
             direct,
             detection,
-            order);
+            order,
+            linux);
     }
 
     private static WingetSource? ParseWinget(WingetDto? dto, List<string> errors)
@@ -271,6 +273,43 @@ public static partial class CatalogParser
         return new DirectSource(url!, hosts.Select(h => h!).ToArray(), type, dto.Version, sha, signer, dto.SizeBytes, args, argsSource);
     }
 
+    private static LinuxSource? ParseLinux(LinuxDto? dto, List<string> errors)
+    {
+        if (dto is null)
+            return null;
+
+        var before = errors.Count;
+        string? flatpak = null;
+        if (dto.Flatpak is not null)
+        {
+            if (FlatpakIdRegex().IsMatch(dto.Flatpak)) flatpak = dto.Flatpak;
+            else errors.Add($"'linux.flatpak' geçerli bir Flatpak uygulama kimliği değil ('{dto.Flatpak}').");
+        }
+
+        IReadOnlyList<string> Packages(List<string?>? names, string field)
+        {
+            if (names is null)
+                return [];
+            if (names.Count == 0 || names.Any(n => n is null || !LinuxPackageRegex().IsMatch(n)))
+            {
+                errors.Add($"'linux.{field}' geçerli paket adları içermelidir (harf/rakamla başlar; yalnızca harf, rakam, '+', '.', '_', '-').");
+                return [];
+            }
+            return names.Distinct().ToArray()!;
+        }
+
+        var apt = Packages(dto.Apt, "apt");
+        var dnf = Packages(dto.Dnf, "dnf");
+        var pacman = Packages(dto.Pacman, "pacman");
+        if (dto.Flatpak is null && dto.Apt is null && dto.Dnf is null && dto.Pacman is null)
+            errors.Add("'linux' bölümünde 'flatpak' veya en az bir paket listesi ('apt', 'dnf', 'pacman') olmalıdır.");
+
+        if (errors.Count > before)
+            return null;
+
+        return new LinuxSource(flatpak, apt, dnf, pacman, ToLocalized(dto.Notes));
+    }
+
     private static DetectionRules ParseDetection(DetectionDto? dto, List<string> errors)
     {
         if (dto is null)
@@ -327,7 +366,20 @@ public static partial class CatalogParser
             if (known.Length == 0)
                 continue;
 
-            result.Add(new CatalogPreset(dto.Id!, name, ToLocalized(dto.Description) ?? LocalizedText.Of(string.Empty), ParseGlyph(dto.Icon) ?? "", known!));
+            List<CatalogPlatform>? platforms = null;
+            if (dto.Platforms is not null)
+            {
+                platforms = [];
+                foreach (var value in dto.Platforms)
+                {
+                    if (Enum.TryParse<CatalogPlatform>(value, ignoreCase: true, out var platform) && Enum.IsDefined(platform))
+                        platforms.Add(platform);
+                    else
+                        issues.Add(new CatalogIssue($"{path} ({dto.Id})", $"Bilinmeyen platform yok sayıldı: '{value}' ('windows' veya 'linux' olmalı).", false));
+                }
+            }
+
+            result.Add(new CatalogPreset(dto.Id!, name, ToLocalized(dto.Description) ?? LocalizedText.Of(string.Empty), ParseGlyph(dto.Icon) ?? "", known!, platforms));
         }
 
         return result;
@@ -394,6 +446,14 @@ public static partial class CatalogParser
     [GeneratedRegex("^#[0-9a-fA-F]{6}$")]
     private static partial Regex HexColorRegex();
 
+    /// <summary>Reverse-DNS application id with at least three parts (e.g. org.videolan.VLC).</summary>
+    [GeneratedRegex("^[A-Za-z][A-Za-z0-9_-]*(\\.[A-Za-z0-9_-]+){2,}$")]
+    private static partial Regex FlatpakIdRegex();
+
+    /// <summary>Package names never start with '-' so they cannot be read as command options.</summary>
+    [GeneratedRegex("^[A-Za-z0-9][A-Za-z0-9+._-]{0,99}$")]
+    private static partial Regex LinuxPackageRegex();
+
     private sealed class CatalogDto
     {
         public int SchemaVersion { get; set; }
@@ -428,6 +488,16 @@ public static partial class CatalogParser
         public WingetDto? Winget { get; set; }
         public DirectDto? Direct { get; set; }
         public DetectionDto? Detection { get; set; }
+        public LinuxDto? Linux { get; set; }
+    }
+
+    private sealed class LinuxDto
+    {
+        public string? Flatpak { get; set; }
+        public List<string?>? Apt { get; set; }
+        public List<string?>? Dnf { get; set; }
+        public List<string?>? Pacman { get; set; }
+        public Dictionary<string, string?>? Notes { get; set; }
     }
 
     private sealed class IconDto
@@ -474,5 +544,6 @@ public static partial class CatalogParser
         public Dictionary<string, string?>? Description { get; set; }
         public string? Icon { get; set; }
         public List<string>? Software { get; set; }
+        public List<string?>? Platforms { get; set; }
     }
 }

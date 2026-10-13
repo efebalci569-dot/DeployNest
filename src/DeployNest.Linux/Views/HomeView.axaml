@@ -1,0 +1,146 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DeployNest.Linux.ViewModels"
+             xmlns:c="using:DeployNest.Linux.Controls"
+             xmlns:l="using:DeployNest.Linux.Services"
+             x:Class="DeployNest.Linux.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,28,32,32" Spacing="26">
+            <!-- Hero -->
+            <Border Background="{DynamicResource Dn.HeroBg}" BorderBrush="{DynamicResource Dn.Border}" BorderThickness="1" CornerRadius="14" Padding="30,28">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{l:Loc Home.Hero.Title}" Classes="h1" TextWrapping="Wrap" />
+                        <TextBlock Text="{l:Loc Linux.Hero.Subtitle}" Classes="body" FontSize="15" />
+                        <Grid ColumnDefinitions="*,Auto" MaxWidth="560" HorizontalAlignment="Left" Margin="0,8,0,0">
+                            <TextBox Text="{Binding SearchText}" Watermark="{l:Loc Home.Search.Placeholder}" Height="40" VerticalContentAlignment="Center">
+                                <TextBox.KeyBindings>
+                                    <KeyBinding Gesture="Enter" Command="{Binding SearchCommand}" />
+                                </TextBox.KeyBindings>
+                                <TextBox.InnerLeftContent>
+                                    <PathIcon Data="{StaticResource Icon.Search}" Margin="10,0,4,0" Width="16" Height="16" Foreground="{DynamicResource Dn.Text3}" />
+                                </TextBox.InnerLeftContent>
+                            </TextBox>
+                            <Button Grid.Column="1" Classes="accent" Margin="8,0,0,0" Height="40" Padding="20,0" Command="{Binding SearchCommand}"
+                                    VerticalContentAlignment="Center" Content="{l:Loc Home.Search.Button}" />
+                        </Grid>
+                        <WrapPanel Margin="0,6,0,0">
+                            <Border Classes="pill accent" Margin="0,0,8,6">
+                                <TextBlock Text="{Binding State.SystemText}" />
+                            </Border>
+                            <Border Classes="pill" Margin="0,0,8,6" IsVisible="{Binding State.PackageManagerText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                <TextBlock Text="{Binding State.PackageManagerText}" />
+                            </Border>
+                            <Border Classes="pill" Classes.success="{Binding State.FlatpakReady}" Classes.warning="{Binding State.FlatpakMissing}" Margin="0,0,8,6"
+                                    IsVisible="{Binding State.FlatpakText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                <TextBlock Text="{Binding State.FlatpakText}" />
+                            </Border>
+                            <Border Classes="pill" Margin="0,0,8,6">
+                                <Panel>
+                                    <TextBlock Text="{l:Loc Home.Detecting}" IsVisible="{Binding State.IsDetecting}" />
+                                    <TextBlock Text="{Binding State.InstalledText}" IsVisible="{Binding !State.IsDetecting}" />
+                                </Panel>
+                            </Border>
+                            <Button Classes="link" Margin="0,-2,0,6" Command="{Binding RedetectCommand}" Content="{l:Loc Home.Redetect}" />
+                        </WrapPanel>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="avares://DeployNest/Assets/deploynest-512.png" Width="120" Height="120" Margin="24,0,8,0" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+
+            <!-- Flatpak missing -->
+            <Border Classes="banner" IsVisible="{Binding State.FlatpakMissing}">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <PathIcon Data="{StaticResource Icon.Warning}" Foreground="{DynamicResource Dn.Warning}" VerticalAlignment="Top" Margin="0,2,12,0" />
+                    <StackPanel Grid.Column="1" Spacing="4">
+                        <TextBlock Text="{l:Loc Linux.Flatpak.Title}" Classes="h3" />
+                        <TextBlock Text="{l:Loc Linux.Flatpak.Body}" Classes="body" />
+                        <TextBlock Text="{Binding State.FlatpakMessage}" Classes="caption" IsVisible="{Binding State.FlatpakMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                    </StackPanel>
+                    <Button Grid.Column="2" Classes="accent" VerticalAlignment="Center" Margin="16,0,0,0" Command="{Binding InstallFlatpakCommand}"
+                            IsEnabled="{Binding !State.IsInstallingFlatpak}" Content="{l:Loc Linux.Flatpak.Install}" />
+                </Grid>
+            </Border>
+
+            <!-- Presets -->
+            <StackPanel Spacing="10">
+                <TextBlock Text="{l:Loc Home.Presets.Title}" Classes="h2" />
+                <TextBlock Text="{l:Loc Home.Presets.Hint}" Classes="caption" />
+                <Border Classes="banner info" IsVisible="{Binding Toast, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <PathIcon Margin="0,0,10,0" Data="{StaticResource Icon.CheckmarkCircle}" Foreground="{DynamicResource Dn.Accent}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Toast}" TextWrapping="Wrap" VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+                <ItemsControl ItemsSource="{Binding State.Presets}" Margin="0,4,0,0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <c:UniformWrapPanel MinItemWidth="250" Spacing="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:PresetViewModel">
+                            <Button Classes="cardButton" Command="{Binding $parent[ItemsControl].((vm:HomeViewModel)DataContext).SelectPresetCommand}" CommandParameter="{Binding}">
+                                <StackPanel Spacing="8">
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+                                        <Border Width="40" Height="40" CornerRadius="10" Background="{DynamicResource Dn.AccentSoft}">
+                                            <PathIcon Data="{Binding IconKey, Converter={x:Static c:Converters.IconKey}}" Foreground="{DynamicResource Dn.Accent}" />
+                                        </Border>
+                                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                                            <TextBlock Text="{Binding Name}" Classes="h3" TextWrapping="Wrap" />
+                                            <TextBlock Text="{Binding CountText}" Classes="caption accent" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Description}" Classes="body" FontSize="13" />
+                                    <TextBlock Text="{Binding Preview}" Classes="caption" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <!-- Categories -->
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="{l:Loc Home.Categories.Title}" Classes="h2" />
+                    <Button Grid.Column="1" Classes="link" Command="{Binding BrowseAllCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="{l:Loc Home.BrowseAll}" />
+                            <PathIcon Data="{StaticResource Icon.ChevronRight}" Width="12" Height="12" Foreground="{DynamicResource Dn.Accent}" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <ItemsControl ItemsSource="{Binding State.Categories}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <c:UniformWrapPanel MinItemWidth="220" Spacing="12" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:CategoryViewModel">
+                            <Button Classes="cardButton" Padding="14,12" Command="{Binding $parent[ItemsControl].((vm:HomeViewModel)DataContext).OpenCategoryCommand}" CommandParameter="{Binding}">
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <PathIcon Data="{Binding IconKey, Converter={x:Static c:Converters.IconKey}}" Foreground="{DynamicResource Dn.Accent}" Width="20" Height="20" />
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding CountText}" Classes="caption" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <!-- Recent -->
+            <Border Classes="card" Padding="20">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{l:Loc Home.Recent.Title}" Classes="h3" />
+                    <TextBlock Text="{Binding RecentText}" Classes="body" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

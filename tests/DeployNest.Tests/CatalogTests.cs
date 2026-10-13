@@ -32,12 +32,28 @@ public class CatalogParserTests
         Assert.True(result.IsUsable);
         Assert.Empty(result.Issues);
         var catalog = result.Catalog!;
-        Assert.Equal(24, catalog.Software.Count);
-        Assert.Equal(7, catalog.Categories.Count);
-        Assert.All(catalog.Software, s => Assert.NotNull(s.Winget));
+        Assert.True(catalog.Software.Count >= 150, $"Katalogda yalnızca {catalog.Software.Count} program var.");
+        Assert.Equal(15, catalog.Categories.Count);
+        Assert.All(catalog.Software, s => Assert.True(s.SupportsWindows || s.SupportsLinux, s.Id));
         Assert.All(catalog.Presets, p => Assert.NotEmpty(p.SoftwareIds));
         Assert.Contains(catalog.Presets, p => p.Id == "developer");
-        Assert.Equal(catalog.Software.Count, catalog.Software.Select(s => s.Winget!.PackageId).Distinct().Count());
+
+        var winget = catalog.Software.Where(s => s.Winget is not null).Select(s => s.Winget!.PackageId).ToList();
+        Assert.Equal(winget.Count, winget.Distinct(StringComparer.OrdinalIgnoreCase).Count());
+        var flatpak = catalog.Software.Select(s => s.Linux?.FlatpakId).OfType<string>().ToList();
+        Assert.Equal(flatpak.Count, flatpak.Distinct().Count());
+
+        // Every Windows program is installed through winget (direct downloads are only a fallback).
+        var windows = catalog.ForPlatform(CatalogPlatform.Windows);
+        Assert.True(windows.Software.Count >= 150, $"Windows için yalnızca {windows.Software.Count} program var.");
+        Assert.All(windows.Software, s => Assert.NotNull(s.Winget));
+        Assert.All(windows.Presets, p => Assert.All(p.SoftwareIds, id => Assert.NotNull(windows.FindSoftware(id))));
+
+        var linux = catalog.ForPlatform(CatalogPlatform.Linux);
+        Assert.True(linux.Software.Count >= 80, $"Linux için yalnızca {linux.Software.Count} program var.");
+        Assert.Contains(linux.Presets, p => p.Id == "linux-essentials");
+        Assert.DoesNotContain(windows.Presets, p => p.Id == "linux-essentials");
+        Assert.DoesNotContain(linux.Categories, c => linux.Software.All(s => s.CategoryId != c.Id));
     }
 
     [Fact]
@@ -128,6 +144,78 @@ public class CatalogParserTests
 
         Assert.Equal(["app"], result.Catalog!.Software.Select(s => s.Id));
         Assert.Equal(3, result.RejectedEntryCount);
+    }
+
+    [Fact]
+    public void Parses_linux_sources_and_rejects_unsafe_values()
+    {
+        const string json = """
+            {
+              "schemaVersion": 1,
+              "categories": [ { "id": "tools", "name": { "tr": "Araçlar" } } ],
+              "software": [
+                { "id": "both", "name": "Both", "publisher": "P", "category": "tools", "summary": { "tr": "b" },
+                  "winget": { "id": "A.Both", "publisher": "P" },
+                  "linux": { "flatpak": "org.example.Both", "apt": [ "both", "both-data" ], "pacman": [ "both" ], "notes": { "tr": "not" } } },
+                { "id": "linux-only", "name": "L", "publisher": "P", "category": "tools", "summary": { "tr": "l" },
+                  "linux": { "dnf": [ "gcc-c++", "make" ] } },
+                { "id": "bad-flatpak", "name": "X", "publisher": "P", "category": "tools", "summary": { "tr": "x" },
+                  "linux": { "flatpak": "not an id" } },
+                { "id": "option-injection", "name": "X", "publisher": "P", "category": "tools", "summary": { "tr": "x" },
+                  "linux": { "apt": [ "--allow-unauthenticated" ] } },
+                { "id": "shell", "name": "X", "publisher": "P", "category": "tools", "summary": { "tr": "x" },
+                  "linux": { "pacman": [ "vim;rm" ] } },
+                { "id": "empty-linux", "name": "X", "publisher": "P", "category": "tools", "summary": { "tr": "x" },
+                  "linux": { } }
+              ],
+              "presets": [ { "id": "mixed", "name": { "tr": "Karma" }, "software": [ "both", "linux-only" ] } ]
+            }
+            """;
+
+        var result = CatalogParser.Parse(json);
+
+        var catalog = result.Catalog!;
+        Assert.Equal(["both", "linux-only"], catalog.Software.Select(s => s.Id));
+        Assert.Equal(4, result.RejectedEntryCount);
+
+        var both = catalog.FindSoftware("both")!;
+        Assert.Equal("org.example.Both", both.Linux!.FlatpakId);
+        Assert.Equal(["both", "both-data"], both.Linux.PackagesFor(LinuxPackageManager.Apt));
+        Assert.Empty(both.Linux.PackagesFor(LinuxPackageManager.Dnf));
+        Assert.Equal("not", both.Linux.Notes!.Get("tr"));
+
+        var linuxOnly = catalog.FindSoftware("linux-only")!;
+        Assert.False(linuxOnly.SupportsWindows);
+        Assert.True(linuxOnly.SupportsLinux);
+        Assert.Null(linuxOnly.Linux!.FlatpakId);
+
+        var windows = catalog.ForPlatform(CatalogPlatform.Windows);
+        Assert.Equal(["both"], windows.Software.Select(s => s.Id));
+        Assert.Equal(["both"], windows.Presets.Single().SoftwareIds);
+        Assert.Equal(["both", "linux-only"], catalog.ForPlatform(CatalogPlatform.Linux).Presets.Single().SoftwareIds);
+    }
+
+    [Fact]
+    public void Platform_filter_drops_empty_categories_and_presets()
+    {
+        const string json = """
+            {
+              "schemaVersion": 1,
+              "categories": [ { "id": "win", "name": { "tr": "W" } }, { "id": "lin", "name": { "tr": "L" } } ],
+              "software": [
+                { "id": "w", "name": "W", "publisher": "P", "category": "win", "summary": { "tr": "w" }, "winget": { "id": "W.W", "publisher": "P" } },
+                { "id": "l", "name": "L", "publisher": "P", "category": "lin", "summary": { "tr": "l" }, "linux": { "flatpak": "org.example.L" } }
+              ],
+              "presets": [ { "id": "lp", "name": { "tr": "L" }, "software": [ "l" ] } ]
+            }
+            """;
+
+        var catalog = CatalogParser.Parse(json).Catalog!;
+        var windows = catalog.ForPlatform(CatalogPlatform.Windows);
+
+        Assert.Equal(["win"], windows.Categories.Select(c => c.Id));
+        Assert.Empty(windows.Presets);
+        Assert.Equal(["lin"], catalog.ForPlatform(CatalogPlatform.Linux).Categories.Select(c => c.Id));
     }
 
     [Fact]

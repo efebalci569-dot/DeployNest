@@ -109,7 +109,8 @@ public sealed partial class CatalogState : ObservableObject
                 string.Join("; ", loaded.Result.Issues.Select(i => i.Message)));
         }
 
-        Catalog = loaded.Result.Catalog!;
+        // The catalog is shared with the Linux edition; only programs installable on Windows are shown.
+        Catalog = loaded.Result.Catalog!.ForPlatform(CatalogPlatform.Windows);
         CatalogIssues = loaded.Result.Issues;
         CatalogUsedFallback = loaded.UsedFallback;
         CatalogSource = loaded.Source;

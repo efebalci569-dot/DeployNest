@@ -6,6 +6,39 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 
 ## [Yayımlanmamış]
 
+## [0.2.0] - 2026-10-13
+
+Linux sürümü ve 183 programlık katalog.
+
+### Eklenenler
+
+- **Linux sürümü** (Avalonia, .NET 10): Ana Sayfa, Tüm Programlar, Kurulum Kuyruğu, İlerleme, Sonuçlar, Geçmiş ve
+  Ayarlar sayfaları; Windows sürümüyle aynı katalog, Türkçe arayüz, açık/koyu tema ve gerçek program logoları.
+  - Programlar Flathub'dan (Flatpak, kullanıcı hesabına, yönetici izni olmadan) veya dağıtımın resmi deposundan
+    (apt, dnf, pacman) kurulur; dağıtım ve paket yöneticisi `/etc/os-release` ile algılanır.
+  - Flatpak yoksa tek tıkla kurulum ve Flathub kaynağının eklenmesi.
+  - Dağıtım paketleri için pkexec ile oturum başına bir kez başlatılan, yalnızca doğrulanmış paket adlarını kabul eden
+    yetkili yardımcı; izin reddedilirse elle çalıştırılacak komutun gösterilmesi.
+  - Kurulu programların `flatpak list`, `dpkg-query`, `rpm` ve `pacman -Q` ile algılanması; kurulum öncesi Flathub ve
+    depo doğrulaması (sürüm, indirme boyutu, lisans); kurulum sonrası doğrulama.
+  - Ayarlar: Flathub yerine dağıtım deposunu tercih etme.
+  - `tar.gz` (her dağıtım, `install.sh` ile kullanıcı hesabına kurulum) ve `.deb` paketleri; x64 ve ARM64.
+- Katalog **183 programa ve 15 kategoriye** genişletildi (önceden 24 program, 7 kategori): Windows'ta 166, Linux'ta 96
+  program. Yeni kategoriler: fotoğraf/tasarım/kurgu, ofis ve PDF, bulut, güvenlik ve gizlilik, sistem ve donanım
+  araçları, kişiselleştirme ve verimlilik, çalışma zamanları ve sürücüler, indirme ve uzak erişim, yapay zekâ.
+  Tüm winget kimlikleri winget-pkgs manifestlerinde, Flathub kimlikleri Flathub API'sinde doğrulandı.
+- Her program için gerçek logo (183 logo; kaynakları `assets/icons/apps/SOURCES.md` içinde).
+- Yeni hazır gruplar: Temel Çalışma Zamanları, Öğrenci ve Ofis Paketi, İçerik Üreticisi Paketi, Güvenlik ve Gizlilik,
+  Sistem Bakım Araçları ve yalnızca Linux'ta görünen Linux Temel Paketi.
+- Katalog şemasına isteğe bağlı `linux` bölümü ve hazır gruplar için `platforms` alanı.
+- Web sitesi: Windows ve Linux indirme kartları, platforma göre program filtresi, Linux bölümü ve SSS.
+- CI ve sürüm iş akışlarında Linux derlemesi, testleri ve paketleri.
+
+### Değişenler
+
+- `DeployNest.Infrastructure` artık `net10.0` hedefler (Windows'a özgü sınıflar `SupportedOSPlatform` ile işaretli).
+- İndirme dosya adı temizleme işletim sisteminden bağımsız olarak hem `/` hem `\` ayırıcılarını dikkate alır.
+
 ## [0.1.0] - 2026-10-10
 
 İlk sürüm (MVP).
@@ -29,5 +62,6 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 - Self-contained tek dosyalık x64 EXE ve taşınabilir ZIP.
 - Vercel'e uygun tanıtım ve indirme sitesi (`website/`).
 
-[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/compare/v0.1.0...HEAD
+[Yayımlanmamış]: https://github.com/efebalci569-dot/DeployNest/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/efebalci569-dot/DeployNest/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/efebalci569-dot/DeployNest/releases/tag/v0.1.0

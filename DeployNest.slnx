@@ -3,6 +3,7 @@
     <Project Path="src/DeployNest.App/DeployNest.App.csproj" />
     <Project Path="src/DeployNest.Core/DeployNest.Core.csproj" />
     <Project Path="src/DeployNest.Infrastructure/DeployNest.Infrastructure.csproj" />
+    <Project Path="src/DeployNest.Linux/DeployNest.Linux.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/DeployNest.Tests/DeployNest.Tests.csproj" />

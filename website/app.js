@@ -1,4 +1,4 @@
-// DeployNest website behaviour: theme, navigation, program catalog and release lookup.
+// DeployNest website behaviour: theme, navigation, program catalog and release lookup (Windows and Linux).
 (function () {
   'use strict';
 
@@ -52,10 +52,13 @@
   document.querySelectorAll('.gallery-item').forEach(function (button) {
     button.addEventListener('click', function () {
       var img = lightbox.querySelector('img');
-      img.src = button.getAttribute('data-full');
-      img.alt = button.querySelector('img').alt;
+      var thumb = button.querySelector('img');
+      // Theme-aware screenshots open in the variant that is currently shown.
+      var full = thumb.classList.contains('screenshot-themed') ? thumb.getAttribute('src') : button.getAttribute('data-full');
+      img.src = full;
+      img.alt = thumb.alt;
       if (typeof lightbox.showModal === 'function') lightbox.showModal();
-      else window.open(button.getAttribute('data-full'), '_blank', 'noopener');
+      else window.open(full, '_blank', 'noopener');
     });
   });
   lightbox.addEventListener('click', function (e) {
@@ -94,7 +97,34 @@
   var emptyMessage = document.getElementById('catalog-empty');
   var searchInput = document.getElementById('catalog-search');
   var chipsRoot = document.getElementById('catalog-categories');
-  var state = { catalog: null, category: null, query: '' };
+  var platformRoot = document.getElementById('catalog-platforms');
+  var state = { catalog: null, category: null, platform: '', query: '' };
+
+  // Same rules as the apps: Windows needs a winget or direct source, Linux a "linux" section.
+  function onWindows(p) { return !!(p.winget || p.direct); }
+  function onLinux(p) { return !!p.linux; }
+  function onPlatform(p) {
+    if (state.platform === 'windows') return onWindows(p);
+    if (state.platform === 'linux') return onLinux(p);
+    return true;
+  }
+
+  // Short card label: Flathub works on every distribution; otherwise name the package managers.
+  function linuxLabel(linux) {
+    if (linux.flatpak) return 'Flathub';
+    return ['apt', 'dnf', 'pacman'].filter(function (manager) {
+      return linux[manager] && linux[manager].length;
+    }).join('/');
+  }
+
+  function linuxTitle(linux) {
+    var lines = [];
+    if (linux.flatpak) lines.push('Flathub: ' + linux.flatpak);
+    ['apt', 'dnf', 'pacman'].forEach(function (manager) {
+      if (linux[manager] && linux[manager].length) lines.push(manager + ': ' + linux[manager].join(', '));
+    });
+    return lines.join('\n');
+  }
 
   function matches(program, categoryName) {
     var tokens = normalize(state.query).split(' ').filter(Boolean);
@@ -107,6 +137,12 @@
     });
   }
 
+  function platformTag(label, title) {
+    var tag = el('span', 'tag tag-accent', label);
+    tag.title = title;
+    return tag;
+  }
+
   function renderPrograms() {
     var catalog = state.catalog;
     catalogRoot.textContent = '';
@@ -116,7 +152,7 @@
       if (state.category && state.category !== category.id) return;
       var categoryName = tr(category.name);
       var programs = catalog.software.filter(function (p) {
-        return p.category === category.id && matches(p, categoryName);
+        return p.category === category.id && onPlatform(p) && matches(p, categoryName);
       });
       if (!programs.length) return;
       shown += programs.length;
@@ -144,15 +180,14 @@
         body.appendChild(el('div', 'program-publisher', p.publisher));
         body.appendChild(el('p', 'program-summary', tr(p.summary)));
         var meta = el('div', 'program-meta');
-        if (p.winget) {
-          var winget = el('span', 'tag tag-accent', 'winget');
-          winget.title = 'winget paket kimliği: ' + p.winget.id;
-          meta.appendChild(winget);
+        if (onWindows(p)) {
+          var windowsTitle = [];
+          if (p.winget) windowsTitle.push('winget paket kimliği: ' + p.winget.id);
+          if (p.direct) windowsTitle.push('winget yoksa yayıncının resmi adresinden indirilip SHA-256/imza ile doğrulanarak kurulabilir');
+          meta.appendChild(platformTag(p.winget ? 'Windows · winget' : 'Windows', windowsTitle.join('\n')));
         }
-        if (p.direct) {
-          var direct = el('span', 'tag', 'winget olmadan da');
-          direct.title = 'winget yoksa yayıncının resmi adresinden indirilip SHA-256/imza ile doğrulanarak kurulabilir';
-          meta.appendChild(direct);
+        if (onLinux(p)) {
+          meta.appendChild(platformTag('Linux · ' + linuxLabel(p.linux), linuxTitle(p.linux)));
         }
         if (p.license) meta.appendChild(el('span', 'tag', tr(p.license)));
         body.appendChild(meta);
@@ -168,7 +203,11 @@
 
   function renderChips() {
     chipsRoot.textContent = '';
-    var all = [{ id: null, name: 'Tümü' }].concat(state.catalog.categories.map(function (c) {
+    var categories = state.catalog.categories.filter(function (c) {
+      return state.catalog.software.some(function (p) { return p.category === c.id && onPlatform(p); });
+    });
+    if (state.category && !categories.some(function (c) { return c.id === state.category; })) state.category = null;
+    var all = [{ id: null, name: 'Tümü' }].concat(categories.map(function (c) {
       return { id: c.id, name: tr(c.name) };
     }));
     all.forEach(function (c) {
@@ -184,10 +223,26 @@
     });
   }
 
+  platformRoot.querySelectorAll('[data-platform]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      state.platform = button.getAttribute('data-platform');
+      platformRoot.querySelectorAll('[data-platform]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === button));
+      });
+      if (!state.catalog) return;
+      renderChips();
+      renderPrograms();
+    });
+  });
+
   searchInput.addEventListener('input', function () {
     state.query = searchInput.value;
     if (state.catalog) renderPrograms();
   });
+
+  function setCount(selector, value) {
+    document.querySelectorAll(selector).forEach(function (n) { n.textContent = value; });
+  }
 
   fetch('data/catalog.json')
     .then(function (r) {
@@ -196,8 +251,10 @@
     })
     .then(function (catalog) {
       state.catalog = catalog;
-      document.querySelectorAll('[data-count-programs]').forEach(function (n) { n.textContent = catalog.software.length; });
-      document.querySelectorAll('[data-count-categories]').forEach(function (n) { n.textContent = catalog.categories.length; });
+      setCount('[data-count-programs]', catalog.software.length);
+      setCount('[data-count-windows]', catalog.software.filter(onWindows).length);
+      setCount('[data-count-linux]', catalog.software.filter(onLinux).length);
+      setCount('[data-count-categories]', catalog.categories.length);
       renderChips();
       renderPrograms();
     })
@@ -211,45 +268,93 @@
     });
 
   // ---- Release lookup ----------------------------------------------------
-  // The download button only points at a real published release asset; it never invents a link.
-  function setDownload(href, label, meta, disabled) {
-    document.querySelectorAll('[data-download]').forEach(function (a) {
+  // Download buttons only point at real published release assets; they never invent a link.
+  // Each platform uses the newest stable release that actually contains its package.
+  var PACKAGES = {
+    windows: [/\.exe$/i, /win-x64.*\.zip$/i],
+    linux: [/linux-x64\.tar\.gz$/i],
+    deb: [/_amd64\.deb$/i]
+  };
+
+  function setDownload(platform, href, label, disabled) {
+    document.querySelectorAll('[data-download="' + platform + '"]').forEach(function (a) {
       a.href = href;
       if (disabled) a.setAttribute('aria-disabled', 'true');
       else a.removeAttribute('aria-disabled');
     });
-    document.querySelectorAll('[data-download-label]').forEach(function (s) { s.textContent = label; });
-    if (meta) document.querySelectorAll('[data-release-meta]').forEach(function (m) { m.textContent = meta; });
+    document.querySelectorAll('[data-download-label="' + platform + '"]').forEach(function (s) { s.textContent = label; });
+  }
+
+  function setMeta(platform, text) {
+    document.querySelectorAll('[data-release-meta="' + platform + '"]').forEach(function (m) { m.textContent = text; });
+  }
+
+  function hideDownload(platform) {
+    document.querySelectorAll('[data-download="' + platform + '"]').forEach(function (a) { a.hidden = true; });
   }
 
   function formatSize(bytes) {
     return (bytes / 1048576).toLocaleString('tr-TR', { maximumFractionDigits: 1 }) + ' MB';
   }
 
-  fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
-    .then(function (r) {
-      if (r.status === 404) {
-        setDownload(BUILD_DOCS_URL, 'Henüz yayımlanmış sürüm yok',
-          'İlk sürüm yayımlandığında bu buton doğrudan EXE dosyasına bağlanır. Şimdilik uygulamayı kaynak koddan derleyebilirsin.', true);
-        return null;
+  function formatDate(iso) {
+    return new Date(iso).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function findPackage(releases, platform) {
+    for (var i = 0; i < releases.length; i++) {
+      var assets = releases[i].assets || [];
+      for (var j = 0; j < PACKAGES[platform].length; j++) {
+        var pattern = PACKAGES[platform][j];
+        var asset = assets.find(function (a) { return pattern.test(a.name); });
+        if (asset) return { release: releases[i], asset: asset };
       }
+    }
+    return null;
+  }
+
+  function describe(found) {
+    return found.release.tag_name + ' · ' + found.asset.name + ' · ' + formatSize(found.asset.size) + ' · ' + formatDate(found.release.published_at);
+  }
+
+  fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=20', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
     })
-    .then(function (release) {
-      if (!release) return;
-      var assets = release.assets || [];
-      var asset = assets.find(function (a) { return /\.exe$/i.test(a.name); }) ||
-                  assets.find(function (a) { return /win-x64.*\.zip$/i.test(a.name); });
-      var date = new Date(release.published_at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
-      if (asset) {
-        setDownload(asset.browser_download_url, 'İndir (' + release.tag_name + ')',
-          release.tag_name + ' · ' + asset.name + ' · ' + formatSize(asset.size) + ' · ' + date, false);
+    .then(function (list) {
+      var releases = (list || []).filter(function (r) { return !r.draft && !r.prerelease; });
+      var windows = findPackage(releases, 'windows');
+      var linux = findPackage(releases, 'linux');
+      var deb = findPackage(releases, 'deb');
+
+      if (windows) {
+        setDownload('windows', windows.asset.browser_download_url, 'Windows için indir (' + windows.release.tag_name + ')', false);
+        setMeta('windows', describe(windows));
       } else {
-        setDownload(release.html_url, 'Sürüm sayfasını aç (' + release.tag_name + ')', release.tag_name + ' · ' + date, false);
+        setDownload('windows', BUILD_DOCS_URL, 'Henüz yayımlanmış sürüm yok', true);
+        setMeta('windows', 'İlk sürüm yayımlandığında bu düğme doğrudan EXE dosyasına bağlanır. Şimdilik uygulamayı kaynak koddan derleyebilirsin.');
+      }
+
+      if (linux) {
+        setDownload('linux', linux.asset.browser_download_url, 'Linux için indir (' + linux.release.tag_name + ')', false);
+        setMeta('linux', describe(linux));
+      } else {
+        setDownload('linux', BUILD_DOCS_URL, 'Linux paketi henüz yayımlanmadı', true);
+        setMeta('linux', 'Linux paketleri Linux destekli ilk sürümle birlikte burada yer alacak. Şimdilik uygulamayı kaynak koddan derleyebilirsin.');
+      }
+
+      if (deb) {
+        setDownload('deb', deb.asset.browser_download_url, '.deb paketi (' + formatSize(deb.asset.size) + ')', false);
+      } else {
+        hideDownload('deb');
       }
     })
     .catch(function () {
-      setDownload(RELEASES_URL, 'Sürümler sayfasına git', 'Sürüm bilgisi şu anda alınamadı; indirmeler GitHub Releases sayfasında listelenir.', false);
+      ['windows', 'linux'].forEach(function (platform) {
+        setDownload(platform, RELEASES_URL, 'Sürümler sayfasına git', false);
+        setMeta(platform, 'Sürüm bilgisi şu anda alınamadı; indirmeler GitHub Releases sayfasında listelenir.');
+      });
+      hideDownload('deb');
     });
 })();

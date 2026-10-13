@@ -170,7 +170,8 @@ public sealed class HttpFileDownloader(HttpClient http, ILogger<HttpFileDownload
 
     internal static string SanitizeFileName(string name)
     {
-        var fileName = Path.GetFileName(name);
+        // Both separators are treated as path separators on every OS, so "..\x" cannot escape either.
+        var fileName = name[(name.LastIndexOfAny(['/', '\\']) + 1)..];
         foreach (var invalid in Path.GetInvalidFileNameChars())
             fileName = fileName.Replace(invalid, '_');
         return string.IsNullOrWhiteSpace(fileName) || fileName is "." or ".." ? "installer.bin" : fileName;
