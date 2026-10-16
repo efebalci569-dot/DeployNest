@@ -25,6 +25,13 @@ DeployNest aşağıdaki üçüncü taraf bileşenleri kullanır. Lisans metinler
 | MicroCom.Runtime | MIT | https://github.com/kekekeks/MicroCom |
 | Fluent UI System Icons (arayüz simgeleri, vektör yolları olarak) | MIT | https://github.com/microsoft/fluentui-system-icons |
 
+## Web sitesi
+
+| Bileşen | Lisans | Kaynak |
+| --- | --- | --- |
+| Bricolage Grotesque yazı tipi (`website/assets/fonts`) | SIL Open Font License 1.1 | https://github.com/ateliertriay/bricolage |
+| Inter yazı tipi (`website/assets/fonts`) | SIL Open Font License 1.1 | https://github.com/rsms/inter |
+
 ## Program logoları
 
 Program logoları ilgili markaların sahiplerine aittir ve yalnızca programları tanıtmak için gösterilir.

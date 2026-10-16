@@ -1,4 +1,4 @@
-// DeployNest website behaviour: theme, navigation, program catalog and release lookup (Windows and Linux).
+// DeployNest website behaviour: theme, navigation, install-queue demo, program catalog and release lookup.
 (function () {
   'use strict';
 
@@ -6,6 +6,7 @@
   var RELEASES_URL = 'https://github.com/' + REPO + '/releases';
   var BUILD_DOCS_URL = 'https://github.com/' + REPO + '#kaynak-kodunu-derleme';
   var root = document.documentElement;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   // ---- Theme -------------------------------------------------------------
   var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -64,6 +65,155 @@
   lightbox.addEventListener('click', function (e) {
     if (e.target === lightbox) lightbox.close();
   });
+
+  // ---- Header border once the page scrolls -------------------------------
+  var header = document.querySelector('.site-header');
+  function syncHeader() { header.classList.toggle('is-scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', syncHeader, { passive: true });
+  syncHeader();
+
+  // ---- Screenshot tabs (Windows / Linux) ----------------------------------
+  var shotTabs = Array.prototype.slice.call(document.querySelectorAll('[data-shots]'));
+  function selectShots(tab, focus) {
+    shotTabs.forEach(function (t) {
+      var selected = t === tab;
+      t.setAttribute('aria-selected', String(selected));
+      t.tabIndex = selected ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+    });
+    if (focus) tab.focus();
+  }
+  shotTabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () { selectShots(tab, false); });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var next = shotTabs[(index + (e.key === 'ArrowRight' ? 1 : shotTabs.length - 1)) % shotTabs.length];
+      selectShots(next, true);
+    });
+  });
+
+  // ---- Reveal on scroll --------------------------------------------------
+  var revealables = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reducedMotion.matches) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+    revealables.forEach(function (node) { revealObserver.observe(node); });
+  } else {
+    revealables.forEach(function (node) { node.classList.add('is-visible'); });
+  }
+
+  // ---- Install queue demo ------------------------------------------------
+  // Plays a pretend install session with real package ids from the catalog. The static
+  // markup already shows a sensible mid-session state for no-JS and reduced motion.
+  (function () {
+    var demo = document.getElementById('queue-demo');
+    if (!demo) return;
+    var rows = Array.prototype.slice.call(demo.querySelectorAll('.q-row'));
+    var command = document.getElementById('queue-command');
+    var summary = document.getElementById('queue-summary');
+    var platform = 'windows';
+    var STATE_TEXT = { waiting: 'Bekliyor', downloading: 'İndiriliyor', verifying: 'Doğrulanıyor', installing: 'Kuruluyor', done: 'Kuruldu' };
+
+    function source(row) {
+      if (platform === 'windows') return { label: 'winget · ' + row.dataset.winget, cmd: 'winget install --id ' + row.dataset.winget + ' --exact --source winget --silent' };
+      var parts = row.dataset.linux.split(' ');
+      if (parts[0] === 'flathub') return { label: 'Flathub · ' + parts[1], cmd: 'flatpak install --user --noninteractive flathub ' + parts[1] };
+      return { label: 'apt · ' + parts[1], cmd: 'apt-get install -y ' + parts[1] };
+    }
+
+    function setState(row, state, progress) {
+      row.dataset.state = state;
+      row.querySelector('.q-state').textContent = STATE_TEXT[state];
+      var fill = row.querySelector('.q-fill');
+      if (progress === undefined) fill.style.removeProperty('transform');
+      else fill.style.transform = 'scaleX(' + progress + ')';
+    }
+
+    function refreshSources() {
+      rows.forEach(function (row) { row.querySelector('.q-src').textContent = source(row).label; });
+    }
+
+    function refreshSummary() {
+      var done = rows.filter(function (row) { return row.dataset.state === 'done'; }).length;
+      summary.textContent = done + ' / ' + rows.length + ' kuruldu';
+    }
+
+    function activeRow() {
+      return rows.find(function (row) { return row.dataset.state !== 'done' && row.dataset.state !== 'waiting'; }) ||
+             rows.find(function (row) { return row.dataset.state === 'waiting'; });
+    }
+
+    demo.querySelectorAll('[data-demo-platform]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        platform = button.getAttribute('data-demo-platform');
+        demo.querySelectorAll('[data-demo-platform]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === button)); });
+        refreshSources();
+        var row = activeRow();
+        if (row) command.textContent = source(row).cmd;
+      });
+    });
+    refreshSources();
+    if (reducedMotion.matches) return;
+
+    var timer = null;
+    var running = false;
+    function wait(ms, next) { timer = window.setTimeout(next, ms); }
+
+    function installAt(index) {
+      if (index >= rows.length) {
+        wait(2600, function () {
+          rows.forEach(function (row) { setState(row, 'waiting'); });
+          refreshSummary();
+          wait(700, function () { installAt(0); });
+        });
+        return;
+      }
+      var row = rows[index];
+      command.textContent = source(row).cmd;
+      var progress = 0;
+      setState(row, 'downloading', 0);
+      (function tick() {
+        progress = Math.min(1, progress + 0.07 + Math.random() * 0.09);
+        setState(row, 'downloading', progress);
+        if (progress < 1) { wait(110, tick); return; }
+        setState(row, 'verifying');
+        wait(650, function () {
+          setState(row, 'installing');
+          wait(800, function () {
+            setState(row, 'done');
+            refreshSummary();
+            wait(250, function () { installAt(index + 1); });
+          });
+        });
+      })();
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      var first = rows.findIndex(function (row) { return row.dataset.state !== 'done'; });
+      installAt(first < 0 ? rows.length : first);
+    }
+    function stop() {
+      running = false;
+      window.clearTimeout(timer);
+    }
+
+    // Only animate while the demo is on screen.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) { if (entry.isIntersecting) start(); else stop(); });
+      }).observe(demo);
+    } else {
+      start();
+    }
+  })();
 
   // ---- Catalog -----------------------------------------------------------
   // Same tolerant matching as the app: case-, Turkish-character- and diacritic-insensitive.
@@ -240,6 +390,60 @@
     if (state.catalog) renderPrograms();
   });
 
+  // Two rows of real program logos, duplicated once so the CSS loop is seamless. Decorative:
+  // the catalog below lists the same programs accessibly.
+  function renderLogoWall(catalog) {
+    var marquees = document.querySelectorAll('[data-marquee]');
+    if (!marquees.length) return;
+    // Programs from the ready-made groups, i.e. the ones most people look for first.
+    var byId = {};
+    catalog.software.forEach(function (p) { byId[p.id] = p; });
+    var programs = [];
+    (catalog.presets || []).forEach(function (preset) {
+      (preset.software || []).forEach(function (id) {
+        if (byId[id] && programs.indexOf(byId[id]) < 0) programs.push(byId[id]);
+      });
+    });
+    if (programs.length < 24) programs = catalog.software.slice();
+    programs = programs.slice(0, 64);
+    // Interleave categories so look-alike logos (e.g. two .NET runtimes) do not sit side by side.
+    var buckets = {};
+    var order = [];
+    programs.forEach(function (p) {
+      if (!buckets[p.category]) { buckets[p.category] = []; order.push(p.category); }
+      buckets[p.category].push(p);
+    });
+    programs = [];
+    for (var round = 0; programs.length < 64; round++) {
+      var added = false;
+      order.forEach(function (category) {
+        if (buckets[category][round]) { programs.push(buckets[category][round]); added = true; }
+      });
+      if (!added) break;
+    }
+    var half = Math.ceil(programs.length / 2);
+    var groups = [programs.slice(0, half), programs.slice(half)];
+    marquees.forEach(function (marquee, index) {
+      var track = marquee.querySelector('.marquee-track');
+      var group = groups[index] || [];
+      track.textContent = '';
+      for (var copy = 0; copy < 2; copy++) {
+        group.forEach(function (p) {
+          var tile = el('span', 'logo-tile');
+          tile.title = p.name;
+          var img = document.createElement('img');
+          img.src = 'assets/apps/' + encodeURIComponent(p.id) + '.png';
+          img.alt = '';
+          img.width = 40;
+          img.height = 40;
+          img.decoding = 'async';
+          tile.appendChild(img);
+          track.appendChild(tile);
+        });
+      }
+    });
+  }
+
   function setCount(selector, value) {
     document.querySelectorAll(selector).forEach(function (n) { n.textContent = value; });
   }
@@ -255,6 +459,7 @@
       setCount('[data-count-windows]', catalog.software.filter(onWindows).length);
       setCount('[data-count-linux]', catalog.software.filter(onLinux).length);
       setCount('[data-count-categories]', catalog.categories.length);
+      renderLogoWall(catalog);
       renderChips();
       renderPrograms();
     })
@@ -327,6 +532,8 @@
       var windows = findPackage(releases, 'windows');
       var linux = findPackage(releases, 'linux');
       var deb = findPackage(releases, 'deb');
+      var latest = releases.find(function (r) { return (r.assets || []).length; });
+      if (latest) document.querySelectorAll('[data-latest-tag]').forEach(function (n) { n.textContent = latest.tag_name; });
 
       if (windows) {
         setDownload('windows', windows.asset.browser_download_url, 'Windows için indir (' + windows.release.tag_name + ')', false);
