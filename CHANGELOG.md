@@ -6,6 +6,12 @@ Biçim [Keep a Changelog](https://keepachangelog.com/tr-TR/1.1.0/) temel alınar
 
 ## [Yayımlanmamış]
 
+### Değişenler
+
+- Web sitesi yeniden tasarlandı: gerçek paket kimlikleriyle çalışan canlı kurulum kuyruğu, katalogdan oluşan logo
+  şeridi, özellik ızgarası, Windows/Linux sekmeli ekran görüntüleri ve yeni indirme bölümü. Yazı tipleri (Bricolage
+  Grotesque, Inter) sitenin kendisinden sunulur; harici istek yapılmaz.
+
 ## [0.2.0] - 2026-10-13
 
 Linux sürümü ve 183 programlık katalog.
