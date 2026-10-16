@@ -29,7 +29,7 @@ DeployNest aşağıdaki üçüncü taraf bileşenleri kullanır. Lisans metinler
 
 | Bileşen | Lisans | Kaynak |
 | --- | --- | --- |
-| Bricolage Grotesque yazı tipi (`website/assets/fonts`) | SIL Open Font License 1.1 | https://github.com/ateliertriay/bricolage |
+| Bricolage Grotesque yazı tipi (`website/assets/fonts`) | SIL Open Font License 1.1 | https://fonts.google.com/specimen/Bricolage+Grotesque |
 | Inter yazı tipi (`website/assets/fonts`) | SIL Open Font License 1.1 | https://github.com/rsms/inter |
 
 ## Program logoları
